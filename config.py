@@ -61,3 +61,5 @@ keyword = {
     '\n' : TokenType.NEWLINE
 }
 
+# main skip list
+config_skip_index = []

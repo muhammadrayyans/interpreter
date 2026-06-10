@@ -1,8 +1,8 @@
 from utils import debug, generate_index
 import numpy as np # type: ignore
-from memory_function import get_memory # dev --debug
+from memory_function import set_memory
 from tree import VariableTree
-from config import TokenType, keyword
+from config import TokenType, keyword, config_skip_index
 
 TokenType = TokenType
 keyword = keyword
@@ -50,14 +50,33 @@ def tokenize_var(list: list) -> list:
             else : raise KeyError  
         # excepting the key error and using the variable itself as the token witch is essential for variable declaration
         except KeyError:
-            if index+1 < len(list) and keyword[list[index+1]] == TokenType.EQUAL and keyword.get(index+1) == None:
+            if index+2 < len(list) and keyword.get(list[index+1]) == TokenType.EQUAL and keyword.get(index+1) == None:
                 variable_obj = VariableTree(list, index+1)
                 result, skip_list = variable_obj.set_variable()
-                token_list.append(result)
+                    # removing space from var
+                x = x.replace(' ', '')+""
+                # adding it t memory
+                set_memory(x, result)
                 skip_index.extend(skip_list)
-                
             # added normal strings
             token_list.append(x)
+            token_list.append(TokenType.EQUAL.value)
+            token_list.append(TokenType.QUOTE.value) if index+2 < len(list) and  keyword.get(list[index+2]) == TokenType.QUOTE else None
+            token_list.append(result)
             
     # returning the tokenized list
     return token_list
+
+# numeric list for better performance
+def numeric_var(list: list) -> list[int]:
+    numeric_list = []
+    for i in list:
+        # checking if i has corresponding value in keywords
+        if isinstance(i, int):
+            # adding the value of the corresponding enum
+            numeric_list.append(i)
+        else:
+            # as a placeholder adds 0
+            numeric_list.append(0)
+    # returning the new list
+    return numeric_list
