@@ -7,7 +7,6 @@ def set_memory(variable : str, value : any):
 
 # get memory fetches data from the db and returns it if founded
 def get_memory(variable : str):
-    
     # use try and catch to bypass key error tht we might encounter
     try:
         # try to return the data if its not none

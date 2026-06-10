@@ -1,1 +1,2 @@
-another = 10
+test = 10
+rayyan = "somthing {test}"
