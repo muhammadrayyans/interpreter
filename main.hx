@@ -1,2 +1,3 @@
 test = 10
-display("somthin")
+display("somthig")
+next = 5

@@ -23,7 +23,7 @@ class VariableTree:
         skip_list = []
         global_skip_list = []
         # while loop for var addition
-        while self.index+loop_control <= len(self.token_list) and keyword_dict != TokenType.NEWLINE and keyword_dict != TokenType.NEWLINE:
+        while self.index+loop_control <= len(self.token_list) and keyword_dict != TokenType.NEWLINE and keyword_dict != TokenType.PARENTHESIS_CLOSE:
             # skip list checking
             if np.isin(skip_list, self.index+loop_control).any():
                 loop_control+=1
@@ -31,7 +31,7 @@ class VariableTree:
                 keyword_dict = keyword[self.token_list[self.index + loop_control]]
                 continue
             elif keyword_dict != -1:
-                if keyword_dict.value == 14: 
+                if keyword_dict != None and keyword_dict.value == 14: 
                     # +1 for finding the value witch is after '{'
                     value = get_memory(self.token_list[self.index + loop_control + 1])
                     # adding tht value to temp var
@@ -43,7 +43,7 @@ class VariableTree:
                 # checking if token val not equal to nine so it wont return error or ty to add it
                 if self.index+loop_control < len(self.token_list) and self.token_list[self.index+loop_control] != None:
                     # if index not in skip index and the key is not '{' adding string directly to temp var
-                    variable_addition+=self.token_list[self.index+loop_control]
+                    variable_addition+=str(self.token_list[self.index+loop_control])
             loop_control+=1
             # updating value of keyword dict after each count 
             # try and except block for key error which try's to access non existing value on enum

@@ -33,7 +33,6 @@ def tokenize_var(list: list) -> list:
     for index, x in enumerate(list):
         # formatting the loop with filters
         list = [x for x in list if x not in [' ', '']]
-        
         # skipping if skip index exist or the sting is completely empty
         if np.isin(skip_index, index).any() or x == '' or x == " ":
             # adding the elements to the token even if skipped
