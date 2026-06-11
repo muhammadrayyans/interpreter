@@ -30,9 +30,10 @@ def tokenize_var(list: list) -> list:
     # calling the token abstract tree as class obj
     token_converter = Tokenization
     #looping through the list witch was formatted
+    # formatting the loop with filters
+    list = [x for x in list if x not in [' ', '']]
+    list = ['`' if x == "'" else x for x in list]
     for index, x in enumerate(list):
-        # formatting the loop with filters
-        list = [x for x in list if x not in [' ', '']]
         # skipping if skip index exist or the sting is completely empty
         if np.isin(skip_index, index).any() or x == '' or x == " ":
             # adding the elements to the token even if skipped
@@ -49,9 +50,14 @@ def tokenize_var(list: list) -> list:
             else : raise KeyError  
         # excepting the key error and using the variable itself as the token witch is essential for variable declaration
         except KeyError:
-            if index+2 < len(list) and keyword.get(list[index+1]) == TokenType.EQUAL and keyword.get(index+1) == None:
-                variable_obj = VariableTree(list, index+1)
-                result, skip_list = variable_obj.set_variable()
+            
+            if index+2 < len(list) and keyword.get(list[index+1]) == TokenType.EQUAL:
+                if keyword.get(list[index+2]) == TokenType.FORMAT:
+                    variable_obj = VariableTree(list, index+3)
+                    result, skip_list = variable_obj.formatted_string()
+                else:
+                    variable_obj = VariableTree(list, index+2)
+                    result, skip_list = variable_obj.string()
                     # removing space from var
                 x = x.replace(' ', '')+""
                 # adding it t memory

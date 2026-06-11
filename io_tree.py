@@ -8,8 +8,14 @@ class Display:
         self.token_list = list
         
     def execute(self) -> list[int]:
-        debug("list", self.token_list)
-        variable_obj = VariableTree(self.token_list, self.index)
-        result, skip_index = variable_obj.set_variable()
+        split_list = []
+        debug("i val", self.token_list)
+        for i in self.token_list[self.index :]:
+            if i != '`':
+                debug("x", i)
+                split_list.append(i)
+            
+        variable_obj = VariableTree(split_list, self.index+2)
+        result, skip_index = variable_obj.formatted_string()
         print(result)
         return skip_index

@@ -34,6 +34,7 @@ class TokenType(Enum):
     SPACE = auto()
     EQUAL = auto()
     NEWLINE = auto()
+    FORMAT = auto()
 
     EOF = auto()
     
@@ -58,7 +59,8 @@ keyword = {
     '"':TokenType.QUOTE,
     ' ':TokenType.SPACE,
     '=':TokenType.EQUAL,
-    '\n' : TokenType.NEWLINE
+    '\n' : TokenType.NEWLINE,
+    "`": TokenType.FORMAT
 }
 
 # main skip list

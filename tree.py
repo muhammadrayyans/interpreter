@@ -5,68 +5,47 @@ import numpy as np # type: ignore
 
 # class for var tree
 class VariableTree:
-    # constructor with basic var need gest index of =
-    def __init__(self, token_list : list, index : int):
+    global_skip = []
+    
+    def __init__(self, token_list : list, content_index: int):
         self.token_list = token_list
-        self.index = index
+        self.content = content_index
+          
+    def string(self) -> tuple[str, list]:
+        loop_count = 0
+        return_string = ''
+        while  self.content+loop_count < len(self.token_list) and self.content+loop_count != '"' and self.token_list[self.content+loop_count] != '\n':
+            return_string+=str(self.token_list[self.content+loop_count]) if self.content+loop_count < len(self.token_list) else None
+            loop_count+=1
+        
+        self.global_skip.extend(generate_index(self.content, self.content+loop_count))
+        return return_string,self.global_skip
     
-    # var creation function witch run automatically
-    def set_variable(self) -> tuple[str, list]:
-        # index is of the '=' sign var is index1 and value is index-1
-        # loop control var to track of loop count
-        loop_control = 0
-        # adds all var to this
-        variable_addition = ''
-        # added value of each element as number using keyword
-        keyword_dict = keyword.get(self.token_list[self.index + loop_control])
-        # to track of skip numbers
-        skip_list = []
-        global_skip_list = []
-        # while loop for var addition
-        while self.index+loop_control <= len(self.token_list) and keyword_dict != TokenType.NEWLINE and keyword_dict != TokenType.PARENTHESIS_CLOSE:
-            # skip list checking
-            if np.isin(skip_list, self.index+loop_control).any():
-                loop_control+=1
-                # updating value of keyword dict after each count inside skipper
-                keyword_dict = keyword[self.token_list[self.index + loop_control]]
+    def formatted_string(self):
+        debug("", self.token_list)
+        loop_count = 0
+        return_string = ''
+        skip_index = []
+        while self.content+loop_count+1 < len(self.token_list) and self.token_list[self.content+loop_count] != "`"  and self.token_list[self.content+loop_count] != TokenType.PARENTHESIS_CLOSE.value and self.token_list[self.content+loop_count] != TokenType.NEWLINE.value and self.token_list[self.content+loop_count] != TokenType.FORMAT.value:    
+            if np.isin(skip_index, self.content+loop_count).any():
+                loop_count+=1
                 continue
-            elif keyword_dict != -1:
-                if keyword_dict != None and keyword_dict.value == 14: 
-                    # +1 for finding the value witch is after '{'
-                    value = get_memory(self.token_list[self.index + loop_control + 1])
-                    # adding tht value to temp var
-                    variable_addition+=str(value)
-                    # skipping next 2 index witch is the var and '}'
-                    skip_list.extend(generate_index(self.index+loop_control+1, self.index+loop_control+3))
-                    
+                
+            elif self.token_list[self.content+loop_count] == '{' or self.token_list[self.content+loop_count] == TokenType.CURLY_BRACE_OPEN.value:
+                var_value = get_memory(self.token_list[self.content+loop_count+1])
+                return_string+=str(var_value)
+                skip_index.extend(generate_index((self.content+loop_count), (self.content+loop_count+3)))
+                loop_count+=1
+                continue
+
             else:
-                # checking if token val not equal to nine so it wont return error or ty to add it
-                if self.index+loop_control < len(self.token_list) and self.token_list[self.index+loop_control] != None:
-                    # if index not in skip index and the key is not '{' adding string directly to temp var
-                    variable_addition+=str(self.token_list[self.index+loop_control])
-            loop_control+=1
-            # updating value of keyword dict after each count 
-            # try and except block for key error which try's to access non existing value on enum
-            try:
-                # checking index out of range error
-                if self.index+loop_control < len(self.token_list):
-                    # changing keyword value to latest
-                    keyword_dict = keyword[self.token_list[self.index + loop_control]]
-                else:
-                    continue
-            except KeyError:
-                # if fall back to key error set value as -1 so loop wont stop and run
-                keyword_dict = -1
-        # adding the start index to stop index in global skip so they dont bother tracking
-        global_skip_list.extend(generate_index(self.index, self.index+loop_control))
-        # returning the result
-        return variable_addition, global_skip_list
-    
-    # var retrieving from main memory
-    def get_variable(self) -> tuple[str, list]:
+                if self.content+loop_count < len(self.token_list) and isinstance((self.token_list[self.content+loop_count]) , str):
+                    return_string+=(self.token_list[self.content+loop_count]) 
+                loop_count+=1
+            self.global_skip.extend(generate_index(self.content, self.content+loop_count+1))
+        return return_string, self.global_skip
         
-        return "", []
-        
+
     
 
     

@@ -1,3 +1,3 @@
-test = 10
-display("somthig")
-next = 5
+new = "First"
+test = 'Second {new}'
+display('Third {test}')

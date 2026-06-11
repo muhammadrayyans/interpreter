@@ -12,11 +12,12 @@ with open('main.hx', 'r', encoding="utf-8") as file:
     source_code = file.read()
     
 # using re splitting up code based on criteria's
-formatted_code = re.split(r'(["=,.{}()\[\]\n])|(?<=None )', source_code)
+formatted_code = re.split(r'(["=,.{}()\[\]\n\'])|(?<=None )', source_code)
 # passing formatted code to tokenizer for tokenizing
 token_list = tokenize_var(formatted_code)
 numeric_list = numeric_var(token_list)
 skip_index = []
+
 for index, i in enumerate(numeric_list):
     if config.isError:
         break
