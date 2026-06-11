@@ -16,9 +16,8 @@ class Tokenization:
         self.value = self.token.value
         
     # returns the token value witch the keyword passed
-    def token_value(self) -> int:
+    def token_value(self):
         return self.value
-
 
 # token list builder function accepting the source code
 def tokenize_var(list: list) -> list:
@@ -46,28 +45,11 @@ def tokenize_var(list: list) -> list:
                 match token_converter.token_value(keyword.get(x)):
                     # else get the corresponding data to temp storage
                     case _:
-                        token_list.append(token_converter.token_value(keyword[x]))
+                        token_list.append(keyword[x].name)
             else : raise KeyError  
         # excepting the key error and using the variable itself as the token witch is essential for variable declaration
         except KeyError:
-            
-            if index+2 < len(list) and keyword.get(list[index+1]) == TokenType.EQUAL:
-                if keyword.get(list[index+2]) == TokenType.FORMAT:
-                    variable_obj = VariableTree(list, index+3)
-                    result, skip_list = variable_obj.formatted_string()
-                else:
-                    variable_obj = VariableTree(list, index+2)
-                    result, skip_list = variable_obj.string()
-                    # removing space from var
-                x = x.replace(' ', '')+""
-                # adding it t memory
-                set_memory(x, result)
-                skip_index.extend(skip_list)
-            # added normal strings
             token_list.append(x)
-            token_list.append(TokenType.EQUAL.value)
-            token_list.append(TokenType.QUOTE.value) if index+2 < len(list) and  keyword.get(list[index+2]) == TokenType.QUOTE else None
-            token_list.append(result)
             
     # returning the tokenized list
     return token_list
@@ -77,10 +59,11 @@ def numeric_var(list: list) -> list[int]:
     numeric_list = []
     for i in list:
         # checking if i has corresponding value in keywords
-        if isinstance(i, int):
-            # adding the value of the corresponding enum
-            numeric_list.append(i)
-        else:
+        try:
+            if TokenType[i]:
+                # adding the value of the corresponding enum
+                numeric_list.append(TokenType[i].value)
+        except KeyError:
             # as a placeholder adds 0
             numeric_list.append(0)
     # returning the new list

@@ -22,11 +22,10 @@ class VariableTree:
         return return_string,self.global_skip
     
     def formatted_string(self):
-        debug("", self.token_list)
         loop_count = 0
         return_string = ''
         skip_index = []
-        while self.content+loop_count+1 < len(self.token_list) and self.token_list[self.content+loop_count] != "`"  and self.token_list[self.content+loop_count] != TokenType.PARENTHESIS_CLOSE.value and self.token_list[self.content+loop_count] != TokenType.NEWLINE.value and self.token_list[self.content+loop_count] != TokenType.FORMAT.value:    
+        while self.content+loop_count+1 < len(self.token_list) and self.token_list[self.content+loop_count] != "`"  and self.token_list[self.content+loop_count] != TokenType.PARENTHESIS_CLOSE.value and self.token_list[self.content+loop_count] != TokenType.NEWLINE.value and self.token_list[self.content+loop_count] != TokenType.FORMAT.value:
             if np.isin(skip_index, self.content+loop_count).any():
                 loop_count+=1
                 continue
