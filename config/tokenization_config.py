@@ -1,8 +1,7 @@
-from utils import debug, generate_index
+from utils.utils import debug, generate_index
 import numpy as np # type: ignore
-from memory_function import set_memory
-from tree import VariableTree
-from config import TokenType, keyword, config_skip_index
+from config.memory_config import set_memory
+from config.config import TokenType, keyword, config_skip_index
 
 TokenType = TokenType
 keyword = keyword

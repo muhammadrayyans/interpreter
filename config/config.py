@@ -63,5 +63,29 @@ keyword = {
     "`": TokenType.FORMAT
 }
 
+reverse_keyword = {
+    TokenType.IF: "assume",
+    TokenType.ELSE: "otherwise",
+    TokenType.WHILE: "while",
+    TokenType.FOR: "for",
+    TokenType.TRUE: "true",
+    TokenType.FALSE: "false",
+    TokenType.PRINT: "display",
+    TokenType.INPUT: "get",
+    TokenType.CURLY_BRACE_OPEN: "{",
+    TokenType.CURLY_BRACE_CLOSE: "}",
+    TokenType.PARENTHESIS_OPEN: "(",
+    TokenType.PARENTHESIS_CLOSE: ")",
+    TokenType.BRACKETS_OPEN: "[",
+    TokenType.BRACKETS_CLOSE: "]",
+    TokenType.DOT: ".",
+    TokenType.COMMA: ",",
+    TokenType.QUOTE: '"',
+    TokenType.SPACE: " ",
+    TokenType.EQUAL: "=",
+    TokenType.NEWLINE: "\n",
+    TokenType.FORMAT: "`"
+}
+
 # main skip list
 config_skip_index = []

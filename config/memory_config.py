@@ -1,5 +1,5 @@
-from utils import debug
-import config
+from utils.utils import debug
+import config.config as config
 
 # set memory function allocate space for var to store data
 def set_memory(variable : str, value : any):

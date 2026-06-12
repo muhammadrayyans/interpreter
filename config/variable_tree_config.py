@@ -1,6 +1,6 @@
-from config import TokenType
-from utils import debug, generate_index
-from memory_function import get_memory, set_memory
+from config.config import TokenType
+from utils.utils import debug, generate_index
+from config.memory_config import get_memory, set_memory
 import numpy as np # type: ignore
 
 # var node replace every var in token code

@@ -1,11 +1,11 @@
-from memory_function import  set_memory, get_memory
-from tokenization_tree import tokenize_var, numeric_var
+from config.memory_config import  set_memory, get_memory
+from config.tokenization_config import tokenize_var, numeric_var
 import numpy as np # type: ignore
-from var_tree import VariableFormation
-from config import TokenType
-from io_tree import Display
-from utils import debug
-import config
+from config.variable_tree_config import VariableFormation
+from config.config import TokenType
+from io_tree.output_tree import Display
+from utils.utils import debug
+import config.config as config
 import re
 
 # using file method opening and reading contents into source_code
@@ -30,9 +30,9 @@ for index, i in enumerate(numeric_list):
         else:
             match i:
                 case TokenType.PRINT.value:
-                    display_obj = Display(token_list, index)
+                    display_obj = Display(numeric_list, token_list, index)
                     skip_list = display_obj.execute()
-                    skip_index.extend(skip_list)
+                    # skip_index.extend(skip_list)
                     break
                 case _:
                     pass
