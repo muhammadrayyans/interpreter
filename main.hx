@@ -1,2 +1,3 @@
-new = "First"
-test = 'Second {new}'
+new = "First space check"
+test = new
+three = 'third val {test}'
