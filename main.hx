@@ -1,3 +1,3 @@
-test = 10
-display("somthig")
-next = 5
+new = "replaced"
+other = 'inside {new}'
+display(new, other)
