@@ -1,3 +1,4 @@
 new = "replaced"
 other = 'inside {new}'
-display(new, other)
+display(new)
+file = "test addition"
