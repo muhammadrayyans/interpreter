@@ -1,2 +1,3 @@
 new="change"
-display(new)
+multivar = "variable {new} formatted"
+display(multivar)

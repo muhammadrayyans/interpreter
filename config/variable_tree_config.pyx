@@ -3,6 +3,7 @@ from utils.utils import generate_index
 from config.memory_config import get_memory, set_memory
 import numpy as np # type: ignore
 import logging
+import cython as c
 logging.basicConfig(level=logging.DEBUG)
 
 # var node replace every var in token code
@@ -15,26 +16,32 @@ class VariableFormation:
         
     # execute code
     def execute(self):
+        
         # main skip list for optimization
-        def_skip = []
+        def_skip: list = []
+        index: c.int
+        i: c.int
+        limit: c.int = len(self.numeric_list)
         
         # for loop for var adding
-        for index, i in enumerate(self.numeric_list):
+        for index in range(limit):
+            i = self.numeric_list[index]
+            
             # skip if value exist in skip list
-            if np.isin(def_skip, index).any():
-                loop_count+=1
+            if index != 0 and np.isin(def_skip, index).any():
                 continue
             
             # check if its a var by checking if bef is = and after it have some value 
             elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value:
-                var_name = self.token_list[index]
-                variable_value = ''
-                loop_count = 0
-                skip_index = []
+                var_name: str = self.token_list[index]
+                variable_value: str = ''
+                loop_count: c.int = 0
+                skip_index: list = []
+                
                 # loops from = until it reach a newline or list index out of range
                 while loop_count+index < len(self.numeric_list) and self.numeric_list[loop_count+index] != TokenType.NEWLINE.value :
                     # skip index check for optimized code
-                    if np.isin(skip_index, index+loop_count).any():
+                    if index+loop_count != 0 and np.isin(skip_index, index+loop_count).any():
                         loop_count+=1
                         continue
                     
