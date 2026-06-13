@@ -1,10 +1,30 @@
-echo "🧹 Cleaning up old build files..."
+echo "🧹 Wiping the Cython cache completely..."
 
 cd modules
 
-rm -r  build
+rm -rf build
+cd ..
 
-echo "⚙️  Compiling Cython extension..."
+cd config
+
+rm -f *.c
+rm -f *.so
+rm -f *.pyd
+cd ..
+
+
+cd io_tree
+
+rm -f *.c
+rm -f *.so
+rm -f *.pyd
+cd ..
+
+cd modules
+
+rm -rf __pycache__
+
+echo "⚙️  Compiling Cython extension freshly..."
 python setup.py build_ext --inplace
 
 cd ..

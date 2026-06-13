@@ -4,7 +4,8 @@ from config.memory_config import get_memory, set_memory
 import numpy as np # type: ignore
 import logging
 import cython as c
-logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(' var_tree')
+logger.setLevel(logging.DEBUG)
 
 # var node replace every var in token code
 class VariableFormation:
@@ -26,13 +27,13 @@ class VariableFormation:
         # for loop for var adding
         for index in range(limit):
             i = self.numeric_list[index]
-            
             # skip if value exist in skip list
             if index != 0 and np.isin(def_skip, index).any():
                 continue
             
             # check if its a var by checking if bef is = and after it have some value 
             elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value:
+                logging
                 var_name: str = self.token_list[index]
                 variable_value: str = ''
                 loop_count: c.int = 0
@@ -40,6 +41,7 @@ class VariableFormation:
                 
                 # loops from = until it reach a newline or list index out of range
                 while loop_count+index < len(self.numeric_list) and self.numeric_list[loop_count+index] != TokenType.NEWLINE.value :
+                    
                     # skip index check for optimized code
                     if index+loop_count != 0 and np.isin(skip_index, index+loop_count).any():
                         loop_count+=1
@@ -65,7 +67,7 @@ class VariableFormation:
                             continue
                     
                     # normal string match case
-                    elif self.numeric_list[index+loop_count-1] == TokenType.QUOTE.value and i == 0:
+                    elif index+loop_count > 0 and self.numeric_list[index+loop_count-1] == TokenType.QUOTE.value and i == 0:
                         variable_value += self.token_list[index+loop_count]
                     
                     # formatted string normal text add case
