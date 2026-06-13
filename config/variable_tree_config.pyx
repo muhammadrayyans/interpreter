@@ -1,4 +1,4 @@
-from config.config import TokenType
+from config.config import TokenType, reverse_keyword
 from utils.utils import generate_index
 from config.memory_config import get_memory, set_memory
 import numpy as np # type: ignore
@@ -31,8 +31,13 @@ class VariableFormation:
             if index != 0 and np.isin(def_skip, index).any():
                 continue
             
+            elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.numeric_list[index+2]) != None:
+                continue
+            
             # check if its a var by checking if bef is = and after it have some value 
             elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value:
+                
+                
                 logging
                 var_name: str = self.token_list[index]
                 variable_value: str = ''

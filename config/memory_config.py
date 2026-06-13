@@ -24,7 +24,7 @@ def get_memory(variable : str):
         # halts the program by turning the main switch off
         config.isError = True
         # displaying the error for witch var wasn't able to fetch data is about
-        logging.error(Fore.RED+f"Error no variable declared in '\033[4m\033[1m{variable}\033[0m"+Fore.RED+"' name")
+        logging.error(Fore.RED+f" No variable declared in '\033[4m\033[1m{variable}\033[0m"+Fore.RED+"' name")
         # returning none for safety
         return None
         

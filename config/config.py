@@ -48,6 +48,7 @@ keyword = {
     "false": TokenType.FALSE,
     "display": TokenType.PRINT,
     "get": TokenType.INPUT,
+    " get": TokenType.INPUT,
     "{":TokenType.CURLY_BRACE_OPEN,
     '}':TokenType.CURLY_BRACE_CLOSE,
     '(':TokenType.PARENTHESIS_OPEN,

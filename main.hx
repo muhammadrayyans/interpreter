@@ -1,4 +1,4 @@
-new="change"
-multivar = "variable {new} formatted"
-display(multivar)
-main = "10"
+single_line = "singl line msf"
+new = get("first")
+then = 'test {new}'
+display(then)
