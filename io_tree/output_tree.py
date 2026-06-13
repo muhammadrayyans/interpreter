@@ -1,7 +1,10 @@
 from config.config import TokenType, reverse_keyword
-from utils.utils import debug, generate_index
+from utils.utils import  generate_index
 import numpy as np # type: ignore
 from config.memory_config import get_memory
+import logging
+logger = logging.getLogger(' output_tree')
+logger.setLevel(logging.DEBUG)
 
 class Display:
     
@@ -30,7 +33,7 @@ class Display:
                 if i == TokenType.FORMAT.value:
                     loop_count = 0
                     skip_index = []
-                    string_var = ''
+                    string_var = f''
                     while self.index+key+loop_count+1 < numeric_list_len and self.numeric_list[self.index+key+loop_count+1] != TokenType.FORMAT.value:
                         
                         if np.isin(skip_index, self.index+key+loop_count).any():
@@ -89,11 +92,11 @@ class Display:
                             else:
                                 raise KeyError
                         else:
-                            print_string+=' '
+                            print_string+=f' '
                         loop_count+=1
                     skip_def.extend(generate_index(self.index+key, self.index+key+loop_count))
         global_skip.extend(skip_def)
         
-        debug("for dev", print_string) # dev test
+        logger.debug(print_string)
         return skip_def
                 

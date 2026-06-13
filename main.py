@@ -4,9 +4,11 @@ import numpy as np # type: ignore
 from config.variable_tree_config import VariableFormation
 from config.config import TokenType
 from io_tree.output_tree import Display
-from utils.utils import debug
 import config.config as config
 import re
+import logging
+logger = logging.getLogger(' main')
+logger.setLevel(logging.DEBUG)
 
 # using file method opening and reading contents into source_code
 with open('main.hx', 'r', encoding="utf-8") as file:
@@ -20,6 +22,7 @@ numeric_list = numeric_var(token_list)
 skip_index = []
 variable_formation = VariableFormation(token_list, numeric_list)
 variable_formation.execute()
+logger.debug(f"memory {config.local_memory}")
 
 for index, i in enumerate(numeric_list):
     if config.isError:

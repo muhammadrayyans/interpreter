@@ -1,7 +1,9 @@
 from config.config import TokenType
-from utils.utils import debug, generate_index
+from utils.utils import generate_index
 from config.memory_config import get_memory, set_memory
 import numpy as np # type: ignore
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 # var node replace every var in token code
 class VariableFormation:
@@ -47,7 +49,10 @@ class VariableFormation:
                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
                         if result != None:
-                            variable_value+=result   
+                            value = loop_count+index+1
+                            variable_value+='{'
+                            variable_value+=f'{self.token_list[value]}'
+                            variable_value+='}'
                             loop_count+=1
                             skip_index.extend(generate_index(index+loop_count, index+loop_count+2))
                             continue
