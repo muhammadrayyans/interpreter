@@ -5,7 +5,7 @@
     "distutils": {
         "name": "variable_tree_config",
         "sources": [
-            "variable_tree_config.pyx"
+            "../config/variable_tree_config.pyx"
         ]
     },
     "module_name": "variable_tree_config"
@@ -2021,13 +2021,6 @@ static CYTHON_INLINE int __Pyx_PyList_Extend(PyObject* L, PyObject* v) {
     ((unlikely((left) == Py_None) || unlikely((right) == Py_None)) ?\
     PyNumber_InPlaceAdd(left, right) : __Pyx_PyUnicode_Concat__Pyx_ReferenceSharing_SharedReferenceInPlace(left, right))
 
-/* ObjectGetItem.proto */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject *key);
-#else
-#define __Pyx_PyObject_GetItem(obj, key)  PyObject_GetItem(obj, key)
-#endif
-
 /* PyObjectFormatSimple.proto */
 #if CYTHON_COMPILING_IN_PYPY
     #define __Pyx_PyObject_FormatSimple(s, f) (\
@@ -2519,48 +2512,48 @@ static __pyx_mstatetype * const __pyx_mstate_global = &__pyx_mstate_global_stati
 #define __pyx_n_u_any __pyx_string_tab[23]
 #define __pyx_n_u_asyncio_coroutines __pyx_string_tab[24]
 #define __pyx_n_u_basicConfig __pyx_string_tab[25]
-#define __pyx_n_u_class_getitem __pyx_string_tab[26]
-#define __pyx_n_u_cline_in_traceback __pyx_string_tab[27]
-#define __pyx_n_u_config_config __pyx_string_tab[28]
-#define __pyx_n_u_config_memory_config __pyx_string_tab[29]
-#define __pyx_n_u_def_skip __pyx_string_tab[30]
-#define __pyx_n_u_doc __pyx_string_tab[31]
-#define __pyx_n_u_execute __pyx_string_tab[32]
-#define __pyx_n_u_func __pyx_string_tab[33]
-#define __pyx_n_u_generate_index __pyx_string_tab[34]
-#define __pyx_n_u_get_memory __pyx_string_tab[35]
-#define __pyx_n_u_i __pyx_string_tab[36]
-#define __pyx_n_u_index __pyx_string_tab[37]
-#define __pyx_n_u_init __pyx_string_tab[38]
-#define __pyx_n_u_is_coroutine __pyx_string_tab[39]
-#define __pyx_n_u_isin __pyx_string_tab[40]
-#define __pyx_n_u_items __pyx_string_tab[41]
-#define __pyx_n_u_level __pyx_string_tab[42]
-#define __pyx_n_u_limit __pyx_string_tab[43]
-#define __pyx_n_u_logging __pyx_string_tab[44]
-#define __pyx_n_u_loop_count __pyx_string_tab[45]
-#define __pyx_n_u_main __pyx_string_tab[46]
-#define __pyx_n_u_metaclass __pyx_string_tab[47]
-#define __pyx_n_u_module __pyx_string_tab[48]
-#define __pyx_n_u_name __pyx_string_tab[49]
-#define __pyx_n_u_name_2 __pyx_string_tab[50]
-#define __pyx_n_u_np __pyx_string_tab[51]
-#define __pyx_n_u_numeric_list __pyx_string_tab[52]
-#define __pyx_n_u_numpy __pyx_string_tab[53]
-#define __pyx_n_u_pop __pyx_string_tab[54]
-#define __pyx_n_u_prepare __pyx_string_tab[55]
-#define __pyx_n_u_qualname __pyx_string_tab[56]
-#define __pyx_n_u_replace __pyx_string_tab[57]
-#define __pyx_n_u_result __pyx_string_tab[58]
-#define __pyx_n_u_self __pyx_string_tab[59]
-#define __pyx_n_u_set_memory __pyx_string_tab[60]
-#define __pyx_n_u_set_name __pyx_string_tab[61]
-#define __pyx_n_u_setdefault __pyx_string_tab[62]
-#define __pyx_n_u_skip_index __pyx_string_tab[63]
-#define __pyx_n_u_test __pyx_string_tab[64]
-#define __pyx_n_u_token_list __pyx_string_tab[65]
-#define __pyx_n_u_utils_utils __pyx_string_tab[66]
-#define __pyx_n_u_value __pyx_string_tab[67]
+#define __pyx_n_u_cline_in_traceback __pyx_string_tab[26]
+#define __pyx_n_u_config_config __pyx_string_tab[27]
+#define __pyx_n_u_config_memory_config __pyx_string_tab[28]
+#define __pyx_n_u_def_skip __pyx_string_tab[29]
+#define __pyx_n_u_doc __pyx_string_tab[30]
+#define __pyx_n_u_execute __pyx_string_tab[31]
+#define __pyx_n_u_func __pyx_string_tab[32]
+#define __pyx_n_u_generate_index __pyx_string_tab[33]
+#define __pyx_n_u_get_memory __pyx_string_tab[34]
+#define __pyx_n_u_i __pyx_string_tab[35]
+#define __pyx_n_u_index __pyx_string_tab[36]
+#define __pyx_n_u_init __pyx_string_tab[37]
+#define __pyx_n_u_is_coroutine __pyx_string_tab[38]
+#define __pyx_n_u_isin __pyx_string_tab[39]
+#define __pyx_n_u_items __pyx_string_tab[40]
+#define __pyx_n_u_level __pyx_string_tab[41]
+#define __pyx_n_u_limit __pyx_string_tab[42]
+#define __pyx_n_u_logging __pyx_string_tab[43]
+#define __pyx_n_u_loop_count __pyx_string_tab[44]
+#define __pyx_n_u_main __pyx_string_tab[45]
+#define __pyx_n_u_metaclass __pyx_string_tab[46]
+#define __pyx_n_u_module __pyx_string_tab[47]
+#define __pyx_n_u_name __pyx_string_tab[48]
+#define __pyx_n_u_name_2 __pyx_string_tab[49]
+#define __pyx_n_u_np __pyx_string_tab[50]
+#define __pyx_n_u_numeric_list __pyx_string_tab[51]
+#define __pyx_n_u_numpy __pyx_string_tab[52]
+#define __pyx_n_u_pop __pyx_string_tab[53]
+#define __pyx_n_u_prepare __pyx_string_tab[54]
+#define __pyx_n_u_qualname __pyx_string_tab[55]
+#define __pyx_n_u_replace __pyx_string_tab[56]
+#define __pyx_n_u_result __pyx_string_tab[57]
+#define __pyx_n_u_self __pyx_string_tab[58]
+#define __pyx_n_u_set_memory __pyx_string_tab[59]
+#define __pyx_n_u_set_name __pyx_string_tab[60]
+#define __pyx_n_u_setdefault __pyx_string_tab[61]
+#define __pyx_n_u_skip_index __pyx_string_tab[62]
+#define __pyx_n_u_test __pyx_string_tab[63]
+#define __pyx_n_u_token_list __pyx_string_tab[64]
+#define __pyx_n_u_utils_utils __pyx_string_tab[65]
+#define __pyx_n_u_value __pyx_string_tab[66]
+#define __pyx_n_u_value_normal __pyx_string_tab[67]
 #define __pyx_n_u_values __pyx_string_tab[68]
 #define __pyx_n_u_var_name __pyx_string_tab[69]
 #define __pyx_n_u_variable_tree_config __pyx_string_tab[70]
@@ -2893,8 +2886,9 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
   PyObject *__pyx_v_variable_value = 0;
   int __pyx_v_loop_count;
   PyObject *__pyx_v_skip_index = 0;
-  PyObject *__pyx_v_value = NULL;
+  PyObject *__pyx_v_value_normal = NULL;
   PyObject *__pyx_v_result = NULL;
+  int __pyx_v_value;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3273,7 +3267,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
  *                     # normal var to var match case
  *                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:             # <<<<<<<<<<<<<<
  *                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
- *                         value = get_memory(self.token_list[loop_count+index+2])
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
 */
         __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_numeric_list); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 49, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_10);
@@ -3325,8 +3319,8 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
  *                     # normal var to var match case
  *                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:
  *                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')             # <<<<<<<<<<<<<<
- *                         value = get_memory(self.token_list[loop_count+index+2])
- *                         variable_value+=value
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
+ *                         variable_value+=value_normal
 */
           __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_token_list); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 50, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
@@ -3350,8 +3344,8 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
           /* "variable_tree_config.pyx":51
  *                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:
  *                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
- *                         value = get_memory(self.token_list[loop_count+index+2])             # <<<<<<<<<<<<<<
- *                         variable_value+=value
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])             # <<<<<<<<<<<<<<
+ *                         variable_value+=value_normal
  *                         skip_index.extend(generate_index(index+loop_count, index+loop_count+2))
 */
           __pyx_t_6 = NULL;
@@ -3384,25 +3378,25 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
             if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 51, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
           }
-          __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_1);
+          __Pyx_XDECREF_SET(__pyx_v_value_normal, __pyx_t_1);
           __pyx_t_1 = 0;
 
           /* "variable_tree_config.pyx":52
  *                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
- *                         value = get_memory(self.token_list[loop_count+index+2])
- *                         variable_value+=value             # <<<<<<<<<<<<<<
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
+ *                         variable_value+=value_normal             # <<<<<<<<<<<<<<
  *                         skip_index.extend(generate_index(index+loop_count, index+loop_count+2))
  * 
 */
-          __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_variable_value, __pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+          __pyx_t_1 = PyNumber_InPlaceAdd(__pyx_v_variable_value, __pyx_v_value_normal); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           if (!(likely(PyUnicode_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("str", __pyx_t_1))) __PYX_ERR(0, 52, __pyx_L1_error)
           __Pyx_DECREF_SET(__pyx_v_variable_value, ((PyObject*)__pyx_t_1));
           __pyx_t_1 = 0;
 
           /* "variable_tree_config.pyx":53
- *                         value = get_memory(self.token_list[loop_count+index+2])
- *                         variable_value+=value
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
+ *                         variable_value+=value_normal
  *                         skip_index.extend(generate_index(index+loop_count, index+loop_count+2))             # <<<<<<<<<<<<<<
  * 
  *                     # formatted string match case
@@ -3444,7 +3438,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
  *                     # normal var to var match case
  *                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:             # <<<<<<<<<<<<<<
  *                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
- *                         value = get_memory(self.token_list[loop_count+index+2])
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
 */
           goto __pyx_L15;
         }
@@ -3453,7 +3447,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
  * 
  *                     # formatted string match case
  *                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:             # <<<<<<<<<<<<<<
- *                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+ *                         result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
  *                         if result != None:
 */
         __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_numeric_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 56, __pyx_L1_error)
@@ -3480,9 +3474,9 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
           /* "variable_tree_config.pyx":57
  *                     # formatted string match case
  *                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
- *                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None             # <<<<<<<<<<<<<<
+ *                         result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None             # <<<<<<<<<<<<<<
  *                         if result != None:
- *                             value = loop_count+index+1
+ *                             value: c.int = loop_count+index+1
 */
           __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_numeric_list); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 57, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
@@ -3531,9 +3525,9 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
 
           /* "variable_tree_config.pyx":58
  *                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
- *                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+ *                         result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
  *                         if result != None:             # <<<<<<<<<<<<<<
- *                             value = loop_count+index+1
+ *                             value: c.int = loop_count+index+1
  *                             variable_value+='{'
 */
           __pyx_t_11 = PyObject_RichCompare(__pyx_v_result, Py_None, Py_NE); __Pyx_XGOTREF(__pyx_t_11); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 58, __pyx_L1_error)
@@ -3542,20 +3536,17 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
           if (__pyx_t_8) {
 
             /* "variable_tree_config.pyx":59
- *                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+ *                         result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
  *                         if result != None:
- *                             value = loop_count+index+1             # <<<<<<<<<<<<<<
+ *                             value: c.int = loop_count+index+1             # <<<<<<<<<<<<<<
  *                             variable_value+='{'
  *                             variable_value+=f'{self.token_list[value]}'
 */
-            __pyx_t_11 = __Pyx_PyLong_From_long(((__pyx_v_loop_count + __pyx_v_index) + 1)); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 59, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_11);
-            __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_11);
-            __pyx_t_11 = 0;
+            __pyx_v_value = ((__pyx_v_loop_count + __pyx_v_index) + 1);
 
             /* "variable_tree_config.pyx":60
  *                         if result != None:
- *                             value = loop_count+index+1
+ *                             value: c.int = loop_count+index+1
  *                             variable_value+='{'             # <<<<<<<<<<<<<<
  *                             variable_value+=f'{self.token_list[value]}'
  *                             variable_value+='}'
@@ -3566,7 +3557,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
             __pyx_t_11 = 0;
 
             /* "variable_tree_config.pyx":61
- *                             value = loop_count+index+1
+ *                             value: c.int = loop_count+index+1
  *                             variable_value+='{'
  *                             variable_value+=f'{self.token_list[value]}'             # <<<<<<<<<<<<<<
  *                             variable_value+='}'
@@ -3574,7 +3565,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
 */
             __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_mstate_global->__pyx_n_u_token_list); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 61, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_11);
-            __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_t_11, __pyx_v_value); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+            __pyx_t_1 = __Pyx_GetItemInt(__pyx_t_11, __pyx_v_value, int, 1, __Pyx_PyLong_From_int, 0, 1, 1, 1, __Pyx_ReferenceSharing_OwnStrongReference); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_1);
             __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
             __pyx_t_11 = __Pyx_PyObject_FormatSimple(__pyx_t_1, __pyx_mstate_global->__pyx_empty_unicode); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 61, __pyx_L1_error)
@@ -3657,9 +3648,9 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
 
             /* "variable_tree_config.pyx":58
  *                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
- *                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+ *                         result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
  *                         if result != None:             # <<<<<<<<<<<<<<
- *                             value = loop_count+index+1
+ *                             value: c.int = loop_count+index+1
  *                             variable_value+='{'
 */
           }
@@ -3668,7 +3659,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
  * 
  *                     # formatted string match case
  *                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:             # <<<<<<<<<<<<<<
- *                         result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+ *                         result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
  *                         if result != None:
 */
           goto __pyx_L15;
@@ -4013,7 +4004,7 @@ static PyObject *__pyx_pf_20variable_tree_config_17VariableFormation_2execute(CY
   __Pyx_XDECREF(__pyx_v_var_name);
   __Pyx_XDECREF(__pyx_v_variable_value);
   __Pyx_XDECREF(__pyx_v_skip_index);
-  __Pyx_XDECREF(__pyx_v_value);
+  __Pyx_XDECREF(__pyx_v_value_normal);
   __Pyx_XDECREF(__pyx_v_result);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
@@ -4636,8 +4627,8 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
  *                     # normal var to var match case
  *                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:
  *                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')             # <<<<<<<<<<<<<<
- *                         value = get_memory(self.token_list[loop_count+index+2])
- *                         variable_value+=value
+ *                         value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
+ *                         variable_value+=value_normal
 */
   __pyx_mstate_global->__pyx_tuple[0] = PyTuple_Pack(2, __pyx_mstate_global->__pyx_kp_u__2, __pyx_mstate_global->__pyx_kp_u_); if (unlikely(!__pyx_mstate_global->__pyx_tuple[0])) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_mstate_global->__pyx_tuple[0]);
@@ -4672,33 +4663,33 @@ static int __Pyx_InitCachedConstants(__pyx_mstatetype *__pyx_mstate) {
 static int __Pyx_InitConstants(__pyx_mstatetype *__pyx_mstate) {
   CYTHON_UNUSED_VAR(__pyx_mstate);
   {
-    const struct { const unsigned int length: 10; } index[] = {{0},{179},{1},{1},{1},{1},{1},{8},{9},{9},{24},{17},{16},{5},{5},{6},{7},{20},{5},{9},{17},{26},{25},{3},{18},{11},{17},{18},{13},{20},{8},{7},{7},{8},{14},{10},{1},{5},{8},{13},{4},{5},{5},{5},{7},{10},{8},{13},{10},{4},{8},{2},{12},{5},{3},{11},{12},{7},{6},{4},{10},{12},{10},{10},{8},{10},{11},{5},{6},{8},{20},{14},{23},{909}};
-    #if (CYTHON_COMPRESS_STRINGS) == 3 && __PYX_LIMITED_VERSION_HEX >= 0x030e0000 /* compression: zstd (1258 bytes) */
-const char* const cstring = "(\265/\375`\352\005\005'\000\332C\250\016;\020\227\033\000\200\200\024X$\250Q\240\002\025\250\300\"A\r\210\000\\*^\333\\!\022\3416qK\021+Y1\002D\r^\001\341\306P\246\351\333\tV\265\020<%\200\207\277\300\331P\327\000\323\000\341\000\271s\223\347\374\332\241\347\314\317\314\334\272s\026\233\355\320d\267\335\323\177['\313\374\200<9\307tjp\200b:\2631\247gg\006g\244\311b44\230\230\214N\214g'\346\263\203\023\223c1c\017L\026\302\351\241\305\374\200\274\027\216\337\314\323\226\367F{\336eMsT\373\214\272\311\215\200\246&\352i&I\375\362jZ\022_;-\365\314\366q\224\223b\007\316\344\331<y\327\3754M\335!\366\235\212\346N5O<\273H\356m\212\352\t\024o5\342+\335<`\027M\336K\256\326\304\333)\246;Mui\253\251\251\230v\333\316mT$M-\232\250\230\214\360\304xD\023\335\335\306\321\236\212\300rw\215\356\032/7)\246\\4\317\244\016\214\021\273N\352\342\356\247N/\276\257z-Y\031V4\250\203\021\014\252\330\345\222-A\233\3632?\340k\253\306\032\256>A\337\223j\301\345W>'(\020T)\3040Z\260\346i\241\267\232\254\2565\r\262V\353\304\001\000A\324\3504\256-\205\357Zu\236\024\014\342\321m\311\370\031\002\037\335j\251}\257\264\354\351\356:\347\364V\356\264\227j\272\321\262\324jo\243\232\267Q^\346\001y\331\306\321\275SM\336N\233\245J\236\272\233\\\357L\225w\236%\016w\226\235\357xYn\337.S\223\247<\247<\3776if\233\251\336r\316\331v\2229\363\270.\315\267M\002\321s\267w:\233\256m\233\336\355\316\373\306\345\234cl<\325\265t\233\274\253'z\332^'\267\231\300T\357\256\332\366o\347\262w\305u\271K\254\t\353b\021\274\310\312\375\034\377\374\350\037\345`\031\034\362\222\356\203\253E`{\376fm\261\342\020\r{\275P\247\013k\2650\347\260\250($\"\n\177~B\032-\274\271\tmB\233T\023\000@\024\323\357\377\320\217\236\377,\177y\373\267\3757\3217\202\035\340\331{\256Z\033\013\303b\260+6\346a^cB\202\305\212\211\206\376\320\317g\201]0\355m\271)\367\244e a\003X\242u\\\325`\204\003T\023\323g\352\277\353\276N\177\215\364\221~\376\017\355/\3002\257\300{\321\316\330\221m`Q\017\341S>\027\214X\301|\206*\036\275\206*\326\236C\025\247\332\036{\343\005""\274\250\212O\363\233I?)\377\\\364\213\204\276P\320\017\362\371>=\337\350uxg.\211\033\340\326Z\2156)\337[\013V\211\225w\255X\245U\257\026\016\361\330\n\374\374o\025\037^\330\273]\231\033\322\222\256\026Z\323j\302\264\364\227~\377\347\373>\364\243B_\210\347\373\300\031\360\nVr1w\177\227\3739\362\223@\237\303%p\000\334{\207\324V\267,l\367&\236\301\243\253\230z{\356\206\273ru\254\006\013\302\212k\262\217\002\177\274\251\0333\321\246\332\223\212V\234\177\246}\332\354\253p\313\353zi\356\350\232\254\214\305y\216V\217\245\355\257V<\262\"\355\330\252\254fm\274F+\226\371\014\237\262R\304B\031\231\024\357\304}\334\376{\366\201\340\021V_\375\332\27007\241\225aa\354\204w\325\374\203\327\307\305\265\262v\305h\2650\222}\031\317?\201\231\\\375\352\360\030\2548\305z\3000x\277\001\200\223\250\321 \262\210 4$#\"$I\n\215\001@\204 D\247\036\361\2714\025\244\240F\206}\003\266<\3661\343\222\014\331\\|\217R\010\336\351\024f\200\212\004\2326Jz\203\037\215\244\3126k\211^X\264\214d~\214H\236JrT\262b\365\340\264`\r\014\353\343w\270\035\204O\273\005\202Or\0378&\014\035\240\277\343xm\243n\031?*\363\326\330\323\030j\025(]8\201\021\235\340\364>\302\351}\204\323\275\026Rk\020\344\265\006-P(\307\021\370\345\323)\361C\326U\032\205Z7\345\031\326\307\271\306\272\225;<U%9\311t\320BOfT\346=%&\020|*\367_\316\323\207\033\360\202\342\005\274F\360\243\347\334 \265\364Tr\237\004\2326\243\372g\000\036\220@r\216\357\332\306k-oK\304\332\222\376\352&\342\034\030\000\206\265wI\272gu\315\321K$\201w8R\263\271\025\324?\003\226\315\004\3156\303Aqd\304\212\033\377If\020\262\332\210\352\235\002\251a\206\377\222\243h\265B\302m\220\037\235#\224\301\034\203D(\350R\005)]\r";
-    PyObject *data = __Pyx_DecompressString(cstring, 1258, 3);
+    const struct { const unsigned int length: 10; } index[] = {{0},{179},{1},{1},{1},{1},{1},{8},{9},{9},{24},{17},{16},{5},{5},{6},{7},{20},{5},{9},{17},{26},{25},{3},{18},{11},{18},{13},{20},{8},{7},{7},{8},{14},{10},{1},{5},{8},{13},{4},{5},{5},{5},{7},{10},{8},{13},{10},{4},{8},{2},{12},{5},{3},{11},{12},{7},{6},{4},{10},{12},{10},{10},{8},{10},{11},{5},{12},{6},{8},{20},{14},{23},{917}};
+    #if (CYTHON_COMPRESS_STRINGS) == 3 && __PYX_LIMITED_VERSION_HEX >= 0x030e0000 /* compression: zstd (1247 bytes) */
+const char* const cstring = "(\265/\375`\355\005\255&\000\nBX\016;\020\227\033\000\200\200\024X$\250Q\240\002\025\250\300\"A\r\210\000\\\252\330K\256\020\221\2444qB)R\262F\373@\325\340\025\0206\2266\305E\236\020\352@{p\n\2142E\225\240\322\000\315\000\332\000<\364\234\361\241\361\275;i1\332NM\206\333=\375\267u\262\314\017\310\223sL\247\006\347'\246C\203\345\364\354\314\340\300j\262\030M\r&&\243\023\343\331\211\315vpbr,\006\326\003\223\203pzj1?`\357\225+q\374\034\363\336h\317\333\274\351\022\325HD\235\227D@\256m=\315$\251_^MK\342k\247\246\236\331H%Z\222\"G\216\227\231\237e\327\375\344\\s\210}\247\"\337\251\356\211g\027\311\275\271\250\236@\021W#\276\322\335\003v\221\227\335,\325\233\210;\305t\247\2516\307\233\232\212i\037\267n\243\"\311\265h\242b\"\302\023\343\0219\272\373X\242=\025\201\346\356\032\335\267\322\334\244\230\226\"?\217:0F\354\372\250\213\273\237:\001\020\013\252\330\345\222-A\253\3632?\340ok\306\032\256\263 \322\223J\301\345W>'(\020T%\304#\265`\315\223\202o5Y]k\032d\255V\211\003\000\202(\230\023lm%|\327\252\363\224`\020\303\334\026\214\217!\360Q\223\347\255\232\032\351\225\232=\335]\347\234\342\314\235vSM7j\232Z\365mT\3676\332\313=`/\217%\272y*\357\36147U\362\324}g\315\343j\357<\315\\\3564{\311+Ms#m3\345\355\264\314i\231\373\316\3756\311w\216\253\270\234s\036O2\347^\271K3n\223@\364\344m\336n\324\267=js\214\031\313T\337\322\315\313\256\236\3509\276\316r\344\300T\357\256\216\373\267s\356%/s~\005E\277H\007\313`\220\227t\035\\-\002\353\3637k\213\025\207h\350\363\205\273]x\273\2059\207CC\241\315\026\372\370\204\265Zxs\023\332\2046\251&\000\200(\246\337\377\241\037=\377i~\023\367q\373o\333'\202\033`\332{\256\332\221\205a/\330\025\033\363#>C\"\202\305\212mB_\310\347\263\300.\270\366\266\334\224{\322.\220\260\001\254m\205\255j\020\242\001\252\211\3513\365\337w\177\247\2776\372F>\337\247\366\025`\231W\340\265hi,\214e`Q\377\340S^\027\204X\215x\014U\014\363\031\252X\373\rU\234j}\354\215\027\360\242*>\371\347G\377(\377<\364\207\202~\020\320\007\232\375Y\317'z\033^\232K\342\006\270\2676\243}""\361}\325k\311\272\260\242A\035\014)\357[\013\326\210\225w\255X\245\212\206\030\326\n\264>\366\347\177\253\350\360\216\274\333\225\271 -\351j\2515\255&LK\177\t\351#\361\374\031\214\001\257`%\027\316\373<\335\327\221\237\374\371%\\\002\007\300\276WHmu\313\302vo\342\027<\272\212\251\327\347j\270+w\307f\260\037\254\370V\364\213d\037\005\366xS7F\242M\265'\024\255\332\257\321\276\n\267\274\256\267\346\302\\\316\312\330\234\337h\371\\\355\262\264\235\325\354\213\ri\215\270\033\244\025\313<\206OY'zB\231,\351'\005\321>m\366%\340\024ls\033t\354\253\346\037\27437\327\312\332\025\326\305\022\255\025D\262/\343\371'0\323\213\303_\260\342\024\333\301\212\203\276\022\254a\226\267\273\332\265iMX\272\257+\177\031\200\230\250\301\240\302\306\0202$#\"4I\n\215\001@\204 Dw\035\3219D\245)\250\221a\337\266t\0378\231\224\330\246\342\205(hr[\251\000\000\332\013U\207&\242\357\242\236JI4x\361\220\222\202Yrz\373QC\0210\t\241r\204\013\237\373T\263\002\213\302 \220N\354\272\224\022\366U\323\301\200{\tP\020\\\241\372\322\245\034\006\373\001\037G5t\r\241\204\261P\021\305\323N\026\354iz\365\037{\027\232a\021\001]\357`\231\336\3012\275\221\n)dP\306\342\206v\0141wT\277\344t\212\375\220\005*\r\245\366\266\340\303\366\361\320\204n\303C\324P$U2\275\360\275\227\226\203$\321\242\372\357\371,\221\302\363Y\037t*=F\007\\z\027\237\232\202\217:d\000\267\245K\345v=\277\255\231\231~m\370\247\336\332fj\236%f\315\272Z\021\361y\202k\211\331\204\231\024`t\335\314\371\227\203Y\307\211\207\034PV{]@\366E\336is\024\237\214\270p\343?I\026\014Ym\242\232\247\320\3260\003\177\311Q\324Z\212\3013H\212~\024*&{\014\222\241\240K\025\244t5";
+    PyObject *data = __Pyx_DecompressString(cstring, 1247, 3);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1354 bytes) */
-const char* const cstring = "BZh91AY&SYO\273#\367\000\000\316\377\377\377\376\177\377\377\377?\336\277\277\377\377\377\377\377~@@@@@@@@@@@@@\000@\000P\004/<9\265\241l\223\201\203Q\"\032\017Di\351\243\325\030\3244\365\014&\200=@44h\032\001\246M4\320\000\323M\006OD\311\264\231\2505&\243CiG\232\247\212m&\324\366\251\352\032\032z@\320\320\000\000\000\000\000\000\001\220\000\000\203\000&\000\000\0010\000\230\000\000\004\300\t\241\200\000\000\000\000\003S\010\232\032\251\370\246\032\206$\362\207\250z\215\017P\031\000\036\241\240\000\365\000\000\000\365\001\240zA\241\240\321\t\211\244\364Bf\214I\223#C\0214\014@\320h\000\000\000\000\000\000\320\006 \271\001-\001\010p \347\005\005,\305j\n\253\000U\203\n\302&\364X\362:e\264\356\233\363[\216y\347\236{\336\367\275\357\247Wcgf\265z\350\234\021&_\350\234\226\270\227\0047\2032i@C32\000\347\007H\032\374\330\030\226\006+\375\024\220\2648\233\213\026{H\2054\355\232A,z\202\300\024\320\355\035\310\211\236\355,|\334}-\035.Z\376\022/\242\376\324_\204\020\334\351!8\341\\\255p!\334eQM\273q\"Y\212-t\212\375\354pk\354\306  \032\277m\010=f0\363A\353\246\234\352e\262f\033\020\236\0058\226\255F\265\250\275\316\262\007\007\n\003\202\334W\223[\3179\026\304x\206w\252\001\301\362\211I\350H\243\375.\360pW\312\023Mq\352\341\177\007\2676Xr0|.\214_\030\361\002\247\337E\346ZM\252\352U\252\372\311\221\230\2664gx\227\35635\013.Y\254\265\022sT\"\030\2032\000a\022#RHD$\347\005\202\306\266)b\252f\323\217\010\036\300\342!\320\216\343\244\3500]E\024t\306\206\025m\346\227M\224\211Nr\207\002]\3429Hw\262\316x'3\311\213X\226\265\227:\226\266\0278Y\253\317\204\006L\234\331\2128\326,R<\365\220BPTiZV~\236\035\303Kw,\217k\034T\223V\250pV\224\261(i\0045RVG\003x X0!\014\363\0200\031\345}\305\212C!\237\260I\213_\251\037\342\tO\221\243\260U\010k\351\362\363k\256lbAH\223\200\341\230\007#\021\245\311\022\305\255y%;\362\355\271_}\272\204\n_\240D\035x\020q^,\000T\202\324`\3738\221\210\310\315\2020%\205\030\034\331\344Ye\241\321\272I\254\333u\351n\225\353\260&\350\025\205E(\217\n\3663\203\022\031\251dJ""\022\247\251\321\230y\034\224\013-\n\206\3256\304*\300\266[\200Bl4%8\321\211\261\321\301\263\224\334\014\307\323\230\252\021Yz\324\253\240\223A\266\243V\274\273\220\312\002\310\352\336\212\300(\354#T\360\021as\205v\241\316\220\302\224(\252\240\371m,\013b\245\366cD\004\241\211 \263\017\t\202J\242N\202\231\247\337e\321\024*\005XrM\222\256(\005Q\035H\206dFL\277q\301[\312\257\221]H@\033\035\230O\270\305\000\357\023\262\225\361\243\330\322\254\354\224\210\301\221\231\033\305\004\031u\213\002\341\264\332Dd\025q\264\201\252\031j\260OfK\220\006\344&J\232Kk\000\230\265\014\226\372\273rP\210\252\343b9`\230fE\000\242y\036\016z\321\022\030\211\344\242\033\307\241~\320\316\031\306\247B\335\243\007B\n,N\347\006\023j0e\202e\351D\351^\017}\323\031&\244\210\250&\330\314&y\272\225`Q\031DD\0162Y\252\003L\330\014\273R\003F\201A\025\327\221\233\204S\274\n\030#0\300!c\\\321\010\010SB+\301\002+\327\023c\330\247\333p\210\263o\246\245a;j\t\356$O&E\3143>\301\340N\n\021>\254\326\302\201(Z\265\241Z\215I\234\014\344\271\211\202\376\023m\302l\331\0316\014ml1zs%\341\312\217\310#7S\320>\214v\334\310\356v\035(\247\274\262\315\034\372\005Fp\250_\257^\204\302%)\332\220\317\262\204Y-\204\213.\345\247\263\226\210~\300T.\014\3535D\251\263\321\031\024G!\245I]\304\375\240\342\230,\n\016H`\254\337\320\355\324Z\257\304ef\034\360$\223\247\341%\235\210\035\222b\300*Y\376)t\273\202\221\312c\177^\3275;\303\234.\344\301N\320\334\010\267h\007\337\257\333s\"\273\321a\363\343\003R!\253\203[I8b\n\373\330x[\240\322\321A4\374\267*e\241\366\325\256>\233V\257.\257\344XC\001\266\004K\3647\320H\371\026\213A\276]\2246\r(\312n\365_JP\213@\226\357\006\370\244J N\002\220\304$\033\301C6\211.nI\246\004\345tFV\021\240=\035\001\203o\264\277|\243J\374s\016\361\206\332i7\223;\366Nn\371\016\\2\206\tJ\021g\305\024\322*\226\245\325\036o\370\273\222)\302\204\202}\331\037\270";
-    PyObject *data = __Pyx_DecompressString(cstring, 1354, 2);
+    #elif (CYTHON_COMPRESS_STRINGS) == 2 /* compression: bz2 (1366 bytes) */
+const char* const cstring = "BZh91AY&SY0\273\352\376\000\000\311\377\377\377\366\177\377\377\377?\336\277\277\377\377\377\377\377\376@@@@@@@@@@@@@\000@\000P\004\014\256\335\316\347r\272\333g\017^\032DAOS\364\231O\322\233\320\320\023$\336\251\371\024=@~\224\321\2404\323\304\232\032z\231\251\341M\006\207\251\260MOI\355LM\241OPj\23125=!\264\223i\215!4\364\247\246\231\252\000h\3650\232\030\000F\214\200\310\00043Q\246\000L\201\242\t\221\246\202jmM\352\236Pj6\241\211\246\214\215\001\240\000\006\200\000\000\000\000\003C@jh\323S$\246\364Pz\002\032z5\031\036\223\001\241\251\246'\240\t\240\315L&\000LL\214\004\300\0010\340L\010\306\200\t\201\220L\000\000\000\002\014\t\223\004\3100\000\000\000\r$\t\320\"8!P\030\306\030r\030\331[!\234\371\2029\305-\377g\007\r{\017\276\326\257\347\255\201\352O^\367\275\357{\350\252\255]\\+\267Q\000D\232\377\242\005\023\223\035\360\275d\253!\203\002\303\343\022\316\032\375r\330\226\006+\374\350\347\2220\222nVVcH\205\t\316i\004\276E\010\200\024!\332\031\341\315\365bj\203[\327\361n#\215\007X\021m\021\332I$\016\345\313\304\237\017\024\231 \362BbB\256 \241\"\033\251o\021v\314r\255\255\016\016\n\263\345\303\225\252\231\001\rJ\007\236\272\364ku\210@[\004\223\3138\226\224\251I\253\363A\201\003\240\361\210\003}F\243\205\27760\351\3378[~\343\004\021\324\217&0\277\360\315\032\307\250\031\231\026\243\364\255\256\362\315\331B\325\347V\201\223\272\226\301BA\204t\263ES\322\213\323V\373\351\005\347\211\003\226>\243\343\362\300\242\213\264_\r\212)k\004\342\362H\005k5\016\273\241AI\270R\210\022\230O\033A]e\004W\221\365r\351<`\341D\222I\215$\214\022\302\375\332\026\005\023\240\013A\273\336 \222\023\363/\374\0054\305a\236K_\361&1\205\246\3712\334\341\207\217\247\0311\033\010\023\336\261\206\343\315\210\202\022\202\263oj\277Y\311<\367\271\032\244/)4\344)\206OH\000i\260\230\247\302\267\002\005=\263\315Ba\0040EM)\245\036\224\207c $\022\313M\367;\206\314(w\363\000\212d\033gue\035+\000\216O\220~Q^&\036\222p\347,'34\005\343e\215&z\001\206!lH\022\233\005#\250\375\004hk\035\000s\010\302\205S'4\314\020""\215\211\340A0\266\322\210\335i\213%L\364\272\270\257S^\224\214W\220\354\310\005\020\361\226v\013+|\271\241\251\r\322\200\303J\246T\223\234\304tZ \320\250\361hk\205K\211\225,Fl4\242\251\2041Q\277\204\033\227n\214\n\222+\317z\225\220\t66\342\327\202k\2408\216\233\356\254\024\325\243\202ydR\245!\364\025)\236@c\005\274a:\224m\001P=\320n\027\000\244\305D[ST\004\261_\265#\366\262\252\306\025\207\001\030\262m\007bFX\n\323).\n\326\217\335\340\207W\213@\302Q\211B\010EhuH\006\002\375\204\224\206\347\261\352i{R\221\220,,\226\262[\204\202\020J\201\000\251'\023\224FAL\3079A\252:\3560b^\237\035a\271\t\236\235\324M`\020-#(\237r\346y,JU\032\331)\036!e\303\211\316\002CBc\0059a\234\265\310N\235\210\304\242\341\014\324\332\261\224\025L\205D\352 Q7\310\025J\242Ula\036I\312\242{\345\254\"\315\2143\021VD\"r\322\214\3000\362a\230Df\251\256\004'2Q\013d\010J\300\240\317%\246\204D\311\336\005\214\023\030`\0211-\204\000S6\n\3709\312\373\342'\252\010\025\352pM\003\002\303/>\026\212\001w\254\205\326\267\034\371\260\022\321\255FU\343\300Wj\203\206\031b\235>\243_\327{\260\270\010EV\350\240X\224\210\235$\n\231`\246\231\376D0\016\357N\335\212\224\307\004)\377\260\276\371\350\362T\213\271\032{7\270\215lU\3312\227FC\177-\327\327\n\030\307\332\333z\343\311[T|\270\333\301\251\304\240\230\200\311\257y\316\021b\346\005\007m\241N\037\316\276\230>\261\007\03074|\206\204\032\271\320#oe`S\3440\326\021b\252\273j\2068i.ll\331\211YY\261\0171l\343B\235\020A\365`i\207\004w~\202\t\004\340\n\236e\276;ZY\023\026Ya\317\r\274D\256\200\252UNK\215\024\230^\210V\037]A\245\026#\031\310\360\246\027e\002\000 g\365\000\030d\321\373\"B\200\354\361\334V\"\354>\n\301j\315\3216\006\213z\332\210A\230\007\262\300\226\032,%p\006\212 \035\210\267\360\223\367\343d\013c\233\306'{\313\274\\wwJ\314\357,\357\tB\3113V\023L3\316\333\351\014q\265\323',F\241\031J\036 \331\310\221<\314\273\345\230\375x\013\271\"\234(H\030]\365\177\000";
+    PyObject *data = __Pyx_DecompressString(cstring, 1366, 2);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1234 bytes) */
-const char* const cstring = "x\332}S\315s\323F\024\307JJ\013\205\031;\r\305\244.\225I\nmi=c\010m\007\3500\"q:\371 \211\023+\001\222\260\254\255\265\243X\226li\345\261I2\323#G\037u\334\243\216:\352\250\243\216{\324\261\177\002\177B\337\312.0C\247\236\361\276}O\357\343\367{\357\355\246E\211L\2171\225\227\206\364\3302e\335\2215b\350ubcJ\214\241\354P[oPb\013'S\336\256l\377\262\370\373\242\214MM\266\311\tiPGv\334z\303\300\216C\034\331j\312uW7\250n\312t\330%NI^m\312C\313\225MB4\231Zr\027\374>\016\240\307\304\224\035B\305E\276\203M\323\242\230\352\226\211 \\7[wdM\267\241\210\336'\"z\005\033\016)\311\247\347\245'X\323\0208\003R\207\036`sx\224^t\223\036\365\261\255\343\272A\020\265\tA\r\313l\352\255Rw8XRw6^\240\247;\312R\005-ml\355V>6lmW6\227+O\325?+UU\331X\331\332y\246\3246+\373\033\253\233\025\204\266\207\003\370/C\033\320&\031\320\035\322\254\252[\265J\315j\023\263\0064\367&\025W,\273\223\242\377\304PBH7u\212\320\247_\310\2004\\J\200\002v\206fC\267J\r\313\266\\h!q\352\330\321\033K)\003\204\322\226\241\026\241:%\035\241\202\007d\005\232\270A\352\270\321\236P\035\213\211\322!\035\313\036N\272\240\221&r\332z\027!\315j 4\251\214P\3235Am\0213\2359\344\324\310\000\352\240q\260\236\352\377\022@\272\203\336\003\324\035a$\035\307 }b\030zG\247\206\325j\301\340\014\313\352\202\237kBH\007\003J\370u\010\305c\022B\2614\027f\204L\334\371pvM\267C`\335\220\030&\334\273\303.\244A]\233t\261MDX\317\305\306\330\031l\006\020\267\211\343\032\324!F\323y\217\030!q\037\273\301\rhc\341#\230O\270P\342\0000*\006\230\326\0026\206SJ\317>6\\\222\036p\265\323,\377\265Q\357m\251+\237\236\347\363\217C%\371\342\312\333M\257\010\202_)x\312_\312\273\213\027.\315y9!\362#\307+z\213^O(W\337\256\216TP\313\311\225\354hz\364\214\345X\021\354W\263o\373\243]O\362\026\274:\373\214U\331Ip1\320\302b\222\025)f\256\217\360\310\366f\274\373\036\366({\022,\004\365p*\274\027\326\242\331\350\210\357\354\362\335\347\374\371\013\376\342\220\037\"\216\216\371\261\311M+\311\312l\232\255\373\275 \223do3\234d\027\230\222d\347Y\031R\346\256\217NX\206}\315l\377+""_\361k\301w\321t\264\034_\345\352\036\337{\315_c\216!M\233\267)\247g\374\354\374\357\331\353#\327S\274\003\177\312\277\007\3563\301\2030\023\026\"5.\306\217\370\336K\376\362 \311\213\374\371\033\220}n\201\225Y\305\317\371\267\374\247~#\310\001`+\252\305\263\361\021\370\361\003\302I\2237!\271\301\r\213[6\267\241\312\200\017\316\336]\270p\236Y\223@\254I\353B\254K\252\020\252\264'\304\236t \304\201t(\304\241\204\204@R]\210\272\324\026\242-\365\204\350I\266\224\344\013\336:\353\371\227\203b\n\366Z\250Ew\343j|\222\266\352\025\177\005\255\002\232:\327O\370I\332\260\274\314.\373E\177\321?\r\213\341\303\250\032\221\270\034\003\245\037\374L\222\277\305\356\000\241R\232\010\207g\361\003\276]\345U`\003M?\022\234ozG\020\3740\250\006\255p7\272\304W\307M)\2629\277\354/\007_\206\345p-\302\221\033+\361>\257\215\353C'Z\274\005\365\241\031\026\340\356f\226\005\374e\251\002\360\277\361~c\363\254\232\024\026\330\232\217}7P\002P~\366\225\244P\002\235\006\217\000Hob\021\030\013\267Y\313\257\372f\250\204jT\214\036\307.\257\251\\\205:b\242I\341\333\0170\037\004\231`\016\020-\205N\364c\374+\257\302\002\001\021@\005-\251'\371\237\374\005\277\035\346\302\357\303^\224\021a\262g\263\031\266\310\250\377(\300\201\013%^F\275x*\276\037\353|\037\3024\256\301\302\000\223\016\357\230\377\033\377\307\244\205o\342\\<\037\357\362m\230\006\320\207-\350\363>l\301)?=\023\344\027\275s\330L\025\246\367\030@\026\005i-\270\033VC\022\225#\361\300\256\311\336\200\r`\277\247\003%\231\275\to\343\215/\236\313\265\"\023%s7\274\317\275\036\313\374\003(:\322K";
-    PyObject *data = __Pyx_DecompressString(cstring, 1234, 1);
+    #elif (CYTHON_COMPRESS_STRINGS) != 0 /* compression: zlib (1225 bytes) */
+const char* const cstring = "x\332}S\317s\323F\024\306\"\245\245\0033v\232\024\223\272T&)\264\245\365L \264\235\206\016c\202\351\344\007I\024\333\201\304\t\313\332Z;\262e\311\226V\306\206d\246G\216>\352\270G\035u\324QG\035\367\250c\377\004\376\204\276\225M`\206N3\223}\273\317\357}\357}\337{\3326)\221\351\t\246\362\332\210\236\230\206\254\331\262Jt\255N,L\211>\222mji\rJ,\021d\310\273\245\335_V~_\221\261\241\312\026i\223\006\265e\333\2517tl\333\304\226\315\246\\w4\235j\206LG=b\027\344\365\246<2\035\331 D\225\251)\367 \356\343\004zB\014\331&T\\\344\333\3300L\212\251f\032\010\3225\243u[V5\013\212h\003\"\262\237`\335&\005\371\315Y\341!VU\004\301\320\251Mk\330\030\035'\027\315\240\307\003li\270\256\023D-BP\3034\232Z\253\320\033\r\327\252{[\007\350\321^q\255\204\326\266v\312\245\217\035;\273\245\355\307\245G\325\277JJ\265\270\365dg\357i\261\262]z\266\265\276]Bhw4\204\377\307 \003\332&C\272G\232Ju\247R\252\230\035bT\200\346\376\264\342\023\323\352&\335\177\342( \244\031\032E\350\323_\310\2204\034J\200\002\266GFC3\013\r\3232\035\220\220\330ulk\215\265\204AC\007\007\200\000+\334 u\334\350L\231M\314\364\321%]\323\032MI\253\244\211\354\216\326CH5\033\010M\013!\324t\014x\266\210\221\214\0300U2l\021\212&\311Z\362~\337/\322lt\336\217f\013'\351\332:\031\020]\327\272\032\325\315V\013\346\244\233f\017\342\034\003R\272\030\272\204\277.\2418\031s\3620U\007F\202\014\334\375p\366\014\247K`\273\220\230\035\334{\243\036\300\240\236Ez\330\"\"\255\357`}\022\014>\035\210[\304vtj\023\275i\237w\214\220\270O\302\340\006\264\261\210\021\314\247\\(\261\2411*\346\225\324\0026\272]H\316\001\326\035\222\034\260N0\023=\271\203\333J\020\377k\231\316}I(\237Y\344\213\017\202b\374\305\225\267\333n\036\014\277\222s\213\177\027\337]\272py\301\315\010\223\035\333n\336]q\373\342q\365\355\372\270\n\317\345\370Jz<3~\3122,\017\376\253\351\267\203q\331\225\334%\267\316>c\nk\373\227|5\310\307i\0011{m\214\307\226;\353\336s\261K\331C\177\311\257\007\027\203\273A%\234\013\217\371^\231\227\237\363\347\007\374\340\210\037!\216N\370\211\301\r3N""\313l\206mz}?\025\247o1\034\247\227X1N/\262e\200\314\\\033\267Y\212}\315,\357+\257\350U\374\357\302\231\360qt\225W\367\371\376K\376\022s\0140\035\336\241\234\236\362\323\263\177\346\256\215\035\267\350\326\274\213\336]\010\237\365\357\007\251 \027V\243|\264\312\367\017\371a-\316\n\374\354u@_Xb\313\254\344e\274\233\336#\257\341g\240a3\254Ds\3211\304\361\032\341\244\311\233\000\256s\335\344\246\305-\2502\344\303\323w\027.\234\2456$0\033\322\2460\233RU\230\252\264/\314\276T\023\246&\035\ts$!a\220T\027\246.u\204\351H}a\372\222%\305\331\234\273\311\372\336\227~>iv>P\303;\221\022\265\023\251^\360\027 \025\320\324\270\326\346\355D\260\354\212\277\021\340\200\206\253\021\216^\363\003`\0051B\2158\373\203\227\212\2637\331m UH\300pp\032\335\347\273\nW\200\021\010\177,x\337p\217\275\274\367\207\257\370\255\240\034^\346\353\023a\n^\033r\346\202Z\224\212\026x\271\302+\007\t:\224\237\2500\221\340\025\177u\256\202\"h(\322\036\320\370\306\375\215-2%\316\335I\220I\260\014\013\227\373\331\203\243\340a\217\372\253\320L\177\352\021}\346n\261\226\247xFP\014\252a>|\0209\274R\345\325\367\\r\337~h\365\276\237\362\027\000p-\260\303\037\243_\271\002\213\004d@\035\350\255\036g\177\362\226\274N\220\t\276\017\372aJ\244\311\256\305f\331\n\243\336\252\217}\007J\034\206\375\350bt/\322\3703HS\271\n\213\003\212vy\327\370\337\374?\2472\276\2162\321bT\346\273\240\t\250\001R\014\370\000tx\303\337\234\n\362+\356\031lh\025\246\370\000\232\314\013\322\252\177'P\002\022.\207\342C\233\227\335!\033\302\236\317\370\305x\356\006|#\257=\361\331\314\347\231(\231\271\356~\356\366Y\352_\3444\326j";
+    PyObject *data = __Pyx_DecompressString(cstring, 1225, 1);
     if (unlikely(!data)) __PYX_ERR(0, 1, __pyx_L1_error)
     const char* const bytes = __Pyx_PyBytes_AsString(data);
     #if !CYTHON_ASSUME_SAFE_MACROS
     if (likely(bytes)); else { Py_DECREF(data); __PYX_ERR(0, 1, __pyx_L1_error) }
     #endif
-    #else /* compression: none (1770 bytes) */
-const char* const bytes = "Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False. {}.?add_notelist[any]list[int]variable_tree_config.pyxCURLY_BRACE_CLOSECURLY_BRACE_OPENDEBUGEQUALFORMATNEWLINE__Pyx_PyDict_NextRefQUOTETokenTypeVariableFormationVariableFormation.__init__VariableFormation.executeanyasyncio.coroutinesbasicConfig__class_getitem__cline_in_tracebackconfig.configconfig.memory_configdef_skip__doc__execute__func__generate_indexget_memoryiindex__init___is_coroutineisinitemslevellimitloggingloop_count__main____metaclass____module__name__name__npnumeric_listnumpypop__prepare____qualname__replaceresultselfset_memory__set_name__setdefaultskip_index__test__token_listutils.utilsvaluevaluesvar_namevariable_tree_configvariable_value\320\004#\320#<\270A\330\010\014\210N\230!\330\010\014\320\014\034\230A\200A\360\006\000\t\032\230\021\360\006\000\t\030\220s\230!\2304\230q\360\006\000\t\r\210I\220U\230!\2301\330\014\020\220\004\220M\240\021\240!\360\006\000\r\020\210v\220S\230\002\230$\230b\240\005\240Q\240j\260\006\260d\270!\330\020\021\360\006\000\022\027\220a\220r\230\022\2303\230a\230t\240?\260$\260b\270\003\2702\270T\300\024\300]\320RS\320SX\320XY\320Y\\\320\\_\320_h\320hn\320no\330\020 \240\004\240K\250q\260\001\330\020&\240a\330\020$\240A\330\020#\2401\360\006\000\021\027\220j\240\001\240\026\240r\250\023\250A\250T\260\037\300\004\300D\310\r\320UV\320V`\320`a\320ah\320hk\320kt\320t|\320|}\340\024\027\220u\230A\230[\250\003\2502\250T\260\022\2605\270\001\270\034\300U\310!\310;\320VZ\320Z[\330\030$\240A\330\030\031\360\006\000\032$\2401\240E\250\021\250\"\250B\250c\260\021\260$\260o\300T\310\024\310]\320Z[\320[e\320ef\320fk\320kl\320lo\320or\320rt\320tx\320x|\360\000\000}\001J\002\360\000\000J\002K\002\360\000\000K\002U\002\360\000\000U\002V\002\360\000\000V\002[\002\360\000\000[\002\\\002\360\000\000\\\002_\002\360\000\000_\002b\002\360\000\000b\002k\002\360\000\000k""\002q\002\360\000\000q\002r\002\330\030\034\230K\240q\250\n\260!\2605\270\001\270\025\270d\300+\310Q\310j\320XY\320Y^\320^_\320_a\320ai\320ij\320jn\320no\330\030 \240\n\250!\2504\250{\270!\270:\300Q\300e\3101\310A\330\030(\250\001\330\030\"\240'\250\021\250.\270\001\270\025\270a\270|\3105\320PQ\320Q[\320[\\\320\\]\360\006\000\032\036\230]\250!\250:\260Q\260g\270S\300\t\320IZ\320Z[\330\030!\240\032\2501\250D\260\013\2701\270J\300a\300u\310A\310W\320T^\320^_\320_e\320eg\320gj\320jk\320ko\360\000\000p\001D\002\360\000\000D\002E\002\330\030\033\2307\240#\240Q\330\034$\240J\250a\250u\260A\260Q\330\034,\250A\330\034.\250a\250t\260;\270a\270q\330\034,\250A\330\034(\250\001\330\034&\240g\250Q\250n\270A\270U\300!\300<\310u\320TU\320U_\320_`\320`a\330\034\035\360\006\000\032\036\230]\250!\2505\260\001\260\032\2701\270C\270s\300)\3106\320QX\320X\\\320\\^\320^a\320ab\330\030*\250$\250k\270\021\270%\270q\300\001\360\006\000\032 \230r\240\022\2404\240t\250;\260a\260u\270A\270Z\300q\310\003\3103\310i\320W^\320^d\320dh\320hj\320jm\320mn\330\030*\250$\250k\270\021\270%\270q\300\001\360\006\000\032 \230r\240\022\2404\240t\250=\270\001\270\025\270a\270z\310\021\310#\310S\320PY\320Yk\320kr\320rv\320vx\320x{\320{|\330\030\033\2304\230}\250A\250U\260!\260<\270s\300!\330\034.\250d\260+\270Q\270e\3001\300A\360\006\000\025 \230x\240x\250q\260\004\260A\330\024\036\230a\230z\250\021\360\006\000\025!\240\001\360\006\000\021\031\230\007\230q\240\001";
+    #else /* compression: none (1773 bytes) */
+const char* const bytes = "Note that Cython is deliberately stricter than PEP-484 and rejects subclasses of builtin types. If you need to pass subclasses then set the 'annotation_typing' directive to False. {}.?add_notelist[any]list[int]variable_tree_config.pyxCURLY_BRACE_CLOSECURLY_BRACE_OPENDEBUGEQUALFORMATNEWLINE__Pyx_PyDict_NextRefQUOTETokenTypeVariableFormationVariableFormation.__init__VariableFormation.executeanyasyncio.coroutinesbasicConfigcline_in_tracebackconfig.configconfig.memory_configdef_skip__doc__execute__func__generate_indexget_memoryiindex__init___is_coroutineisinitemslevellimitloggingloop_count__main____metaclass____module__name__name__npnumeric_listnumpypop__prepare____qualname__replaceresultselfset_memory__set_name__setdefaultskip_index__test__token_listutils.utilsvaluevalue_normalvaluesvar_namevariable_tree_configvariable_value\320\004#\320#<\270A\330\010\014\210N\230!\330\010\014\320\014\034\230A\200A\360\006\000\t\032\230\021\360\006\000\t\030\220s\230!\2304\230q\360\006\000\t\r\210I\220U\230!\2301\330\014\020\220\004\220M\240\021\240!\360\006\000\r\020\210v\220S\230\002\230$\230b\240\005\240Q\240j\260\006\260d\270!\330\020\021\360\006\000\022\027\220a\220r\230\022\2303\230a\230t\240?\260$\260b\270\003\2702\270T\300\024\300]\320RS\320SX\320XY\320Y\\\320\\_\320_h\320hn\320no\330\020 \240\004\240K\250q\260\001\330\020&\240a\330\020$\240A\330\020#\2401\360\006\000\021\027\220j\240\001\240\026\240r\250\023\250A\250T\260\037\300\004\300D\310\r\320UV\320V`\320`a\320ah\320hk\320kt\320t|\320|}\340\024\027\220u\230A\230[\250\003\2502\250T\260\022\2605\270\001\270\034\300U\310!\310;\320VZ\320Z[\330\030$\240A\330\030\031\360\006\000\032$\2401\240E\250\021\250\"\250B\250c\260\021\260$\260o\300T\310\024\310]\320Z[\320[e\320ef\320fk\320kl\320lo\320or\320rt\320tx\320x|\360\000\000}\001J\002\360\000\000J\002K\002\360\000\000K\002U\002\360\000\000U\002V\002\360\000\000V\002[\002\360\000\000[\002\\\002\360\000\000\\\002_\002\360\000\000_\002b\002\360\000\000b\002k\002\360\000\000k\002q""\002\360\000\000q\002r\002\330\030\034\230K\240q\250\n\260!\2605\270\001\270\025\270d\300+\310Q\310j\320XY\320Y^\320^_\320_a\320ai\320ij\320jn\320no\330\0304\260J\270a\270t\300;\310a\310z\320YZ\320Z_\320_`\320`a\330\030(\250\001\330\030\"\240'\250\021\250.\270\001\270\025\270a\270|\3105\320PQ\320Q[\320[\\\320\\]\360\006\000\032\036\230]\250!\250:\260Q\260g\270S\300\t\320IZ\320Z[\330\030.\250j\270\001\270\024\270[\310\001\310\032\320ST\320TY\320YZ\320Za\320ak\320kl\320lr\320rt\320tw\320wx\320x|\360\000\000}\001Q\002\360\000\000Q\002R\002\330\030\033\2307\240#\240Q\330\034+\250:\260Q\260e\2701\270A\330\034,\250A\330\034.\250a\250t\260;\270a\270q\330\034,\250A\330\034(\250\001\330\034&\240g\250Q\250n\270A\270U\300!\300<\310u\320TU\320U_\320_`\320`a\330\034\035\360\006\000\032\036\230]\250!\2505\260\001\260\032\2701\270C\270s\300)\3106\320QX\320X\\\320\\^\320^a\320ab\330\030*\250$\250k\270\021\270%\270q\300\001\360\006\000\032 \230r\240\022\2404\240t\250;\260a\260u\270A\270Z\300q\310\003\3103\310i\320W^\320^d\320dh\320hj\320jm\320mn\330\030*\250$\250k\270\021\270%\270q\300\001\360\006\000\032 \230r\240\022\2404\240t\250=\270\001\270\025\270a\270z\310\021\310#\310S\320PY\320Yk\320kr\320rv\320vx\320x{\320{|\330\030\033\2304\230}\250A\250U\260!\260<\270s\300!\330\034.\250d\260+\270Q\270e\3001\300A\360\006\000\025 \230x\240x\250q\260\004\260A\330\024\036\230a\230z\250\021\360\006\000\025!\240\001\360\006\000\021\031\230\007\230q\240\001";
     PyObject *data = NULL;
     CYTHON_UNUSED_VAR(__Pyx_DecompressString);
     #endif
@@ -4811,8 +4802,8 @@ static int __Pyx_CreateCodeObjects(__pyx_mstatetype *__pyx_mstate) {
     __pyx_mstate_global->__pyx_codeobj_tab[0] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_variable_tree_config_pyx, __pyx_mstate->__pyx_n_u_init, __pyx_mstate->__pyx_kp_b_iso88591_A_N_A, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[0])) goto bad;
   }
   {
-    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 11, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 18};
-    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self, __pyx_mstate->__pyx_n_u_def_skip, __pyx_mstate->__pyx_n_u_index, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_limit, __pyx_mstate->__pyx_n_u_var_name, __pyx_mstate->__pyx_n_u_variable_value, __pyx_mstate->__pyx_n_u_loop_count, __pyx_mstate->__pyx_n_u_skip_index, __pyx_mstate->__pyx_n_u_value, __pyx_mstate->__pyx_n_u_result};
+    const __Pyx_PyCode_New_function_description descr = {1, 0, 0, 12, (unsigned int)(CO_OPTIMIZED|CO_NEWLOCALS), 18};
+    PyObject* const varnames[] = {__pyx_mstate->__pyx_n_u_self, __pyx_mstate->__pyx_n_u_def_skip, __pyx_mstate->__pyx_n_u_index, __pyx_mstate->__pyx_n_u_i, __pyx_mstate->__pyx_n_u_limit, __pyx_mstate->__pyx_n_u_var_name, __pyx_mstate->__pyx_n_u_variable_value, __pyx_mstate->__pyx_n_u_loop_count, __pyx_mstate->__pyx_n_u_skip_index, __pyx_mstate->__pyx_n_u_value_normal, __pyx_mstate->__pyx_n_u_result, __pyx_mstate->__pyx_n_u_value};
     __pyx_mstate_global->__pyx_codeobj_tab[1] = __Pyx_PyCode_New(descr, varnames, __pyx_mstate->__pyx_kp_u_variable_tree_config_pyx, __pyx_mstate->__pyx_n_u_execute, __pyx_mstate->__pyx_kp_b_iso88591_A_s_4q_IU_1_M_vS_b_Qj_d_ar_3at_b, tuple_dedup_map); if (unlikely(!__pyx_mstate_global->__pyx_codeobj_tab[1])) goto bad;
   }
   Py_DECREF(tuple_dedup_map);
@@ -6507,56 +6498,6 @@ static CYTHON_INLINE PyObject *__Pyx_PyUnicode_ConcatInPlaceImpl(PyObject **p_le
         return __Pyx_PyUnicode_Concat(left, right);
     }
   }
-#endif
-
-/* ObjectGetItem */
-#if CYTHON_USE_TYPE_SLOTS
-static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject *index) {
-    PyObject *runerr = NULL;
-    Py_ssize_t key_value;
-    key_value = __Pyx_PyIndex_AsSsize_t(index);
-    if (likely(key_value != -1 || !(runerr = PyErr_Occurred()))) {
-        return __Pyx_GetItemInt_Fast(obj, key_value, 0, 1, 1, 1);
-    }
-    if (PyErr_GivenExceptionMatches(runerr, PyExc_OverflowError)) {
-        __Pyx_TypeName index_type_name = __Pyx_PyType_GetFullyQualifiedName(Py_TYPE(index));
-        PyErr_Clear();
-        PyErr_Format(PyExc_IndexError,
-            "cannot fit '" __Pyx_FMT_TYPENAME "' into an index-sized integer", index_type_name);
-        __Pyx_DECREF_TypeName(index_type_name);
-    }
-    return NULL;
-}
-static PyObject *__Pyx_PyObject_GetItem_Slow(PyObject *obj, PyObject *key) {
-    __Pyx_TypeName obj_type_name;
-    if (likely(PyType_Check(obj))) {
-        PyObject *meth = __Pyx_PyObject_GetAttrStrNoError(obj, __pyx_mstate_global->__pyx_n_u_class_getitem);
-        if (!meth) {
-            PyErr_Clear();
-        } else {
-            PyObject *result = __Pyx_PyObject_CallOneArg(meth, key);
-            Py_DECREF(meth);
-            return result;
-        }
-    }
-    obj_type_name = __Pyx_PyType_GetFullyQualifiedName(Py_TYPE(obj));
-    PyErr_Format(PyExc_TypeError,
-        "'" __Pyx_FMT_TYPENAME "' object is not subscriptable", obj_type_name);
-    __Pyx_DECREF_TypeName(obj_type_name);
-    return NULL;
-}
-static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject *key) {
-    PyTypeObject *tp = Py_TYPE(obj);
-    PyMappingMethods *mm = tp->tp_as_mapping;
-    PySequenceMethods *sm = tp->tp_as_sequence;
-    if (likely(mm && mm->mp_subscript)) {
-        return mm->mp_subscript(obj, key);
-    }
-    if (likely(sm && sm->sq_item)) {
-        return __Pyx_PyObject_GetIndex(obj, key);
-    }
-    return __Pyx_PyObject_GetItem_Slow(obj, key);
-}
 #endif
 
 /* HasAttr (used by ImportImpl) */

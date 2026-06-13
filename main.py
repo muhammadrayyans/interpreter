@@ -1,7 +1,7 @@
 from config.memory_config import  set_memory, get_memory
-from config.tokenization_config import tokenize_var, numeric_var
+from modules.tokenization_config import tokenize_var, numeric_var 
 import numpy as np # type: ignore
-from config.variable_tree_config import VariableFormation
+from modules.variable_tree_config import VariableFormation
 from config.config import TokenType
 from io_tree.output_tree import Display
 import config.config as config
@@ -34,7 +34,7 @@ for index, i in enumerate(numeric_list):
             match i:
                 case TokenType.PRINT.value:
                     display_obj = Display(numeric_list, token_list, index)
-                    skip_list = display_obj.execute()
+                    display_obj.execute()
                     # skip_index.extend(skip_list)
                     break
                 case _:

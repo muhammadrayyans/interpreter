@@ -48,15 +48,15 @@ class VariableFormation:
                     # normal var to var match case
                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:
                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
-                        value = get_memory(self.token_list[loop_count+index+2])
-                        variable_value+=value
+                        value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
+                        variable_value+=value_normal
                         skip_index.extend(generate_index(index+loop_count, index+loop_count+2))
                     
                     # formatted string match case
                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
-                        result = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+                        result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
                         if result != None:
-                            value = loop_count+index+1
+                            value: c.int = loop_count+index+1
                             variable_value+='{'
                             variable_value+=f'{self.token_list[value]}'
                             variable_value+='}'

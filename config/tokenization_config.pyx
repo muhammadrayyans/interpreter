@@ -55,7 +55,7 @@ def tokenize_var(token_list: list) -> list:
             token_list_return.append(x)
             
     # returning the tokenized list
-    return list(token_list_return)
+    return token_list_return
 
 # numeric list for better performance
 def numeric_var(token_list: list) -> list[int]:
@@ -75,4 +75,4 @@ def numeric_var(token_list: list) -> list[int]:
             # as a placeholder adds 0
             numeric_list.append(0)
     # returning the new list
-    return list(numeric_list)
+    return numeric_list
