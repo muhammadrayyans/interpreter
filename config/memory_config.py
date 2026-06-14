@@ -18,8 +18,10 @@ def get_memory(variable : str):
     try:
         # try to return the data if its not none
         if config.local_memory[variable] != None:
-            return config.local_memory[variable].format(**config.local_memory)
-    
+            if config.local_memory[variable][0] == '~':
+                return config.local_memory[variable].replace('~', '')
+            else:
+                return config.local_memory[variable].format(**config.local_memory)
     # catch Key error and stop the program
     except KeyError as e:
         # halts the program by turning the main switch off

@@ -73,6 +73,7 @@ class VariableFormation:
                     
                     # normal string match case
                     elif index+loop_count > 0 and self.numeric_list[index+loop_count-1] == TokenType.QUOTE.value and i == 0:
+                        variable_value+='~'
                         variable_value += self.token_list[index+loop_count]
                     
                     # formatted string normal text add case

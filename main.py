@@ -37,7 +37,7 @@ for index, i in enumerate(numeric_list):
                     display_obj = Display(numeric_list, token_list, index)
                     list_var = display_obj.execute()
                     # skip_index.extend(skip_list)
-                    break
+                    
                 case TokenType.INPUT.value:
                     get_obj = Get(numeric_list, token_list, index)
                     get_obj.execute()

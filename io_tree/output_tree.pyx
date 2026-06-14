@@ -74,21 +74,16 @@ class Display:
                     loop_count: c.int = 1
                     skip_index: list = []
                     string_var: str = '' # type: ignore
-                    while self.index+key+loop_count+1 < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.QUOTE.value:
+                    while self.index+key+loop_count+1 < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.QUOTE.value and self.numeric_list[self.index+key+loop_count] != TokenType.NEWLINE.value:
                         try:
                             value: TokenType = TokenType(self.numeric_list[self.index+key+loop_count])
                             
                             if value != None and self.numeric_list[self.index+key+loop_count] != TokenType.QUOTE.value:
-                                string_var += str(reverse_keyword.get(value)) # type: ignore
-                                
-                            else:
-                                raise ValueError
-                                
+                                string_var += str(reverse_keyword.get(value)) # type: ignore                     
 
                         except ValueError:
                             
-                            if self.numeric_list[self.index+key+loop_count] != TokenType.QUOTE.value:
-                                logger.debug(f"adding {self.token_list[self.index+key+loop_count]}")
+                            if self.numeric_list[self.index+key+loop_count] != TokenType.QUOTE.value and self.numeric_list[self.index+key+loop_count] != TokenType.NEWLINE.value:
                                 string_var+= self.token_list[self.index+key+loop_count]
                                 
                         loop_count+=1
@@ -100,7 +95,7 @@ class Display:
                 # if its direct var printing prints it wih char getting, separated by comma multiple var can be specified
                 elif i == 0 and self.numeric_list[self.index+key-1] == TokenType.PARENTHESIS_OPEN.value:
                     loop_count:  c.int = 0
-                    while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value:
+                    while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value and self.numeric_list[self.index+key+loop_count] != TokenType.NEWLINE.value:
                         if self.numeric_list[self.index+key+loop_count] == 0:
                             self.token_list[self.index+key+loop_count] = self.token_list[self.index+key+loop_count].replace(' ','')
                             if get_memory(self.token_list[self.index+key+loop_count]) != None:
@@ -109,11 +104,13 @@ class Display:
                             else:
                                 raise KeyError
                         else:
-                            print_string+=f' '
+                            print_string+=' '
                         loop_count+=1
                     skip_def.extend(generate_index(self.index+key, self.index+key+loop_count))
+                    break
+                    
         global_skip.extend(skip_def)
         
-        logger.debug(print_string)
+        logger.debug(f'Printing: {print_string}')
         return skip_def, print_string
                 
