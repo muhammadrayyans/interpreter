@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 user_name = get("Enter name: ")
 hidden_key = get("")
 status_code = '404'
@@ -23,3 +24,9 @@ display("4. Multi-Variable Interpolation:")
 display(combo_alert)
 
 display("--- Diagnostics Complete ---")
+=======
+new = "replaced"
+other = 'inside {new}'
+display(new)
+file = "test addition"
+>>>>>>> origin/dev

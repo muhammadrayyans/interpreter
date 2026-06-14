@@ -94,8 +94,13 @@ class Display:
                 
                 # if its direct var printing prints it wih char getting, separated by comma multiple var can be specified
                 elif i == 0 and self.numeric_list[self.index+key-1] == TokenType.PARENTHESIS_OPEN.value:
+<<<<<<< HEAD:io_tree/output_tree.pyx
                     loop_count:  c.int = 0
                     while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value and self.numeric_list[self.index+key+loop_count] != TokenType.NEWLINE.value:
+=======
+                    loop_count=0
+                    while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value:
+>>>>>>> origin/dev:io_tree/output_tree.py
                         if self.numeric_list[self.index+key+loop_count] == 0:
                             self.token_list[self.index+key+loop_count] = self.token_list[self.index+key+loop_count].replace(' ','')
                             if get_memory(self.token_list[self.index+key+loop_count]) != None:
