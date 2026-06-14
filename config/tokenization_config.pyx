@@ -1,7 +1,6 @@
-from utils.utils import debug, generate_index
 import numpy as np # type: ignore
-from config.memory_config import set_memory
-from config.config import TokenType, keyword, config_skip_index
+from config.config import TokenType, keyword
+import cython as c
 
 TokenType = TokenType
 keyword = keyword
@@ -19,19 +18,26 @@ class Tokenization:
         return self.value
 
 # token list builder function accepting the source code
-def tokenize_var(list: list) -> list:
+def tokenize_var(token_list: list) -> list:
     
     # creating temporary space for storing value
-    token_list = []
+    token_list_return = []
     # skip index for skipping un necessary loops
-    skip_index = []
+    skip_index: list = []
     # calling the token abstract tree as class obj
-    token_converter = Tokenization
+    token_converter: object = Tokenization
     #looping through the list witch was formatted
     # formatting the loop with filters
-    list = [x for x in list if x not in [' ', '']]
-    list = ['`' if x == "'" else x for x in list]
-    for index, x in enumerate(list):
+    token_list = [x for x in token_list if x not in [' ', '']]
+    token_list = ['`' if x == "'" else x for x in token_list]
+    
+    index: c.int
+    x: any
+    limit: c.int = len(token_list)
+    
+    for index in range(limit):
+        x = token_list[index]
+        
         # skipping if skip index exist or the sting is completely empty
         if np.isin(skip_index, index).any() or x == '' or x == " ":
             # adding the elements to the token even if skipped
@@ -41,22 +47,25 @@ def tokenize_var(list: list) -> list:
         try:
             # checking if token value exist for provided keyword if none raise error
             if keyword.get(x) != None:
-                match token_converter.token_value(keyword.get(x)):
-                    # else get the corresponding data to temp storage
-                    case _:
-                        token_list.append(keyword[x].name)
+                # else get the corresponding data to temp storage
+                token_list_return.append(keyword[x].name)
             else : raise KeyError  
         # excepting the key error and using the variable itself as the token witch is essential for variable declaration
         except KeyError:
-            token_list.append(x)
+            token_list_return.append(x)
             
     # returning the tokenized list
-    return token_list
+    return token_list_return
 
 # numeric list for better performance
-def numeric_var(list: list) -> list[int]:
-    numeric_list = []
-    for i in list:
+def numeric_var(token_list: list) -> list[int]:
+    
+    numeric_list: list = []
+    limit: c.int = len(token_list)
+    index: c.int
+    
+    for index in range(limit):
+        i  = token_list[index]
         # checking if i has corresponding value in keywords
         try:
             if TokenType[i]:
