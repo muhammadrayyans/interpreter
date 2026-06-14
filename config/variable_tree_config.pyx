@@ -6,12 +6,13 @@ import logging
 import cython as c
 logger = logging.getLogger(' var_tree')
 logger.setLevel(logging.DEBUG)
+from typing import Any
 
 # var node replace every var in token code
 class VariableFormation:
     
     # constructor of class
-    def __init__(self, token_list: list[any], numeric_list: list[int]):
+    def __init__(self, token_list: list[Any], numeric_list: list[int]):
         self.token_list = token_list # dev
         self.numeric_list = numeric_list
         
@@ -31,21 +32,20 @@ class VariableFormation:
             if index != 0 and np.isin(def_skip, index).any():
                 continue
             
-            elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.numeric_list[index+2]) != None:
+            elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.token_list[index+2]) != None:
                 continue
             
             # check if its a var by checking if bef is = and after it have some value 
             elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value:
                 
                 
-                logging
                 var_name: str = self.token_list[index]
                 variable_value: str = ''
                 loop_count: c.int = 0
                 skip_index: list = []
                 
                 # loops from = until it reach a newline or list index out of range
-                while loop_count+index < len(self.numeric_list) and self.numeric_list[loop_count+index] != TokenType.NEWLINE.value :
+                while loop_count+index < len(self.numeric_list) and self.numeric_list[loop_count+index] != TokenType.NEWLINE.value and self.numeric_list[loop_count+index] != TokenType.PARENTHESIS_CLOSE.value :
                     
                     # skip index check for optimized code
                     if index+loop_count != 0 and np.isin(skip_index, index+loop_count).any():
@@ -55,13 +55,13 @@ class VariableFormation:
                     # normal var to var match case
                     elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:
                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
-                        value_normal: str | c.int = get_memory(self.token_list[loop_count+index+2])
-                        variable_value+=value_normal
+                        value_normal: str | c.int | None = get_memory(self.token_list[loop_count+index+2])
+                        variable_value+=str(value_normal)
                         skip_index.extend(generate_index(index+loop_count, index+loop_count+2))
                     
                     # formatted string match case
                     elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
-                        result: str | c.int = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
+                        result: str | c.int | None = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
                         if result != None:
                             value: c.int = loop_count+index+1
                             variable_value+='{'

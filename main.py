@@ -9,7 +9,7 @@ import re
 import logging
 logger = logging.getLogger(' main')
 logger.setLevel(logging.DEBUG)
-from io_tree.input_tree import Get
+from modules.input_tree import Get # type: ignore
 
 # using file method opening and reading contents into source_code
 with open('main.hx', 'r', encoding="utf-8") as file:

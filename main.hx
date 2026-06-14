@@ -1,4 +1,3 @@
-single_line = "singl line msf"
 new = get("first")
-then = 'test {new}'
-display(then)
+single_line = "singl {new} msf"
+display('the single line is {single_line}')

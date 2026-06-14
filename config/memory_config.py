@@ -1,3 +1,4 @@
+from typing import Any
 import config.config as config
 import logging
 logging.basicConfig(level=logging.ERROR)
@@ -7,9 +8,9 @@ import sys
 sys.tracebacklimit = 0 
 
 # set memory function allocate space for var to store data
-def set_memory(variable : str, value : any):
+def set_memory(variable : str, value : Any):
     
-    config.local_memory[variable] = value.format(**config.local_memory)
+    config.local_memory[variable] = value
 
 # get memory fetches data from the db and returns it if founded
 def get_memory(variable : str):
@@ -17,7 +18,7 @@ def get_memory(variable : str):
     try:
         # try to return the data if its not none
         if config.local_memory[variable] != None:
-            return config.local_memory[variable]
+            return config.local_memory[variable].format(**config.local_memory)
     
     # catch Key error and stop the program
     except KeyError as e:
