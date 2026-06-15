@@ -2,11 +2,14 @@ from modules.tokenization_config import tokenize_var, numeric_var
 from modules.variable_tree_config import VariableFormation
 from parser.parser import Parser
 import config.config as config
+import time
 import re
 
 import logging
 logger = logging.getLogger(' main')
 logger.setLevel(logging.DEBUG)
+
+start_time: float = time.perf_counter()
 
 # using file method opening and reading contents into source_code
 with open('main.hx', 'r', encoding="utf-8") as file:
@@ -33,6 +36,8 @@ for executer in config.execute_thread:
         break
     else:
         executer.execute()
-                    
+
+stop_time: float = time.perf_counter()
+logger.debug(f"took {stop_time - start_time}s to compleat")
  
     

@@ -14,6 +14,8 @@ class Display:
     def __init__(self, print_string: str) -> None:
         self.print_string = print_string
         
+    @c.boundscheck(False)  
+    @c.wraparound(False)
     def execute(self):
         print(self.print_string)
         

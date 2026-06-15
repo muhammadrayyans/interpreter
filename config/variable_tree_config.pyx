@@ -7,6 +7,7 @@ import cython as c
 logger = logging.getLogger(' var_tree')
 logger.setLevel(logging.DEBUG)
 from typing import Any
+from array import array
 
 # var node replace every var in token code
 class VariableFormation:
@@ -22,35 +23,39 @@ class VariableFormation:
         self.numeric_list = numeric_list
         
     # execute code
+    @c.boundscheck(False)  
+    @c.wraparound(False)   
     def execute(self):
         
         # main skip list for optimization
-        def_skip: list = []
+        def_skip: array = array('i',[])
         index: c.int
         i: c.int
-        limit: c.int = len(self.numeric_list)
+        np_array = np.array(self.numeric_list, dtype=np.int32)
+        c_view: c.int[:] = np_array # type: ignore 
+        limit: c.int = len(c_view) # type: ignore 
         
         # for loop for var adding
         for index in range(limit):
-            i = self.numeric_list[index]
+            i = c_view[index] # type: ignore 
             # skip if value exist in skip list
             if index != 0 and np.isin(def_skip, index).any():
                 continue
             
-            elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.token_list[index+2]) != None:
+            elif index+1 < len(self.numeric_list) and i == 0 and c_view[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.token_list[index+2]) != None: #type: ignore
                 continue
             
             # check if its a var by checking if bef is = and after it have some value 
-            elif index+1 < len(self.numeric_list) and i == 0 and self.numeric_list[index+1] == TokenType.EQUAL.value:
+            elif index+1 < len(self.numeric_list) and i == 0 and c_view[index+1] == TokenType.EQUAL.value: #type: ignore
                 
                 
                 var_name: str = self.token_list[index]
                 variable_value: str = ''
                 loop_count: c.int = 0
-                skip_index: list = []
+                skip_index: array = array('i',[])
                 
                 # loops from = until it reach a newline or list index out of range
-                while loop_count+index < len(self.numeric_list) and self.numeric_list[loop_count+index] != TokenType.NEWLINE.value and self.numeric_list[loop_count+index] != TokenType.PARENTHESIS_CLOSE.value :
+                while loop_count+index < len(self.numeric_list) and c_view[loop_count+index] != TokenType.NEWLINE.value and c_view[loop_count+index] != TokenType.PARENTHESIS_CLOSE.value : #type: ignore
                     
                     # skip index check for optimized code
                     if index+loop_count != 0 and np.isin(skip_index, index+loop_count).any():
@@ -58,14 +63,14 @@ class VariableFormation:
                         continue
                     
                     # normal var to var match case
-                    elif loop_count+index+2 < len(self.numeric_list) and self.numeric_list[loop_count+index+2] == 0 and self.numeric_list[loop_count+index+1] == TokenType.EQUAL.value:
+                    elif loop_count+index+2 < len(self.numeric_list) and c_view[loop_count+index+2] == 0 and c_view[loop_count+index+1] == TokenType.EQUAL.value: #type: ignore
                         self.token_list[loop_count+index+2] = self.token_list[loop_count+index+2].replace(' ','')
                         value_normal: str | c.int | None = get_memory(self.token_list[loop_count+index+2])
                         variable_value+=str(value_normal)
                         skip_index.extend(generate_index(index+loop_count, index+loop_count+2))
                     
                     # formatted string match case
-                    elif self.numeric_list[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value:
+                    elif c_view[loop_count+index] == TokenType.CURLY_BRACE_OPEN.value: #type: ignore
                         result: str | c.int | None = get_memory(self.token_list[loop_count+index+1]) if loop_count+index < len(self.numeric_list) else None
                         if result != None:
                             value: c.int = loop_count+index+1
@@ -77,7 +82,7 @@ class VariableFormation:
                             continue
                     
                     # normal string match case
-                    elif index+loop_count > 0 and self.numeric_list[index+loop_count-1] == TokenType.QUOTE.value and i == 0:
+                    elif index+loop_count > 0 and c_view[index+loop_count-1] == TokenType.QUOTE.value and i == 0: #type: ignore
                         variable_value+='~'
                         variable_value += self.token_list[index+loop_count]
                     
@@ -86,8 +91,8 @@ class VariableFormation:
                         variable_value += self.token_list[index+loop_count]
                     
                     # formatted string after var text add case
-                    elif index > 0 and self.numeric_list[index+loop_count-1] == TokenType.CURLY_BRACE_CLOSE.value and i == 0:
-                        if self.numeric_list[index+loop_count] == 0:
+                    elif index > 0 and c_view[index+loop_count-1] == TokenType.CURLY_BRACE_CLOSE.value and i == 0: #type: ignore
+                        if c_view[index+loop_count] == 0: #type: ignore
                             variable_value += self.token_list[index+loop_count]
                        
                     # formatting var name to remove un necessary space 

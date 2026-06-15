@@ -11,6 +11,7 @@ import numpy as np # type: ignore
 from utils.utils import generate_index
 from modules.display_parser import ParserDisplay # type: ignore
 from modules.output_tree import Display
+from array import array
 
 logger = logging.getLogger(' parser')
 logger.setLevel(logging.DEBUG)
@@ -62,9 +63,12 @@ class Parser:
                 
         return inline_skip_index, False                  
         
+    
     def execute(self):
-        local_skip: list = []
+        local_skip: array = array('i',[])
         local_isError: bool = False
+        np_array = np.array(self.numeric_list, dtype=np.int32)
+        # c_view: c.int[:] = np_array
         array_length: int = len(self.numeric_list)
         index: int 
         new_line_count: int = 0
@@ -109,9 +113,9 @@ class Parser:
                 local_isError = obj_isError
             
             elif i == TokenType.PRINT.value:
-                display_obj = ParserDisplay(self.numeric_list, self.token_list, index)
+                display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index)
                 obj_skip_index, print_data = display_obj.evaluate()
-                exe_obj = Display(print_data)
+                exe_obj: Display = Display(print_data)
                 local_skip.extend(obj_skip_index)
                 config.execute_thread.append(exe_obj)
                 

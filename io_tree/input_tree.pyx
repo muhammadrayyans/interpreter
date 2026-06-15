@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger(' input')
 logger.setLevel(logging.DEBUG)
 from typing import Any
-import cython
+import cython as c
 
 class Get:
     def __init__(self, numeric_list: list[int], token_list: list[Any], index: int):
@@ -13,6 +13,8 @@ class Get:
         self.token_list = token_list
         self.index = index
         
+    @c.boundscheck(False)  
+    @c.wraparound(False)    
     def execute(self):
         var_name: str = self.token_list[self.index-2]
         var_name = var_name.replace(' ', '')
