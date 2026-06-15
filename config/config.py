@@ -1,10 +1,10 @@
 from enum import Enum, auto
 
 # the main memory for var storage
-local_memory = {}
+local_memory: dict = {}
 
 # the key witch is used to control the flow of code
-isError = False
+isError: bool = False
 
 
 # enums for all keywords from python 
@@ -39,7 +39,7 @@ class TokenType(Enum):
     EOF = auto()
     
 # keywords from language mapped to enums  
-keyword = {
+keyword: dict = {
     "assume": TokenType.IF,
     "otherwise": TokenType.ELSE,
     "while": TokenType.WHILE,
@@ -64,7 +64,7 @@ keyword = {
     "`": TokenType.FORMAT
 }
 
-reverse_keyword = {
+reverse_keyword: dict = {
     TokenType.IF: "assume",
     TokenType.ELSE: "otherwise",
     TokenType.WHILE: "while",
@@ -89,4 +89,7 @@ reverse_keyword = {
 }
 
 # main skip list
-config_skip_index = []
+config_skip_index: list = []
+
+# main execute line
+execute_thread: list = []

@@ -10,10 +10,15 @@ from typing import Any
 
 # var node replace every var in token code
 class VariableFormation:
+    """A class that assign value to variables
+    Args:
+        token_list: Tokenized list passed.
+        numeric_token_list: Tokenized list converted to numeric passed.
+    """
     
     # constructor of class
     def __init__(self, token_list: list[Any], numeric_list: list[int]):
-        self.token_list = token_list # dev
+        self.token_list = token_list 
         self.numeric_list = numeric_list
         
     # execute code
