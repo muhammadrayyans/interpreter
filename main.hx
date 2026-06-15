@@ -1,1 +1,2 @@
-display("hello world")
+y = 'rayyan'
+display("somthing")

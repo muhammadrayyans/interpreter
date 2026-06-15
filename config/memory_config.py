@@ -9,7 +9,6 @@ sys.tracebacklimit = 0
 
 # set memory function allocate space for var to store data
 def set_memory(variable : str, value : Any):
-    
     config.local_memory[variable] = value
 
 # get memory fetches data from the db and returns it if founded

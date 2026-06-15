@@ -123,28 +123,29 @@ class Parser:
                 
             elif index+1 < array_length and i == TokenType.EQUAL.value:
                 target: int = self.numeric_list[index+1]
-                try:
-                    if target == 0:
-                        raise ValueError
-                    loop_count: int = 2
-                    isExists: bool = False
-                    while index+loop_count+1 < array_length and self.numeric_list[index+loop_count] != TokenType.NEWLINE.value:
-                        if index+loop_count+1 < array_length and self.numeric_list[index+loop_count+1] == target:
-                            isExists = True
-                        loop_count+=1
+                if isinstance(target, str):
+                    try:
+                        if target == 0:
+                            raise ValueError
+                        loop_count: int = 2
+                        isExists: bool = False
+                        while index+loop_count+1 < array_length and self.numeric_list[index+loop_count] != TokenType.NEWLINE.value:
+                            if index+loop_count+1 < array_length and self.numeric_list[index+loop_count+1] == target:
+                                isExists = True
+                            loop_count+=1
+                            
+                        if not isExists:
+                            raise SyntaxError
+                        else :
+                            continue
                         
-                    if not isExists:
-                        raise SyntaxError
-                    else :
-                        continue
-                    
-                except SyntaxError:
-                        logging.error(Fore.RED+f" Syntax Missing at line {new_line_count+1} didn't closed the opening \033[4m\033[1m` {reverse_keyword.get(TokenType(target))} `\033[0m")
-                        config.isError = True
-                        break
-                    
-                except  ValueError:
-                        logging.error(Fore.RED+f" Syntax Missing at line {new_line_count+1} use ', `,"+' or ",'+f" before \033[4m\033[1m'{self.token_list[index+1]}'\033[0m to add a value")
-                        config.isError = True
-                        break
+                    except SyntaxError:
+                            logging.error(Fore.RED+f" Syntax Missing at line {new_line_count+1} didn't closed the opening \033[4m\033[1m` {reverse_keyword.get(TokenType(target))} `\033[0m")
+                            config.isError = True
+                            break
+                        
+                    except  ValueError:
+                            logging.error(Fore.RED+f" Syntax Missing at line {new_line_count+1} use ', `,"+' or ",'+f" before \033[4m\033[1m'{self.token_list[index+1]}'\033[0m to add a value")
+                            config.isError = True
+                            break
             

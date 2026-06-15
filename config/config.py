@@ -37,7 +37,15 @@ class TokenType(Enum):
     FORMAT = auto()
 
     EOF = auto()
-    
+
+# enum for all operators
+class OperatorType(Enum):
+    ADDITION = auto()
+    SUBTRACTION = auto()
+    MULTIPLICATION = auto()
+    DIVISION = auto()
+    MODULO = auto()
+
 # keywords from language mapped to enums  
 keyword: dict = {
     "assume": TokenType.IF,
@@ -61,7 +69,12 @@ keyword: dict = {
     ' ':TokenType.SPACE,
     '=':TokenType.EQUAL,
     '\n' : TokenType.NEWLINE,
-    "`": TokenType.FORMAT
+    "`": TokenType.FORMAT,
+    '+': OperatorType.ADDITION,
+    '-': OperatorType.SUBTRACTION,
+    '*': OperatorType.MULTIPLICATION,
+    '/': OperatorType.DIVISION,
+    '%': OperatorType.MODULO,
 }
 
 reverse_keyword: dict = {
@@ -85,7 +98,12 @@ reverse_keyword: dict = {
     TokenType.SPACE: " ",
     TokenType.EQUAL: "=",
     TokenType.NEWLINE: "\n",
-    TokenType.FORMAT: "`"
+    TokenType.FORMAT: "`",
+    OperatorType.ADDITION: '+',
+    OperatorType.SUBTRACTION:'-' ,
+    OperatorType.MULTIPLICATION:'*' ,
+    OperatorType.DIVISION: '/',
+    OperatorType.MODULO:'%' ,
 }
 
 # main skip list
