@@ -15,10 +15,9 @@ class Display:
         self.index = index+2
         self.token_list = token_list
         self.numeric_list = numeric_list
-        self.__print_item: str
         
     # execute method
-    def validate(self):
+    def execute(self) -> tuple[list[int], str]:
         global_skip: list[c.int] = []
         skip_def: list[c.int] = []
         numeric_list_len: c.int = len(self.numeric_list)
@@ -39,10 +38,11 @@ class Display:
                 
                 # if i param found to be formatted type execute formatted code
                 if i == TokenType.FORMAT.value:
-                    loop_count: c.int = 1
+                    loop_count: c.int = 0
                     skip_index: list = []
                     string_var: str = '' # type: ignore
-                    while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.FORMAT.value:
+                    while self.index+key+loop_count+1 < numeric_list_len and self.numeric_list[self.index+key+loop_count+1] != TokenType.FORMAT.value:
+                        
                         if np.isin(skip_index, self.index+key+loop_count).any():
                             string_var+=' ' # type: ignore
                             loop_count+=1
@@ -66,7 +66,6 @@ class Display:
                     
                     # adding the received data to print data
                     print_string+=str(string_var)
-                    logger.debug(f"debug added {print_string}")
                     skip_def.extend(generate_index(self.index+key+loop_count, self.index+key+loop_count))   
                     break 
                 
@@ -95,8 +94,13 @@ class Display:
                 
                 # if its direct var printing prints it wih char getting, separated by comma multiple var can be specified
                 elif i == 0 and self.numeric_list[self.index+key-1] == TokenType.PARENTHESIS_OPEN.value:
+<<<<<<< HEAD:io_tree/output_tree.pyx
+                    loop_count:  c.int = 0
+                    while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value and self.numeric_list[self.index+key+loop_count] != TokenType.NEWLINE.value:
+=======
                     loop_count=0
                     while self.index+key+loop_count < numeric_list_len and self.numeric_list[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value:
+>>>>>>> origin/dev:io_tree/output_tree.py
                         if self.numeric_list[self.index+key+loop_count] == 0:
                             self.token_list[self.index+key+loop_count] = self.token_list[self.index+key+loop_count].replace(' ','')
                             if get_memory(self.token_list[self.index+key+loop_count]) != None:
@@ -112,7 +116,6 @@ class Display:
                     
         global_skip.extend(skip_def)
         
-        self.__print_item = print_string
-
-    def execute(self):
-        print(self.__print_item)
+        logger.debug(f'Printing: {print_string}')
+        return skip_def, print_string
+                
