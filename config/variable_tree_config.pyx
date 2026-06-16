@@ -9,7 +9,6 @@ logger = logging.getLogger(' var_tree')
 logger.setLevel(logging.DEBUG)
 from typing import Any
 from array import array
-from numbers import Number
 from colorama import init,  Fore # type: ignore 
 
 # var node replace every var in token code
@@ -41,10 +40,12 @@ class VariableFormation:
         # for loop for var adding
         for index in range(limit):
             i = c_view[index] # type: ignore 
+            
             # skip if value exist in skip list
             if index != 0 and np.isin(def_skip, index).any():
                 continue
             
+            # skip for numeric
             elif index+1 < limit and i == 0 and c_view[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.token_list[index+2]) != None: #type: ignore
                 continue
             
@@ -71,6 +72,8 @@ class VariableFormation:
                         if self.token_list[loop_count+index+2] == TokenType.PARENTHESIS_OPEN.name or  not isinstance(self.token_list[loop_count+index+2], TokenType):
                             inline_loop_count: c.int = 2
                             evaluation_string: str = ''
+                            
+                            
                             try:    
                                 
                                 if self.token_list[loop_count+index+inline_loop_count] != TokenType.NEWLINE.name:
@@ -78,12 +81,14 @@ class VariableFormation:
                                         
                                         # checks if the next element is a number
                                         if self.token_list[loop_count+index+inline_loop_count].replace(' ','').isdigit():
-                                            evaluation_string+=str(self.token_list[loop_count+index+inline_loop_count])
+                                            evaluation_string+=self.token_list[loop_count+index+inline_loop_count]
                                             if self.token_list[loop_count+index+inline_loop_count+1] != TokenType.NEWLINE.name:
                                                 if self.token_list[loop_count+index+inline_loop_count+1] == TokenType.PARENTHESIS_CLOSE.name:
                                                     evaluation_string+=')'
                                                 else: 
-                                                    evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+index+inline_loop_count+1]]])
+                                                    if self.token_list[loop_count+index+inline_loop_count] != TokenType.NEWLINE.name:
+                                                        evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+index+inline_loop_count+1]]])
+                                                    else: break
                                                 inline_loop_count+=2
                                             else: break
                                                                                   
@@ -95,13 +100,17 @@ class VariableFormation:
                                                 raise SyntaxError
                                         
                                         # checking for var
-                                        elif get_memory(self.token_list[loop_count+index+inline_loop_count].replace(' ','')).isdigit(): # type: ignore
-                                            evaluation_string+=str(get_memory(self.token_list[loop_count+index+inline_loop_count].replace(' ','')))
+                                        else: 
+                                            call_var: str = self.token_list[loop_count+index+inline_loop_count].replace(' ','')
+                                            numeric_value: str = str(get_memory(call_var))
+                                            evaluation_string += numeric_value
                                             if self.token_list[loop_count+index+inline_loop_count+1] != TokenType.NEWLINE.name:
                                                 if self.token_list[loop_count+index+inline_loop_count+1] == TokenType.PARENTHESIS_CLOSE.name:
                                                     evaluation_string+=')'
                                                 else: 
-                                                    evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+index+inline_loop_count+1]]])
+                                                    if self.token_list[loop_count+index+inline_loop_count] != TokenType.NEWLINE.name:
+                                                        evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+index+inline_loop_count+1]]])
+                                                    else: break
                                                 inline_loop_count+=2
                                             else: break
                                         

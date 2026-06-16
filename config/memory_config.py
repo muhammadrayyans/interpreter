@@ -6,10 +6,12 @@ from colorama import init, Fore # type: ignore
 import sys
 # for suppressing python traceback
 sys.tracebacklimit = 0 
+from modules.data_node import DataModule # type: ignore
 
 # set memory function allocate space for var to store data
 def set_memory(variable : str, value : Any):
-    config.local_memory[variable] = value
+    data_object = DataModule(variable, value)
+    config.local_memory[variable] = data_object
 
 # get memory fetches data from the db and returns it if founded
 def get_memory(variable : str):
@@ -17,10 +19,15 @@ def get_memory(variable : str):
     try:
         # try to return the data if its not none
         if config.local_memory[variable] != None:
-            if config.local_memory[variable][0] == '~':
-                return config.local_memory[variable][1 :]
-            else:
-                return config.local_memory[variable].format(**config.local_memory)
+            data_object: DataModule = config.local_memory[variable]
+            _, value, data_type = data_object.execute()
+            if data_type == str:
+                if value[0] == '~':
+                    return value[1 :]
+                else:
+                    return value.format(**config.local_memory)
+            else: return value
+    
     # catch Key error and stop the program
     except KeyError as e:
         # halts the program by turning the main switch off

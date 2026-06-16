@@ -62,9 +62,9 @@ class ParserDisplay:
                         
                         # core of formatted code replace '{' with actual value if found else raise key error
                         elif c_view[self.index+key+loop_count] == TokenType.CURLY_BRACE_OPEN.value: # type: ignore
-                            result_data: str | None = get_memory(self.token_list[self.index+key+loop_count+1])
+                            result_data: str = str(get_memory(self.token_list[self.index+key+loop_count+1]))
                             if result_data != None:
-                                string_var+=result_data.format(**local_memory)
+                                string_var+= result_data # type: ignore
                                 skip_index.extend(generate_index(self.index+key+loop_count, self.index+key+loop_count+2))
                                 loop_count+=1
                                 continue
@@ -111,8 +111,8 @@ class ParserDisplay:
                         if c_view[self.index+key+loop_count] == 0: # type: ignore
                             self.token_list[self.index+key+loop_count] = self.token_list[self.index+key+loop_count].replace(' ','')
                             if get_memory(self.token_list[self.index+key+loop_count]) != None:
-                                string_var: str | None = get_memory(self.token_list[self.index+key+loop_count])  
-                                print_string+=str(string_var)
+                                string_var: str | None = str(get_memory(self.token_list[self.index+key+loop_count]))
+                                print_string+=string_var
                             else:
                                 raise KeyError
                         else:

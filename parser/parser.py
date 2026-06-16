@@ -1,4 +1,4 @@
-from config.config import TokenType, reverse_keyword
+from config.config import TokenType, reverse_keyword, config_skip_index
 from colorama import init, Fore # type: ignore
 import config.config as config
 from typing import Any
@@ -74,7 +74,6 @@ class Parser:
         new_line_count: int = 0
         
         for index in range(array_length):
-            
             i = self.numeric_list[index]
             
             if local_isError:
@@ -95,7 +94,6 @@ class Parser:
                 obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.FORMAT)
                 local_skip.extend(obj_skip)
                 local_isError = obj_isError
-
 
             elif i == TokenType.PARENTHESIS_OPEN.value:
                 obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.PARENTHESIS_CLOSE)
@@ -119,33 +117,6 @@ class Parser:
                 local_skip.extend(obj_skip_index)
                 config.execute_thread.append(exe_obj)
                 
-                pass
                 
-            elif index+1 < array_length and i == TokenType.EQUAL.value:
-                target: int = self.numeric_list[index+1]
-                if isinstance(target, str):
-                    try:
-                        if target == 0:
-                            raise ValueError
-                        loop_count: int = 2
-                        isExists: bool = False
-                        while index+loop_count+1 < array_length and self.numeric_list[index+loop_count] != TokenType.NEWLINE.value:
-                            if index+loop_count+1 < array_length and self.numeric_list[index+loop_count+1] == target:
-                                isExists = True
-                            loop_count+=1
-                            
-                        if not isExists:
-                            raise SyntaxError
-                        else :
-                            continue
-                        
-                    except SyntaxError:
-                            logging.error(Fore.RED+f" Syntax Missing at line {new_line_count+1} didn't closed the opening \033[4m\033[1m` {reverse_keyword.get(TokenType(target))} `\033[0m")
-                            config.isError = True
-                            break
-                        
-                    except  ValueError:
-                            logging.error(Fore.RED+f" Syntax Missing at line {new_line_count+1} use ', `,"+' or ",'+f" before \033[4m\033[1m'{self.token_list[index+1]}'\033[0m to add a value")
-                            config.isError = True
-                            break
+                
             
