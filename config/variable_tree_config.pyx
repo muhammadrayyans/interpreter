@@ -10,6 +10,7 @@ logger.setLevel(logging.DEBUG)
 from typing import Any
 from array import array
 from colorama import init,  Fore # type: ignore 
+from modules.data_node import DataModule 
 
 # var node replace every var in token code
 class VariableFormation:
@@ -45,13 +46,24 @@ class VariableFormation:
             if index != 0 and np.isin(def_skip, index).any():
                 continue
             
+            # skip for input command
+            elif index+2 < limit and c_view[index+1] == TokenType.EQUAL.value and c_view[index+2] == TokenType.INPUT.value: # type: ignore
+                set_memory(f'{self.token_list[index].replace(' ','')}REPLACE64@9', "REPLACE64@9") 
+                format_string: DataModule = config.local_memory[self.token_list[index].replace(' ','')+"REPLACE64@9"]
+                input_name = "{"+self.token_list[index].replace(' ','')+"REPLACE64@9}"
+                set_memory(self.token_list[index].replace(' ',''), input_name)
+                logger.debug(f'{get_memory(self.token_list[index].replace(' ',''))}')
+                inline_loop_count: c.int = 0
+                while c_view[index+inline_loop_count] != TokenType.NEWLINE.value: # type: ignore
+                    inline_loop_count+=1
+                def_skip.extend(generate_index(index, index+inline_loop_count))
+            
             # skip for numeric
             elif index+1 < limit and i == 0 and c_view[index+1] == TokenType.EQUAL.value and reverse_keyword.get(self.token_list[index+2]) != None: #type: ignore
                 continue
             
             # check if its a var by checking if bef is = and after it have some value 
-            elif index+1 < limit and i == 0 and c_view[index+1] == TokenType.EQUAL.value: #type: ignore
-                
+            elif index+1 < limit and i == 0 and c_view[index+1] == TokenType.EQUAL.value and c_view[index+2] != TokenType.INPUT.value: #type: ignore
                 
                 var_name: str = self.token_list[index]
                 variable_value: str = ''

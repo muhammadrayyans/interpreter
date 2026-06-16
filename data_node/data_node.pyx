@@ -17,4 +17,9 @@ class DataModule:
     
     def execute(self) -> tuple[str, Any, Any]:
         return self.variable_name, self.data, self.data_type
-        
+    
+    def value_change(self, value: Any):
+        print(f'data -> changed {value}, for {self.variable_name}')
+        self.data = value
+        self.data_type = type(value)
+    

@@ -10,6 +10,7 @@ from modules.data_node import DataModule # type: ignore
 
 # set memory function allocate space for var to store data
 def set_memory(variable : str, value : Any):
+    print(f'Memory tree - from {variable} to {value}')
     data_object = DataModule(variable, value)
     config.local_memory[variable] = data_object
 
@@ -20,16 +21,25 @@ def get_memory(variable : str):
         # try to return the data if its not none
         if config.local_memory[variable] != None:
             data_object: DataModule = config.local_memory[variable]
-            _, value, data_type = data_object.execute()
-            if data_type == str:
+            _, value, _ = data_object.execute()
+            if type(value) is str:
                 if value[0] == '~':
                     return value[1 :]
                 else:
-                    return value.format(**config.local_memory)
+                    if '<data_node.DataModule' in value.format(**config.local_memory):
+                        value  = value.replace('{', '')
+                        value = value.replace('}', '')
+                        if config.local_memory[value].data != 'REPLACE64@9':
+                            return config.local_memory[value].data
+                        else: return value
+                    elif value.format(**config.local_memory) :
+                        return value.format(**config.local_memory)
+                    else:
+                        return value.format(**config.local_memory)
             else: return value
     
     # catch Key error and stop the program
-    except KeyError as e:
+    except KeyError :
         # halts the program by turning the main switch off
         config.isError = True
         # displaying the error for witch var wasn't able to fetch data is about

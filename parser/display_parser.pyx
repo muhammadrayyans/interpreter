@@ -7,7 +7,6 @@ logger = logging.getLogger(' display_parser')
 logger.setLevel(logging.DEBUG)
 import cython as c
 from typing import Any
-from array import array
 
 class ParserDisplay:
     """A class that parses the display data.
@@ -27,9 +26,10 @@ class ParserDisplay:
     # execute method
     @c.boundscheck(False)  
     @c.wraparound(False)
-    def evaluate(self) -> tuple[array, str]:
-        global_skip: array = array('i', [])
-        skip_def: array = array('i', [])
+    
+    def execute(self) -> tuple[list, str]:
+        global_skip: list = []
+        skip_def: list = []
         limit: c.int = len(self.numeric_list[self.index : ])
         np_array = np.array(self.numeric_list, dtype=np.int32)
         c_view: c.int[:] = np_array # type: ignore 
@@ -78,7 +78,7 @@ class ParserDisplay:
                     
                     # adding the received data to print data
                     print_string+=str(string_var)
-                    skip_def.extend(generate_index(self.index+key+loop_count, self.index+key+loop_count))   
+                    skip_def.extend(generate_index(self.index, self.index+key+loop_count))   
                     break 
                 
                 # if param is double quote print as it is
@@ -101,7 +101,7 @@ class ParserDisplay:
                         loop_count+=1
                         
                     print_string+=str(string_var)
-                    skip_def.extend(generate_index(self.index+key+loop_count, self.index+key+loop_count))
+                    skip_def.extend(generate_index(self.index+key, self.index+key+loop_count))
                     break
                 
                 # if its direct var printing prints it wih char getting, separated by comma multiple var can be specified

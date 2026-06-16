@@ -1,28 +1,45 @@
-from config.config import TokenType
-from config.memory_config import set_memory
-from modules.output_tree import Display
+from config.config import DataType, local_memory
+from config.memory_config import set_memory, get_memory
 import logging
 logger = logging.getLogger(' input')
 logger.setLevel(logging.DEBUG)
 from typing import Any
 import cython as c
+from modules.data_node import DataModule
 
 class Get:
-    def __init__(self, numeric_list: list[int], token_list: list[Any], index: int):
-        self.numeric_list = numeric_list
-        self.token_list = token_list
-        self.index = index
+    """A class that helps to get user input
+    
+    Args:
+        var_name: name of var witch data is going to be stored
+        print_data: data that is going to be printed
+        isConverted: decides if the data should be converted to another type
+        dtype: the type witch to be converted if isConverted turns out to be true
+    """
+    
+    def __init__(self, var_name: str, print_data: str | None, isConverted: bool, dtype: Any):
+        self.var_name = var_name
+        self.print_data = print_data
+        self.isConverted = isConverted
+        self.dtype = dtype
+        
+    def __data_type(self, dtype: int, result: str) -> Any:
+        if dtype == DataType.INTEGER.value:
+            return int(result)
+        if dtype == DataType.FLOAT.value:
+            return float(result)
         
     @c.boundscheck(False)  
     @c.wraparound(False)    
     def execute(self):
-        var_name: str = self.token_list[self.index-2]
-        var_name = var_name.replace(' ', '')
-        if self.numeric_list[self.index+1] == TokenType.PARENTHESIS_OPEN.value and self.numeric_list[self.index+2] != TokenType.PARENTHESIS_CLOSE.value:
-            display_obj: Display = Display(self.numeric_list, self.token_list, self.index)
-            return_data: str
-            _, return_data = display_obj.execute()
-            print("DEBUG: input_tree: ",return_data, end=" ")
+        if self.print_data != None:
+            print(self.print_data, end="")
         value: str = input()
-        set_memory(var_name, value)
+        if self.isConverted:
+            value = self.__data_type(int(self.dtype), value)
+        else:
+            value = value
         
+        data_obj: DataModule = local_memory[f'{self.var_name}REPLACE64@9']
+        data_obj.value_change(value)
+        logger.debug("setting")

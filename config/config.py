@@ -46,6 +46,13 @@ class OperatorType(Enum):
     DIVISION = auto()
     MODULO = auto()
 
+# enum for all data type
+class DataType(Enum):
+    INTEGER = auto()
+    DOUBLE = auto()
+    FLOAT = auto()
+    BOOLEAN = auto() 
+
 # keywords from language mapped to enums  
 keyword: dict = {
     "assume": TokenType.IF,
@@ -75,6 +82,10 @@ keyword: dict = {
     '*': OperatorType.MULTIPLICATION,
     '/': OperatorType.DIVISION,
     '%': OperatorType.MODULO,
+    'int': DataType.INTEGER,
+    'double': DataType.DOUBLE,
+    'float': DataType.FLOAT,
+    'bool': DataType.BOOLEAN,
 }
 
 reverse_keyword: dict = {
@@ -104,6 +115,10 @@ reverse_keyword: dict = {
     OperatorType.MULTIPLICATION:'*' ,
     OperatorType.DIVISION: '/',
     OperatorType.MODULO:'%' ,
+    DataType.INTEGER: 'int',
+    DataType.DOUBLE: 'double',
+    DataType.FLOAT: 'float',
+    DataType.BOOLEAN:'bool'
 }
 
 # main skip list
