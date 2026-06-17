@@ -6,7 +6,6 @@ class DataModule:
     Args:
         variable_name: the actual name of current variable
         data: the data tht was provided for storing
-        data_type: the type of the provided data (eg: str, int, bool, float ect...)
     """
     
     def __init__(self, variable_name: str, data: Any) -> None:

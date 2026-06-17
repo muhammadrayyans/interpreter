@@ -1,12 +1,10 @@
 from config.config import TokenType, DataType
 from modules.display_parser import ParserDisplay
 import logging
-from utils.utils import generate_index
 logger = logging.getLogger(' parser_input')
 logger.setLevel(logging.DEBUG)
 from typing import Any
 import cython as c
-from array import array
 
 class GetParser:
     """A class that helps to parse user input

@@ -1,4 +1,4 @@
-from config.config import TokenType, reverse_keyword, local_memory
+from config.config import TokenType, reverse_keyword
 from utils.utils import  generate_index
 import numpy as np # type: ignore
 from config.memory_config import get_memory
@@ -6,7 +6,6 @@ import logging
 logger = logging.getLogger(' display_parser')
 logger.setLevel(logging.DEBUG)
 import cython as c
-from typing import Any
 
 class ParserDisplay:
     """A class that parses the display data.

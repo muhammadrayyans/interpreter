@@ -10,7 +10,6 @@ logger.setLevel(logging.DEBUG)
 from typing import Any
 from array import array
 from colorama import init,  Fore # type: ignore 
-from modules.data_node import DataModule 
 
 # var node replace every var in token code
 class VariableFormation:
@@ -18,6 +17,7 @@ class VariableFormation:
     Args:
         token_list: Tokenized list passed.
         numeric_token_list: Tokenized list converted to numeric passed.
+        index: the index of variable tht is to be added
     """
     
     # constructor of class

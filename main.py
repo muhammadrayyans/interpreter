@@ -1,5 +1,5 @@
 from modules.tokenization_config import tokenize_var, numeric_var 
-from parser.parser import Parser
+from modules.parser import Parser 
 import config.config as config
 import time
 import re
@@ -11,7 +11,7 @@ logger.setLevel(logging.DEBUG)
 start_time: float = time.perf_counter()
 
 # using file method opening and reading contents into source_code
-with open('main.hx', 'r', encoding="utf-8") as file:
+with open('main.bc', 'r', encoding="utf-8") as file:
     source_code = file.read()
     
 # using re splitting up code based on criteria's

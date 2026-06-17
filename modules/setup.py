@@ -8,6 +8,7 @@ setup(
                              '../io_tree/output_tree.pyx',
                              '../parser/display_parser.pyx',
                              '../data_node/data_node.pyx',
-                             '../parser/get_parser.pyx'
+                             '../parser/get_parser.pyx',
+                             '../parser/parser.pyx'
                              ])
     )
