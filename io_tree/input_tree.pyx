@@ -1,26 +1,31 @@
-from config.config import TokenType
-from config.memory_config import set_memory
-from modules.output_tree import Display
+from config.config import local_memory
 import logging
 logger = logging.getLogger(' input')
 logger.setLevel(logging.DEBUG)
 from typing import Any
-import cython
+import cython as c
+from modules.data_node import DataModule
+from modules.get_parser import GetParser
 
 class Get:
-    def __init__(self, numeric_list: list[int], token_list: list[Any], index: int):
-        self.numeric_list = numeric_list
-        self.token_list = token_list
-        self.index = index
+    """A class that helps to get user input
+    
+    Args:
+        object: a get_parser node witch gives the print data type of value got and should be converted or not and the actual Variable name
+    """
+    
+    def __init__(self,object: GetParser):
+        self.object = object
+        self.dtype: Any
         
+    @c.boundscheck(False)  
+    @c.wraparound(False)    
     def execute(self):
-        var_name: str = self.token_list[self.index-2]
-        var_name = var_name.replace(' ', '')
-        if self.numeric_list[self.index+1] == TokenType.PARENTHESIS_OPEN.value and self.numeric_list[self.index+2] != TokenType.PARENTHESIS_CLOSE.value:
-            display_obj: Display = Display(self.numeric_list, self.token_list, self.index)
-            return_data: str
-            _, return_data = display_obj.execute()
-            print("DEBUG: input_tree: ",return_data, end=" ")
+        var_name, print_data, isConverted, dtype = self.object.execute()
+        self.dtype = dtype
+        if print_data != None:
+            print(print_data, end="")
         value: str = input()
-        set_memory(var_name, value)
+        data_obj: DataModule = local_memory[f'{var_name}REPLACE64@9']
+        data_obj.value_change(value, isConverted)
         
