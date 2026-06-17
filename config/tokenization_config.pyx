@@ -1,6 +1,7 @@
 import numpy as np # type: ignore
-from config.config import TokenType, keyword
+from config.config import TokenType, keyword, OperatorType
 import cython as c
+from typing import Any
 
 TokenType = TokenType
 keyword = keyword
@@ -32,7 +33,7 @@ def tokenize_var(token_list: list) -> list:
     token_list = ['`' if x == "'" else x for x in token_list]
     
     index: c.int
-    x: any
+    x: Any
     limit: c.int = len(token_list)
     
     for index in range(limit):
@@ -47,8 +48,21 @@ def tokenize_var(token_list: list) -> list:
         try:
             # checking if token value exist for provided keyword if none raise error
             if keyword.get(x) != None:
-                # else get the corresponding data to temp storage
-                token_list_return.append(keyword[x].name)
+                if x == '=' and token_list[index+1] == '=':
+                    token_list_return.append(OperatorType.COMPARISON.name)
+                elif x == '=' and token_list[index-1] == '!':
+                    token_list_return.pop(len(token_list_return)-1)
+                    token_list_return.append(OperatorType.NOT_EQUAL.name)
+                elif x == '=' and token_list[index-1] == '<':
+                    token_list_return.pop(len(token_list_return)-1)
+                    token_list_return.append(OperatorType.LESSER_THAN_EQUAL.name)
+                elif x == '=' and token_list[index-1] == '>':
+                    token_list_return.pop(len(token_list_return)-1)
+                    token_list_return.append(OperatorType.GREATER_THAN_EQUAL.name)
+                else:
+                    # else get the corresponding data to temp storage
+                    token_list_return.append(keyword[x].name)
+
             else : raise KeyError  
         # excepting the key error and using the variable itself as the token witch is essential for variable declaration
         except KeyError:
@@ -70,7 +84,7 @@ def numeric_var(token_list: list) -> list[int]:
         try:
             if TokenType[i]:
                 # adding the value of the corresponding enum
-                numeric_list.append(TokenType[i].value)
+                numeric_list.append(TokenType[i].value)       
         except KeyError:
             # as a placeholder adds 0
             numeric_list.append(0)

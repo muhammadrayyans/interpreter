@@ -1,12 +1,11 @@
 from modules.tokenization_config import tokenize_var, numeric_var 
-from modules.parser import Parser 
+from modules.parser import Parser # type: ignore
 import config.config as config
 import time
 import re
 
 import logging
 logger = logging.getLogger(' main')
-logger.setLevel(logging.DEBUG)
 
 start_time: float = time.perf_counter()
 
@@ -15,11 +14,13 @@ with open('main.bc', 'r', encoding="utf-8") as file:
     source_code = file.read()
     
 # using re splitting up code based on criteria's
-formatted_code = re.split(r'(["\+\-\*\/=,.{}()\[\]\n\'])|(?<=None )', source_code)
+formatted_code = re.split(r'(["\+\-\*\/\>\!\<=,.{}()\[\]\n\'])|(?<=None )', source_code)
 
 # passing formatted code to tokenizer for tokenizing
 token_list = tokenize_var(formatted_code)
 numeric_list = numeric_var(token_list)
+
+logger.debug(f'-> {token_list}')
 
 
 # initializing parser

@@ -10,12 +10,9 @@ isError: bool = False
 # enums for all keywords from python 
 class TokenType(Enum):
 
-    NUMBER = auto()     # 123
-    IDENTIFIER = auto() # variable names like 'x' or 'total'
-    STRING = auto()     # "hello"
-
     IF = auto()
     ELSE = auto()
+    ELIF = auto()
     WHILE = auto()
     PRINT = auto()
     TRUE = auto()
@@ -45,7 +42,16 @@ class OperatorType(Enum):
     MULTIPLICATION = auto()
     DIVISION = auto()
     MODULO = auto()
-
+    COMPARISON = auto()
+    GREATER_THAN = auto()
+    LESSER_THAN = auto()
+    GREATER_THAN_EQUAL = auto()
+    LESSER_THAN_EQUAL = auto()
+    NOT_EQUAL = auto()
+    LOGIC_AND = auto()
+    LOGIC_OR = auto()
+    LOGIC_NOT = auto()
+    
 # enum for all data type
 class DataType(Enum):
     INTEGER = auto()
@@ -56,6 +62,7 @@ class DataType(Enum):
 # keywords from language mapped to enums  
 keyword: dict = {
     "assume": TokenType.IF,
+    "suppose": TokenType.ELIF,
     "otherwise": TokenType.ELSE,
     "while": TokenType.WHILE,
     "for": TokenType.FOR,
@@ -86,10 +93,13 @@ keyword: dict = {
     ' double': DataType.DOUBLE,
     ' float': DataType.FLOAT,
     ' bool': DataType.BOOLEAN,
+    '>': OperatorType.GREATER_THAN,
+    '<': OperatorType.GREATER_THAN
 }
 
 reverse_keyword: dict = {
     TokenType.IF: "assume",
+    TokenType.ELIF: "suppose",
     TokenType.ELSE: "otherwise",
     TokenType.WHILE: "while",
     TokenType.FOR: "for",
@@ -118,7 +128,9 @@ reverse_keyword: dict = {
     DataType.INTEGER: 'int',
     DataType.DOUBLE: 'double',
     DataType.FLOAT: 'float',
-    DataType.BOOLEAN:'bool'
+    DataType.BOOLEAN:'bool',
+    OperatorType.GREATER_THAN: '>',
+    OperatorType.LESSER_THAN: '<'
 }
 
 # main skip list
