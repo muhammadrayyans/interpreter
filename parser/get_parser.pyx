@@ -39,8 +39,7 @@ class GetParser:
         else: pass
             
         if self.numeric_list[self.index+jump_count] == TokenType.PARENTHESIS_OPEN.value and self.numeric_list[self.index+jump_count+1] != TokenType.PARENTHESIS_CLOSE.value:
-            logger.debug(f'passing -> {self.token_list[self.index]}')
-            display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, self.index)
+            display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, self.index+2)
             return_data = display_obj.execute()
         return var_name, return_data, isConverted, self.numeric_list[self.index+jump_count]
         

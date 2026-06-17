@@ -6,6 +6,7 @@ logger.setLevel(logging.DEBUG)
 from typing import Any
 import cython as c
 from modules.data_node import DataModule
+from modules.get_parser import GetParser
 
 class Get:
     """A class that helps to get user input
@@ -17,18 +18,17 @@ class Get:
         dtype: the type witch to be converted if isConverted turns out to be true
     """
     
-    def __init__(self, var_name: str, print_data: str | None, isConverted: bool, dtype: Any):
-        self.var_name = var_name
-        self.print_data = print_data
-        self.isConverted = isConverted
-        self.dtype = dtype
+    def __init__(self,object: GetParser):
+        self.object = object
+        self.dtype: Any
         
     @c.boundscheck(False)  
     @c.wraparound(False)    
     def execute(self):
-        if self.print_data != None:
-            print(self.print_data, end="")
+        var_name, print_data, isConverted, dtype = self.object.execute()
+        self.dtype = dtype
+        if print_data != None:
+            print(print_data, end="")
         value: str = input()
-        
-        data_obj: DataModule = local_memory[f'{self.var_name}REPLACE64@9']
-        data_obj.value_change(value, self.isConverted)
+        data_obj: DataModule = local_memory[f'{var_name}REPLACE64@9']
+        data_obj.value_change(value, isConverted)

@@ -40,7 +40,6 @@ class ParserDisplay:
 
         # main loop runs from index 
         for key in range(limit):
-            logger.debug("here")
             i = c_view[key+self.index] # type: ignore 
             
             if np.isin(skip_def, self.index+key).any():
@@ -55,7 +54,6 @@ class ParserDisplay:
                     skip_index: list = []
                     string_var: str = '' # type: ignore
                     while self.index+key+loop_count+1 < numeric_list_len and c_view[self.index+key+loop_count+1] != TokenType.FORMAT.value: # type: ignore
-                        
                         if np.isin(skip_index, self.index+key+loop_count).any():
                             string_var+=' ' # type: ignore
                             loop_count+=1

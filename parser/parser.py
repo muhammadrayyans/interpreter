@@ -90,8 +90,7 @@ class Parser:
             
             elif i == TokenType.INPUT.value:
                 get_object = GetParser(self.numeric_list, self.token_list, index)
-                var_name, display_data, isConverted, dtype = get_object.execute()
-                exe_obj = Get(var_name, display_data, isConverted, dtype)
+                exe_obj = Get(get_object)
                 config.execute_thread.append(exe_obj)
                 
             elif i == TokenType.QUOTE:
@@ -119,7 +118,7 @@ class Parser:
                 local_skip.extend(obj_skip)
                 local_isError = obj_isError
             
-            elif self.numeric_list[index+1] == TokenType.EQUAL.value :
+            elif index+1 < len(self.numeric_list) and self.numeric_list[index+1] == TokenType.EQUAL.value :
                 exe_obj = VariableFormation(self.token_list, self.numeric_list, index)
                 config.execute_thread.append(exe_obj) 
                 

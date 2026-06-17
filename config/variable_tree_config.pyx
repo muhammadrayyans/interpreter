@@ -33,7 +33,6 @@ class VariableFormation:
     def execute(self):
         # main skip list for optimization
         var_name: str = self.token_list[self.index].replace(' ','')
-        logger.debug(f'fort {var_name}')
         self.index: c.int
         i: c.int
         np_array = np.array(self.numeric_list, dtype=np.int32)
@@ -46,9 +45,10 @@ class VariableFormation:
             input_name = "{"+self.token_list[self.index].replace(' ','')+"REPLACE64@9}"
             set_memory(self.token_list[self.index].replace(' ',''), input_name)
             inline_loop_count: c.int = 0
+            
             while c_view[self.index+inline_loop_count] != TokenType.NEWLINE.value: # type: ignore
                 inline_loop_count+=1
-        
+                
         # check if its a var by checking if bef is = and after it have some value 
         elif self.index+1 < limit and i == 0 and c_view[self.index+1] == TokenType.EQUAL.value and c_view[self.index+2] != TokenType.INPUT.value: #type: ignore    
             variable_value: str = ''
