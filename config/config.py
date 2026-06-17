@@ -82,10 +82,10 @@ keyword: dict = {
     '*': OperatorType.MULTIPLICATION,
     '/': OperatorType.DIVISION,
     '%': OperatorType.MODULO,
-    'int': DataType.INTEGER,
-    'double': DataType.DOUBLE,
-    'float': DataType.FLOAT,
-    'bool': DataType.BOOLEAN,
+    ' int': DataType.INTEGER,
+    ' double': DataType.DOUBLE,
+    ' float': DataType.FLOAT,
+    ' bool': DataType.BOOLEAN,
 }
 
 reverse_keyword: dict = {

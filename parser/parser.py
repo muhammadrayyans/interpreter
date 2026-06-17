@@ -14,6 +14,7 @@ from modules.output_tree import Display
 from modules.get_parser import GetParser # type: ignore
 from modules.input_tree import Get
 from array import array
+from modules.variable_tree_config import VariableFormation
 
 logger = logging.getLogger(' parser')
 logger.setLevel(logging.DEBUG)
@@ -69,7 +70,7 @@ class Parser:
     def execute(self):
         local_skip: array = array('i',[])
         local_isError: bool = False
-        np_array = np.array(self.numeric_list, dtype=np.int32)
+        # np_array = np.array(self.numeric_list, dtype=np.int32)
         # c_view: c.int[:] = np_array
         array_length: int = len(self.numeric_list)
         index: int 
@@ -89,9 +90,8 @@ class Parser:
             
             elif i == TokenType.INPUT.value:
                 get_object = GetParser(self.numeric_list, self.token_list, index)
-                var_name, display_data, isConverted, dtype, obj_skip_index = get_object.execute()
+                var_name, display_data, isConverted, dtype = get_object.execute()
                 exe_obj = Get(var_name, display_data, isConverted, dtype)
-                local_skip.extend(obj_skip_index)
                 config.execute_thread.append(exe_obj)
                 
             elif i == TokenType.QUOTE:
@@ -119,12 +119,15 @@ class Parser:
                 local_skip.extend(obj_skip)
                 local_isError = obj_isError
             
+            elif self.numeric_list[index+1] == TokenType.EQUAL.value :
+                exe_obj = VariableFormation(self.token_list, self.numeric_list, index)
+                config.execute_thread.append(exe_obj) 
+                
             elif i == TokenType.PRINT.value:
                 display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index)
-                obj_skip_index, print_data = display_obj.execute()
-                exe_obj: Display = Display(print_data)
-                local_skip.extend(obj_skip_index)
+                exe_obj: Display = Display(display_obj)
                 config.execute_thread.append(exe_obj)
+                
                 
                 
                 

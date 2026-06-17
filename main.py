@@ -1,5 +1,4 @@
 from modules.tokenization_config import tokenize_var, numeric_var 
-from modules.variable_tree_config import VariableFormation
 from parser.parser import Parser
 import config.config as config
 import time
@@ -22,9 +21,7 @@ formatted_code = re.split(r'(["\+\-\*\/=,.{}()\[\]\n\'])|(?<=None )', source_cod
 token_list = tokenize_var(formatted_code)
 numeric_list = numeric_var(token_list)
 
-# initializing variable formation
-variable_formation = VariableFormation(token_list, numeric_list)
-variable_formation.execute()
+logger.debug(f'token list -> {token_list}')
 
 # initializing parser
 parsing_token = Parser(token_list, numeric_list)

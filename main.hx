@@ -3,5 +3,6 @@ x = y+20
 z = x+20
 display(z)
 display('check {x}')
-save = get("")
-display(save)
+save = get, int("enter value : ")
+calcu = save+20
+display(calcu)

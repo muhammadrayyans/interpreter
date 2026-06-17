@@ -23,23 +23,12 @@ class Get:
         self.isConverted = isConverted
         self.dtype = dtype
         
-    def __data_type(self, dtype: int, result: str) -> Any:
-        if dtype == DataType.INTEGER.value:
-            return int(result)
-        if dtype == DataType.FLOAT.value:
-            return float(result)
-        
     @c.boundscheck(False)  
     @c.wraparound(False)    
     def execute(self):
         if self.print_data != None:
             print(self.print_data, end="")
         value: str = input()
-        if self.isConverted:
-            value = self.__data_type(int(self.dtype), value)
-        else:
-            value = value
         
         data_obj: DataModule = local_memory[f'{self.var_name}REPLACE64@9']
-        data_obj.value_change(value)
-        logger.debug("setting")
+        data_obj.value_change(value, self.isConverted)

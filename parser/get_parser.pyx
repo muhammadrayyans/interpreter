@@ -25,21 +25,22 @@ class GetParser:
     
     @c.boundscheck(False)  
     @c.wraparound(False)  
-    def execute(self)  -> tuple[str, Any, bool, Any, list]:
+    def execute(self)  -> tuple[str, Any, bool, Any]:
         var_name: str = self.token_list[self.index-2]
         return_data: str | None = None 
-        jump_count: c.int = 1
+        jump_count: c.int = 2
         isConverted: bool = False
-        skip_data: list = []
         var_name = var_name.replace(' ', '')
         
-        if self.numeric_list[self.index+jump_count] != TokenType.PARENTHESIS_OPEN.value and int(self.numeric_list[self.index+jump_count]) in [DataType.INTEGER.value, DataType.FLOAT.value]:
-            isConverted = True
-            jump_count = 2
+        if self.numeric_list[self.index+jump_count] != TokenType.PARENTHESIS_OPEN.value:
+            if self.token_list[self.index+jump_count]  == DataType.INTEGER.name or self.token_list[self.index+jump_count]  == DataType.FLOAT.name:
+                isConverted = True
+                jump_count = 3
+        else: pass
             
         if self.numeric_list[self.index+jump_count] == TokenType.PARENTHESIS_OPEN.value and self.numeric_list[self.index+jump_count+1] != TokenType.PARENTHESIS_CLOSE.value:
+            logger.debug(f'passing -> {self.token_list[self.index]}')
             display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, self.index)
-            skip_data_display , return_data = display_obj.execute()
-            skip_data = skip_data_display # increment 2 more needed i think --dev
-        return var_name, return_data, isConverted, self.numeric_list[self.index+jump_count], skip_data
+            return_data = display_obj.execute()
+        return var_name, return_data, isConverted, self.numeric_list[self.index+jump_count]
         

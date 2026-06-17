@@ -14,12 +14,22 @@ class DataModule:
         self.variable_name = variable_name
         self.data = data
         self.data_type = type(data)
+        
+    def __str__(self) -> Any: 
+        return self.data
     
     def execute(self) -> tuple[str, Any, Any]:
         return self.variable_name, self.data, self.data_type
     
-    def value_change(self, value: Any):
-        print(f'data -> changed {value}, for {self.variable_name}')
+    def value_change(self, value: Any, isConverted: bool):
+        if value.isdigit() and isConverted:
+            if "." in value and self.data_type is not str:
+                self.data_type = float
+                self.data = float(value)
+            else:
+                self.data_type = int
+                self.data = int(value)
+        else:
+            self.data_type = type(value)
         self.data = value
-        self.data_type = type(value)
     

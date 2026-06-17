@@ -22,13 +22,13 @@ class ParserDisplay:
         self.index = index+2
         self.token_list = token_list
         self.numeric_list = numeric_list
+        self.skip_value: list = []
         
     # execute method
     @c.boundscheck(False)  
     @c.wraparound(False)
     
-    def execute(self) -> tuple[list, str]:
-        global_skip: list = []
+    def execute(self) ->  str:
         skip_def: list = []
         limit: c.int = len(self.numeric_list[self.index : ])
         np_array = np.array(self.numeric_list, dtype=np.int32)
@@ -40,6 +40,7 @@ class ParserDisplay:
 
         # main loop runs from index 
         for key in range(limit):
+            logger.debug("here")
             i = c_view[key+self.index] # type: ignore 
             
             if np.isin(skip_def, self.index+key).any():
@@ -121,5 +122,6 @@ class ParserDisplay:
                     skip_def.extend(generate_index(self.index+key, self.index+key+loop_count))
                     break
                     
-        global_skip.extend(skip_def)
-        return global_skip, print_string
+        self.skip_value.extend(skip_def)
+        return print_string
+    
