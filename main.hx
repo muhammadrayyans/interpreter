@@ -4,5 +4,5 @@ z = x+20
 display(z)
 display('check {x}')
 save = get, int("enter value : ")
-value = save+10
+value = (save-10)*4
 display(value)

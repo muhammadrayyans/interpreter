@@ -21,7 +21,6 @@ formatted_code = re.split(r'(["\+\-\*\/=,.{}()\[\]\n\'])|(?<=None )', source_cod
 token_list = tokenize_var(formatted_code)
 numeric_list = numeric_var(token_list)
 
-logger.debug(f'token list -> {token_list}')
 
 # initializing parser
 parsing_token = Parser(token_list, numeric_list)

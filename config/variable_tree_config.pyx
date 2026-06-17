@@ -42,7 +42,7 @@ class VariableFormation:
         # skip for input command
         if self.index+2 < limit and c_view[self.index+1] == TokenType.EQUAL.value and c_view[self.index+2] == TokenType.INPUT.value: # type: ignore
             set_memory(f'{self.token_list[self.index].replace(' ','')}REPLACE64@9', "REPLACE64@9") 
-            input_name = "{"+self.token_list[self.index].replace(' ','')+"REPLACE64@9}"
+            input_name: str = "{"+self.token_list[self.index].replace(' ','')+"REPLACE64@9}"
             set_memory(self.token_list[self.index].replace(' ',''), input_name)
             inline_loop_count: c.int = 0
             
@@ -73,49 +73,54 @@ class VariableFormation:
                         try:    
                             
                             if self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name:
+                                
                                 while inline_loop_count < limit and self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name:
+                                    
                                     
                                     # checks if the next element is a number
                                     if self.token_list[loop_count+self.index+inline_loop_count].replace(' ','').isdigit():
                                         evaluation_string+=self.token_list[loop_count+self.index+inline_loop_count]
-                                        if self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.NEWLINE.name:
-                                            if self.token_list[loop_count+self.index+inline_loop_count+1] == TokenType.PARENTHESIS_CLOSE.name:
+                                        if self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.NEWLINE.name: 
+                                            if self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name and self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.PARENTHESIS_CLOSE.name:
+                                                evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+self.index+inline_loop_count+1]]])
+                                            elif self.token_list[loop_count+self.index+inline_loop_count+1] == TokenType.PARENTHESIS_CLOSE.name:
                                                 evaluation_string+=')'
-                                            else: 
                                                 if self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name:
-                                                    evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+self.index+inline_loop_count+1]]])
-                                                else: break
+                                                  evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+self.index+inline_loop_count+2]]])
+                                                  inline_loop_count+=1
+                                            else: break
                                             inline_loop_count+=2
                                         else: break
-                                                                                
+                                        
                                     # checks if the current one is a parenthesis
                                     elif self.token_list[loop_count+self.index+inline_loop_count] == TokenType.PARENTHESIS_OPEN.name:
                                         evaluation_string+='('
                                         inline_loop_count+=1
                                         if self.token_list[loop_count+self.index+inline_loop_count+1] == TokenType.NEWLINE.name or isinstance(self.token_list[loop_count+self.index+inline_loop_count+1], TokenType):
                                             raise SyntaxError
-                                    
+                                        
                                     # checking for var
                                     else: 
                                         call_var: str = self.token_list[loop_count+self.index+inline_loop_count].replace(' ','')
                                         numeric_value: str = str(get_memory(call_var))
                                         evaluation_string += numeric_value
                                         if self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.NEWLINE.name:
-                                            if self.token_list[loop_count+self.index+inline_loop_count+1] == TokenType.PARENTHESIS_CLOSE.name:
+                                            if self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name and self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.PARENTHESIS_CLOSE.name:
+                                                evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+self.index+inline_loop_count+1]]])
+                                            elif self.token_list[loop_count+self.index+inline_loop_count+1] == TokenType.PARENTHESIS_CLOSE.name:
                                                 evaluation_string+=')'
-                                            else: 
                                                 if self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name:
-                                                    evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+self.index+inline_loop_count+1]]])
-                                                else: break
+                                                  evaluation_string+=str(reverse_keyword[OperatorType[self.token_list[loop_count+self.index+inline_loop_count+2]]])
+                                                  inline_loop_count+=1
+                                            else: break
                                             inline_loop_count+=2
                                         else: break
-                                    
+
                             
                         except SyntaxError:
                             logging.error(Fore.RED+f" Syntax mistake with declaring numerical value at '\033[4m\033[1m{var_name}\033[0m")
                             config.isError = True
                             break
-                        
                         result = eval(evaluation_string)
                         set_memory(var_name, result)
                         self.skip_index.extend(generate_index(self.index+loop_count, self.index+loop_count+inline_loop_count+1))
