@@ -10,13 +10,14 @@ import logging
 import numpy as np # type: ignore
 from utils.utils import generate_index
 from modules.display_parser import ParserDisplay # type: ignore
-from modules.output_tree import Display
+from modules.output_tree import Display  # type: ignore
 from modules.get_parser import GetParser # type: ignore
-from modules.input_tree import Get
+from modules.input_tree import Get # type: ignore
 from array import array
-from modules.variable_tree_config import VariableFormation
+from modules.variable_tree_config import VariableFormation # type: ignore
 import cython as c
 from condition_tree.condition_parser import ConditionParser
+from condition_tree.condition_tree import Condition
 
 logger = logging.getLogger(' parser')
 logger.setLevel(logging.DEBUG)
@@ -94,7 +95,8 @@ class Parser:
             
             elif i == TokenType.IF_CONDITION.value:
                 condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
-                config.execute_thread.append(condition_obj)
+                exe_object = Condition(condition_obj)
+                config.execute_thread.append(exe_object)
                 
             
             elif i == TokenType.INPUT.value:

@@ -1,5 +1,5 @@
-from modules.tokenization_config import tokenize_var, numeric_var 
-from modules.parser import Parser 
+from modules.tokenization_config import tokenize_var, numeric_var # type: ignore    
+from modules.parser import Parser # type: ignore
 import config.config as config
 import time
 import re

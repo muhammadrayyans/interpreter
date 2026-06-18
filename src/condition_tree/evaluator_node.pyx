@@ -62,6 +62,7 @@ class EvaluatorNode:
                         if self.left_condition <= self.right_condition:
                             self.return_value = True
                         else: self.return_value = False
+                        
                 
             # raising key error for un matched comparison
             else: raise TypeError
