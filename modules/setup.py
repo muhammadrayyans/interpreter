@@ -2,7 +2,8 @@ from setuptools import setup
 from Cython.Build import cythonize
 
 setup( 
-      ext_modules=cythonize(['../config/variable_tree_config.pyx',
+      ext_modules=cythonize(['../condition_tree/evaluator_node.pyx',
+                             '../config/variable_tree_config.pyx',
                              '../config/tokenization_config.pyx', 
                              '../library/maths/calculation.pyx',
                              '../io_tree/display_parser.pyx',

@@ -72,7 +72,6 @@ class Parser:
     @c.boundscheck(False)  
     @c.wraparound(False) 
     def execute(self):
-        logger.debug(f'-> {self.token_list}')
         local_skip: array = array('i',[])
         local_isError: bool = False
         np_array = np.array(self.numeric_list, dtype=np.int32)

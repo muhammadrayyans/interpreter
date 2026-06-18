@@ -50,6 +50,7 @@ def tokenize_var(token_list: list) -> list:
             if keyword.get(x) != None:
                 if x == '=' and token_list[index+1] == '=':
                     token_list_return.append(OperatorType.COMPARISON.name)
+                    skip_index.append(index+1)
                 elif x == '=' and token_list[index-1] == '!':
                     token_list_return.pop(len(token_list_return)-1)
                     token_list_return.append(OperatorType.NOT_EQUAL.name)
@@ -71,6 +72,8 @@ def tokenize_var(token_list: list) -> list:
     # returning the tokenized list
     return token_list_return
 
+@c.wraparound(False)
+@c.boundscheck(False)
 # numeric list for better performance
 def numeric_var(token_list: list) -> list[int]:
     

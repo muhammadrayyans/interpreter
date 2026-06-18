@@ -6,7 +6,8 @@ from config.memory_config import get_memory
 import numpy as np # type: ignore
 logger = logging.getLogger(' condition_parser')
 logger.setLevel(logging.DEBUG)
-from modules.calculation import CalculationLib # type: ignore
+from modules.calculation import CalculationLib 
+from modules.evaluator_node import EvaluatorNode # type: ignore
 
 class ConditionParser:
     """A class tht gets both arguments and operation to be conducted
@@ -32,12 +33,10 @@ class ConditionParser:
         isCondition_entered: bool = False
         skip_index: list = []
         
-        
         for index in range(limit):
             index+=self.index
             # i's value setting using index gotten
             i = array[index].replace(' ','')
-            logger.debug(i)
             # if i value is of end type
             if i == TokenType.NEWLINE.name: break
             elif i == TokenType.PARENTHESIS_CLOSE.name: break
@@ -48,17 +47,32 @@ class ConditionParser:
             
             # if the left/right value is numerical
             elif i.isdigit():
-                calculation_object = CalculationLib(index, TokenType.CURLY_BRACE_OPEN.name, self.token_list)
-                skip_list, result = calculation_object.execute()
+                
+                # checking if i is digit 
+                if index+2 < len(self.numeric_list) and self.token_list[index+2].isdigit():
+                    calculation_object = CalculationLib(index, TokenType.CURLY_BRACE_OPEN.name, self.token_list)
+                    skip_list, result = calculation_object.execute()
+                        
+                    # checking if the condition belongs to left side or right side
+                    if not isCondition_entered:
+                        self.condition_left = result
+                    elif isCondition_entered:
+                        self.condition_right = result
+                        
+                    # generating the skip index
+                    skip_index.extend(skip_list)
+                else:
+                    if "." in i:
+                        result = float(i)
+                    else:
+                        result = int(i)
+                        
+                    # checking if the condition belongs to left side or right side
+                    if not isCondition_entered:
+                        self.condition_left = result
+                    elif isCondition_entered:
+                        self.condition_right = result
                     
-                # checking if the condition belongs to left side or right side
-                if not isCondition_entered:
-                    self.condition_left = result
-                elif isCondition_entered:
-                    self.condition_right = result
-                    
-                # generating the skip index
-                skip_index.extend(skip_list)
                 
             # if the left/right value is string 
             elif i in [TokenType.QUOTE.name, TokenType.FORMAT.name] and self.token_list[index+2] in [TokenType.QUOTE.name, TokenType.FORMAT.name]:
@@ -100,6 +114,9 @@ class ConditionParser:
         
     def execute(self):
         right_condition, operator, left_condition = self.__condition_extractor()
+        evaluation_obj = EvaluatorNode(left_condition, operator, right_condition)
+        result: bool = evaluation_obj.execute()
+        logger.debug(f'result is {result}')
         
     
 

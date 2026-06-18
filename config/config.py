@@ -94,7 +94,7 @@ keyword: dict = {
     ' float': DataType.FLOAT,
     ' bool': DataType.BOOLEAN,
     '>': OperatorType.GREATER_THAN,
-    '<': OperatorType.GREATER_THAN
+    '<': OperatorType.LESSER_THAN
 }
 
 reverse_keyword: dict = {
