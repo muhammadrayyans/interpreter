@@ -1,11 +1,5 @@
-y = 10
-x = y+20
-z = x+20
+x = 10
+y = 20
+z = x+y
 display(z)
-display('check {x}')
-save = get, int("enter value : ")
-value = (save-10)*4
-display(value)
-assume(x < y){
-    display("true")
-}
+assume("rayyan" < 20+40)

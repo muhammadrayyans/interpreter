@@ -16,6 +16,7 @@ from modules.input_tree import Get
 from array import array
 from modules.variable_tree_config import VariableFormation
 import cython as c
+from condition_tree.condition_parser import ConditionParser
 
 logger = logging.getLogger(' parser')
 logger.setLevel(logging.DEBUG)
@@ -71,6 +72,7 @@ class Parser:
     @c.boundscheck(False)  
     @c.wraparound(False) 
     def execute(self):
+        logger.debug(f'-> {self.token_list}')
         local_skip: array = array('i',[])
         local_isError: bool = False
         np_array = np.array(self.numeric_list, dtype=np.int32)
@@ -90,6 +92,11 @@ class Parser:
                         
             elif np.isin(local_skip, index).any():
                 continue
+            
+            elif i == TokenType.IF_CONDITION.value:
+                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
+                config.execute_thread.append(condition_obj)
+                
             
             elif i == TokenType.INPUT.value:
                 get_object = GetParser(self.numeric_list, self.token_list, index) # type: ignore
@@ -129,7 +136,8 @@ class Parser:
                 display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj: Display = Display(display_obj)
                 config.execute_thread.append(exe_obj)
-                
+                 
+
                 
                 
                 

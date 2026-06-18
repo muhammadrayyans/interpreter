@@ -26,6 +26,7 @@ class Get:
         if print_data != None:
             print(print_data, end="")
         value: str = input()
+        
         data_obj: DataModule = local_memory[f'{var_name}REPLACE64@9']
         data_obj.value_change(value, isConverted)
         

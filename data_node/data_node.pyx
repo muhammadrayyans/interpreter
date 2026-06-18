@@ -28,7 +28,12 @@ class DataModule:
             else:
                 self.data_type = int
                 self.data = int(value)
+                
+        elif isinstance(value, str):
+            value = '~'+value
+            
         else:
             self.data_type = type(value)
+            
         self.data = value
     

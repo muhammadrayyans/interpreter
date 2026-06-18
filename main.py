@@ -20,7 +20,7 @@ formatted_code = re.split(r'(["\+\-\*\/\>\!\<=,.{}()\[\]\n\'])|(?<=None )', sour
 token_list = tokenize_var(formatted_code)
 numeric_list = numeric_var(token_list)
 
-logger.debug(f'-> {token_list}')
+logger.debug(f'print -> {token_list}')
 
 
 # initializing parser

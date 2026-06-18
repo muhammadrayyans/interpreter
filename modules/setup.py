@@ -4,11 +4,12 @@ from Cython.Build import cythonize
 setup( 
       ext_modules=cythonize(['../config/variable_tree_config.pyx',
                              '../config/tokenization_config.pyx', 
-                             '../io_tree/input_tree.pyx',
-                             '../io_tree/output_tree.pyx',
+                             '../library/maths/calculation.pyx',
                              '../io_tree/display_parser.pyx',
+                             '../io_tree/output_tree.pyx',
                              '../data_node/data_node.pyx',
                              '../io_tree/get_parser.pyx',
+                             '../io_tree/input_tree.pyx',
                              '../parser/parser.pyx'
                              ])
     )

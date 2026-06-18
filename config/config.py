@@ -10,9 +10,9 @@ isError: bool = False
 # enums for all keywords from python 
 class TokenType(Enum):
 
-    IF = auto()
-    ELSE = auto()
-    ELIF = auto()
+    IF_CONDITION = auto()
+    ELSE_CONDITION = auto()
+    ELIF_CONDITION = auto()
     WHILE = auto()
     PRINT = auto()
     TRUE = auto()
@@ -61,9 +61,9 @@ class DataType(Enum):
 
 # keywords from language mapped to enums  
 keyword: dict = {
-    "assume": TokenType.IF,
-    "suppose": TokenType.ELIF,
-    "otherwise": TokenType.ELSE,
+    "assume": TokenType.IF_CONDITION,
+    "suppose": TokenType.ELIF_CONDITION,
+    "otherwise": TokenType.ELSE_CONDITION,
     "while": TokenType.WHILE,
     "for": TokenType.FOR,
     "true": TokenType.TRUE,
@@ -98,9 +98,9 @@ keyword: dict = {
 }
 
 reverse_keyword: dict = {
-    TokenType.IF: "assume",
-    TokenType.ELIF: "suppose",
-    TokenType.ELSE: "otherwise",
+    TokenType.IF_CONDITION: "assume",
+    TokenType.ELIF_CONDITION: "suppose",
+    TokenType.ELSE_CONDITION: "otherwise",
     TokenType.WHILE: "while",
     TokenType.FOR: "for",
     TokenType.TRUE: "true",
