@@ -41,7 +41,16 @@ rm -f *.so
 rm -f *.pyd
 cd ../..
 
+
+cd src/condition_tree
+
+rm -f *.c
+rm -f *.so
+rm -f *.pyd
+cd ../..
+
 cd src/modules
+
 
 rm -rf __pycache__
 

@@ -1,5 +1,5 @@
-from condition_extractor import ConditionExtractor
-from condition_scope import ConditionScopeFinder
+from modules.condition_extractor import ConditionExtractor
+from modules.condition_scope import ConditionScopeFinder
 import numpy as np # type: ignore
 import config.config as config
 from config.config import TokenType
@@ -7,7 +7,7 @@ from typing import Any
 import logging
 logger = logging.getLogger(' condition_parser')
 logger.setLevel(logging.DEBUG)
-from modules.parser import Parser # type: ignore
+from modules.env_parser import EnvParser as Parser
 from utils.utils import generate_index
 
 class ConditionParser:

@@ -8,6 +8,7 @@ logger = logging.getLogger(' condition_extractor')
 logger.setLevel(logging.DEBUG)
 from modules.calculation import CalculationLib # type: ignore
 from modules.evaluator_node import EvaluatorNode # type: ignore
+import cython as c
 
 class ConditionExtractor:
     """A class tht gets both arguments and operation to be conducted
@@ -117,8 +118,8 @@ class ConditionExtractor:
         
         return self.condition_right, self.operator, self.condition_left
       
-                
-  
+    @c.wraparound(False)
+    @c.boundscheck(False)
     def execute(self) -> bool:
         right_condition, operator, left_condition = self.__condition_extractor()
         evaluation_obj = EvaluatorNode(left_condition, operator, right_condition)

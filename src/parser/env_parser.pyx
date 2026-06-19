@@ -17,12 +17,11 @@ from array import array
 from modules.variable_tree_config import VariableFormation # type: ignore
 import cython as c
 from condition_tree.condition_tree import Condition
-from modules.condition_parser import ConditionParser
 
 logger = logging.getLogger(' parser')
 logger.setLevel(logging.DEBUG)
 
-class Parser:
+class EnvParser:
     """A class that parses the Token data.
 
     Args:
@@ -92,11 +91,6 @@ class Parser:
                         
             elif np.isin(local_skip, index).any():
                 continue
-            
-            elif i == TokenType.IF_CONDITION.value:
-                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
-                exe_object = Condition(condition_obj)
-                config.execute_thread.append(exe_object)
                 
             
             elif i == TokenType.INPUT.value:

@@ -1,6 +1,6 @@
 from config.config import TokenType
 import logging
-from modules.parser import Parser # type: ignore
+from modules.env_parser import EnvParser as Parser
 logger = logging.getLogger(' condition_scope')
 logger.setLevel(logging.DEBUG)
 
@@ -25,7 +25,7 @@ class ConditionScopeFinder:
     def execute(self) -> tuple[int, int]:
         
         loop_count: int = 0
-        isNext: bool = False
+        depth: int = 0
         
         # finding the scope of 'assume'
         while self.token_list[self.index+loop_count] != TokenType.CURLY_BRACE_CLOSE.name:
@@ -33,14 +33,14 @@ class ConditionScopeFinder:
             # triggering in b/w true and false so it doesn't stumble up on nested loop 
             # then sets the start scope start and scop end of 'assume'
             if self.token_list[self.index+loop_count] == TokenType.CURLY_BRACE_OPEN.name:
-                if not isNext:
+                if depth == 0:
                     self.scope_start = self.index+loop_count
-                isNext = not isNext
+                depth+=1
                 
             elif self.token_list[self.index+loop_count+1] == TokenType.CURLY_BRACE_CLOSE.name:
-                if isNext:
+                if depth == 1:
                     self.scope_end = self.index+loop_count+1
-                isNext = not isNext
+                depth-=1
                 
         # return the starting and ending            
         return self.scope_start, self.scope_end
