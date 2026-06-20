@@ -3,7 +3,7 @@ y = 20
 z = x+y
 display(z)
 display(x)
-assume("rayyan" != "rayyan"){
+assume("rayyan" == "rayyan"){
     display("working")
 }unless{
     display("others")
