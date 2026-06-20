@@ -17,12 +17,14 @@ class ConditionParser:
         index: the index of the **assume** statement
         numeric_list: the numerical tokenized list of source code
         token_list: keyword based tokenized list of source code
+        exe_index: index of execution list where we want to add the in-scope execution nodes
     """
     
-    def __init__(self, index: int, numeric_list: list, token_list: list[Any]) -> None:
+    def __init__(self, index: int, numeric_list: list, token_list: list[Any], exe_index: int) -> None:
         self.index = index
         self.numeric_list = numeric_list
         self.token_list = token_list
+        self.exe_index = exe_index
     
     def execute(self) -> None:
         skip_index: list = []
@@ -34,40 +36,40 @@ class ConditionParser:
             stop_index: int
             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index)
             start_index, stop_index = scope_obj.execute()
-            environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+            environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], self.exe_index)
             environment_parser_obj.execute()
         
             skip_index.extend(generate_index(start_index, start_index))
             
-        # else:
-        #     loop_count: int = 0
-        #     isNext: bool = True
-        #     while self.index+loop_count+1 < len(self.numeric_list) and self.token_list[self.index+loop_count+1] != TokenType.ELSE_CONDITION.name:
-        #         i: Any = self.token_list[self.index+loop_count]
-        #         if np.isin(skip_index, self.index+loop_count).any():
-        #             loop_count+=1
-        #             continue
-        #         elif i == TokenType.ELIF_CONDITION and isNext:
-        #             start_index: int
-        #             stop_index: int
-        #             condition_value_obj = ConditionExtractor(self.index+loop_count, self.numeric_list, self.token_list)
-        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count-1)
-        #             truth_value: bool = condition_value_obj.execute()
-        #             start_index, stop_index = scope_obj.execute()
-        #             if truth_value:
-        #                 environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
-        #                 environment_parser_obj.execute()
-        #                 skip_index.extend(generate_index(start_index, start_index))
-        #         else:
-        #             start_index: int
-        #             stop_index: int
-        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count-1)
-        #             start_index, stop_index = scope_obj.execute()
-        #             environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
-        #             environment_parser_obj.execute()
-        #             skip_index.extend(generate_index(start_index, start_index))
+        else:
+            loop_count: int = 0
+            isNext: bool = True
+            while self.index+loop_count+1 < len(self.numeric_list) and self.token_list[self.index+loop_count+1] != TokenType.ELSE_CONDITION.name:
+                i: Any = self.token_list[self.index+loop_count]
+                if np.isin(skip_index, self.index+loop_count).any():
+                    loop_count+=1
+                    continue
+                elif i == TokenType.ELIF_CONDITION and isNext:
+                    start_index: int
+                    stop_index: int
+                    condition_value_obj = ConditionExtractor(self.index+loop_count, self.numeric_list, self.token_list)
+                    scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count-1)
+                    truth_value: bool = condition_value_obj.execute()
+                    start_index, stop_index = scope_obj.execute()
+                    if truth_value:
+                        environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], self.exe_index)
+                        environment_parser_obj.execute()
+                        skip_index.extend(generate_index(start_index, start_index))
+                else:
+                    start_index: int
+                    stop_index: int
+                    scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count-1)
+                    start_index, stop_index = scope_obj.execute()
+                    environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], self.exe_index)
+                    environment_parser_obj.execute()
+                    skip_index.extend(generate_index(start_index, start_index))
                     
-        #         loop_count+=1
+                loop_count+=1
                 
         
         
