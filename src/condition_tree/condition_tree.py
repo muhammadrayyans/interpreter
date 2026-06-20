@@ -6,4 +6,7 @@ logger.setLevel(logging.DEBUG)
 class Condition:
     
     def __init__(self, parse_obj: Any) -> None:
-        parse_obj.execute()
+        self.parse_obj = parse_obj
+        
+    def execute(self):
+        self.parse_obj.execute()

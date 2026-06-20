@@ -19,7 +19,7 @@ class ConditionScopeFinder:
         self.numeric_list = numeric_list
         self.token_list = token_list
         self.index = index
-        self.scope_start: int
+        self.scope_start: int 
         self.scope_end: int
     
     def execute(self) -> tuple[int, int]:
@@ -29,7 +29,6 @@ class ConditionScopeFinder:
         
         # finding the scope of 'assume'
         while self.token_list[self.index+loop_count] != TokenType.CURLY_BRACE_CLOSE.name:
-            
             # triggering in b/w true and false so it doesn't stumble up on nested loop 
             # then sets the start scope start and scop end of 'assume'
             if self.token_list[self.index+loop_count] == TokenType.CURLY_BRACE_OPEN.name:
@@ -41,6 +40,7 @@ class ConditionScopeFinder:
                 if depth == 1:
                     self.scope_end = self.index+loop_count+1
                 depth-=1
+            loop_count+=1
                 
         # return the starting and ending            
         return self.scope_start, self.scope_end

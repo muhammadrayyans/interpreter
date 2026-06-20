@@ -34,40 +34,42 @@ class ConditionParser:
             stop_index: int
             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index)
             start_index, stop_index = scope_obj.execute()
+            logger.debug(len(config.execute_thread))
             environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+            logger.debug(len(config.execute_thread))
             environment_parser_obj.execute()
         
             skip_index.extend(generate_index(start_index, start_index))
             
-        else:
-            loop_count: int = 0
-            isNext: bool = True
-            while self.index+loop_count+1 < len(self.numeric_list) and self.token_list[self.index+loop_count+1] != TokenType.ELSE_CONDITION.name:
-                i: Any = self.token_list[self.index+loop_count]
-                if np.isin(skip_index, self.index+loop_count):
-                    loop_count+=1
-                    continue
-                elif i == TokenType.ELIF_CONDITION and isNext:
-                    start_index: int
-                    stop_index: int
-                    condition_value_obj = ConditionExtractor(self.index+loop_count, self.numeric_list, self.token_list)
-                    scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
-                    truth_value: bool = condition_value_obj.execute()
-                    start_index, stop_index = scope_obj.execute()
-                    if truth_value:
-                        environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
-                        environment_parser_obj.execute()
-                        skip_index.extend(generate_index(start_index, start_index))
-                else:
-                    start_index: int
-                    stop_index: int
-                    scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
-                    start_index, stop_index = scope_obj.execute()
-                    environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
-                    environment_parser_obj.execute()
-                    skip_index.extend(generate_index(start_index, start_index))
+        # else:
+        #     loop_count: int = 0
+        #     isNext: bool = True
+        #     while self.index+loop_count+1 < len(self.numeric_list) and self.token_list[self.index+loop_count+1] != TokenType.ELSE_CONDITION.name:
+        #         i: Any = self.token_list[self.index+loop_count]
+        #         if np.isin(skip_index, self.index+loop_count).any():
+        #             loop_count+=1
+        #             continue
+        #         elif i == TokenType.ELIF_CONDITION and isNext:
+        #             start_index: int
+        #             stop_index: int
+        #             condition_value_obj = ConditionExtractor(self.index+loop_count, self.numeric_list, self.token_list)
+        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
+        #             truth_value: bool = condition_value_obj.execute()
+        #             start_index, stop_index = scope_obj.execute()
+        #             if truth_value:
+        #                 environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+        #                 environment_parser_obj.execute()
+        #                 skip_index.extend(generate_index(start_index, start_index))
+        #         else:
+        #             start_index: int
+        #             stop_index: int
+        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
+        #             start_index, stop_index = scope_obj.execute()
+        #             environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+        #             environment_parser_obj.execute()
+        #             skip_index.extend(generate_index(start_index, start_index))
                     
-                loop_count+=1
+        #         loop_count+=1
                 
         
         
