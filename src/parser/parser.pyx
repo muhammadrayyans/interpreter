@@ -96,7 +96,7 @@ class Parser:
                 from condition_tree.condition_tree import Condition
                 from modules.condition_parser import ConditionParser
                 
-                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
+                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list, len(config.execute_thread)+1)
                 obj_find = condition_obj.global_skip_index()
                 exe_object = Condition(condition_obj)
                 config.execute_thread.append(exe_object)

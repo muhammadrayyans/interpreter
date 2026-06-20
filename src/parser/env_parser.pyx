@@ -27,11 +27,13 @@ class EnvParser:
     Args:
         token_list: Spliced Tokenized list passed.
         numeric_token_list: Spliced Tokenized list converted to numeric passed.
+        index: where to add the current execution obj in main execution list
     """
     
-    def __init__(self, token_list: list[Any], numeric_list: list) -> None:
+    def __init__(self, token_list: list[Any], numeric_list: list, index_node: int) -> None:
         self.token_list = token_list
         self.numeric_list = numeric_list
+        self.index_node = index_node
     
     def __condition_eval(self, inline_index: int, array_length: int, inline_new_line_count: int,  inline_target: TokenType) -> tuple[array, bool]:
         
@@ -90,12 +92,12 @@ class EnvParser:
                         
             elif np.isin(local_skip, index).any():
                 continue
-                
             
             elif i == TokenType.INPUT.value:
                 get_object = GetParser(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj = Get(get_object)
-                config.execute_thread.append(exe_obj)
+                config.execute_thread.insert(self.index_node, exe_obj)
+                self.index_node+=1
                 
             elif i == TokenType.QUOTE:
                 obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.QUOTE)
@@ -124,12 +126,15 @@ class EnvParser:
             
             elif index+1 < len(c_view) and c_view[index+1] == TokenType.EQUAL.value : # type: ignore
                 exe_obj = VariableFormation(self.token_list, self.numeric_list, index) # type: ignore
-                config.execute_thread.append(exe_obj) 
+                config.execute_thread.insert(self.index_node, exe_obj)
+                self.index_node+=1 
                 
             elif i == TokenType.PRINT.value:
                 display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj: Display = Display(display_obj)
-                config.execute_thread.append(exe_obj)
+                config.execute_thread.insert(self.index_node, exe_obj)
+                self.index_node+=1
+                
                  
 
                 
