@@ -63,7 +63,7 @@ class DataType(Enum):
 keyword: dict = {
     "assume": TokenType.IF_CONDITION,
     "suppose": TokenType.ELIF_CONDITION,
-    "otherwise": TokenType.ELSE_CONDITION,
+    "unless": TokenType.ELSE_CONDITION,
     "while": TokenType.WHILE,
     "for": TokenType.FOR,
     "true": TokenType.TRUE,

@@ -47,7 +47,7 @@ def tokenize_var(token_list: list) -> list:
         # using try catch block for safety and catching errors
         try:
             # checking if token value exist for provided keyword if none raise error
-            if keyword.get(x) != None:
+            if keyword.get(x.replace(' ', '')) != None:
                 if x == '=' and token_list[index+1] == '=':
                     token_list_return.append(OperatorType.COMPARISON.name)
                     skip_index.append(index+1)
@@ -62,7 +62,7 @@ def tokenize_var(token_list: list) -> list:
                     token_list_return.append(OperatorType.GREATER_THAN_EQUAL.name)
                 else:
                     # else get the corresponding data to temp storage
-                    token_list_return.append(keyword[x].name)
+                    token_list_return.append(keyword[x.replace(' ' ,'')].name)
 
             else : raise KeyError  
         # excepting the key error and using the variable itself as the token witch is essential for variable declaration
