@@ -18,15 +18,15 @@ from modules.variable_tree_config import VariableFormation # type: ignore
 import cython as c
 from condition_tree.condition_tree import Condition
 
-logger = logging.getLogger(' parser')
+logger = logging.getLogger(' env_parser')
 logger.setLevel(logging.DEBUG)
 
 class EnvParser:
-    """A class that parses the Token data.
+    """A class that parses the Token data as nested parsing.
 
     Args:
-        token_list: Tokenized list passed.
-        numeric_token_list: Tokenized list converted to numeric passed.
+        token_list: Spliced Tokenized list passed.
+        numeric_token_list: Spliced Tokenized list converted to numeric passed.
     """
     
     def __init__(self, token_list: list[Any], numeric_list: list) -> None:
@@ -82,7 +82,6 @@ class EnvParser:
         
         for index in range(array_length):
             i = c_view[index] # type: ignore
-            
             if local_isError:
                 break
             
@@ -118,10 +117,10 @@ class EnvParser:
                 local_skip.extend(obj_skip)
                 local_isError = obj_isError
             
-            elif i == TokenType.CURLY_BRACE_OPEN.value:
-                obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.CURLY_BRACE_CLOSE)
-                local_skip.extend(obj_skip)
-                local_isError = obj_isError
+            # elif i == TokenType.CURLY_BRACE_OPEN.value:
+            #     obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.CURLY_BRACE_CLOSE)
+            #     local_skip.extend(obj_skip)
+            #     local_isError = obj_isError
             
             elif index+1 < len(c_view) and c_view[index+1] == TokenType.EQUAL.value : # type: ignore
                 exe_obj = VariableFormation(self.token_list, self.numeric_list, index) # type: ignore

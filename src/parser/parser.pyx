@@ -124,10 +124,10 @@ class Parser:
                 local_skip.extend(obj_skip)
                 local_isError = obj_isError
             
-            elif i == TokenType.CURLY_BRACE_OPEN.value:
-                obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.CURLY_BRACE_CLOSE)
-                local_skip.extend(obj_skip)
-                local_isError = obj_isError
+            # elif i == TokenType.CURLY_BRACE_OPEN.value:
+            #     obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.CURLY_BRACE_CLOSE)
+            #     local_skip.extend(obj_skip)
+            #     local_isError = obj_isError
             
             elif index+1 < len(c_view) and c_view[index+1] == TokenType.EQUAL.value : # type: ignore
                 exe_obj = VariableFormation(self.token_list, self.numeric_list, index) # type: ignore
