@@ -34,9 +34,7 @@ class ConditionParser:
             stop_index: int
             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index)
             start_index, stop_index = scope_obj.execute()
-            logger.debug(len(config.execute_thread))
             environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
-            logger.debug(len(config.execute_thread))
             environment_parser_obj.execute()
         
             skip_index.extend(generate_index(start_index, start_index))
@@ -53,7 +51,7 @@ class ConditionParser:
         #             start_index: int
         #             stop_index: int
         #             condition_value_obj = ConditionExtractor(self.index+loop_count, self.numeric_list, self.token_list)
-        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
+        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count-1)
         #             truth_value: bool = condition_value_obj.execute()
         #             start_index, stop_index = scope_obj.execute()
         #             if truth_value:
@@ -63,7 +61,7 @@ class ConditionParser:
         #         else:
         #             start_index: int
         #             stop_index: int
-        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
+        #             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count-1)
         #             start_index, stop_index = scope_obj.execute()
         #             environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
         #             environment_parser_obj.execute()
@@ -74,6 +72,23 @@ class ConditionParser:
         
         
         
-    
+    def global_skip_index(self) -> list:
+        int_end: int = 0
+        loop_count: int = 0
+        while self.index+loop_count < len(self.numeric_list):
+            if self.token_list[self.index+loop_count] == TokenType.ELSE_CONDITION.name:
+                in_loop_count: int = 0
+                while True:
+                    if self.token_list[self.index+loop_count+in_loop_count] == TokenType.CURLY_BRACE_CLOSE.name:
+                        int_end = self.index+loop_count+in_loop_count
+                        break
+                    in_loop_count+=1
+                break
+            loop_count+=1
+        
+        scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index)
+        start_index, stop_index = scope_obj.execute()
+        end_int: int = stop_index if int_end == 0 else int_end
+        return generate_index(start_index, end_int)
 
 
