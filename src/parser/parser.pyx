@@ -16,8 +16,7 @@ from modules.input_tree import Get # type: ignore
 from array import array
 from modules.variable_tree_config import VariableFormation # type: ignore
 import cython as c
-from condition_tree.condition_tree import Condition
-from modules.condition_parser import ConditionParser
+
 
 logger = logging.getLogger(' parser')
 logger.setLevel(logging.DEBUG)
@@ -94,9 +93,14 @@ class Parser:
                 continue
             
             elif i == TokenType.IF_CONDITION.value:
+                from condition_tree.condition_tree import Condition
+                from modules.condition_parser import ConditionParser
+                
                 condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
+                obj_find = condition_obj.global_skip_index()
                 exe_object = Condition(condition_obj)
                 config.execute_thread.append(exe_object)
+                local_skip.extend(obj_find)
                 
             
             elif i == TokenType.INPUT.value:
