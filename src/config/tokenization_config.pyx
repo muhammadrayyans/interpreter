@@ -53,7 +53,6 @@ def tokenize_var(token_list: list) -> list:
                     skip_index.append(index+1)
                 elif x == '=' and token_list[index-1] == '!':
                     token_list_return.pop(len(token_list_return)-1)
-                    skip_index.append(index+1)
                     token_list_return.append(OperatorType.NOT_EQUAL.name)
                 elif x == '=' and token_list[index-1] == '<':
                     token_list_return.pop(len(token_list_return)-1)
