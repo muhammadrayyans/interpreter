@@ -91,7 +91,7 @@ class Parser:
                         
             elif np.isin(local_skip, index).any():
                 continue
-            
+
             elif i == TokenType.IF_CONDITION.value:
                 from condition_tree.condition_tree import Condition
                 from modules.condition_parser import ConditionParser

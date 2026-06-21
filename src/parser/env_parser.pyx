@@ -93,6 +93,16 @@ class EnvParser:
             elif np.isin(local_skip, index).any():
                 continue
             
+            elif i == TokenType.IF_CONDITION.value:
+                from condition_tree.condition_tree import Condition
+                from modules.condition_parser import ConditionParser
+                
+                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list, self.index_node+1)
+                obj_find = condition_obj.global_skip_index()
+                exe_object = Condition(condition_obj)
+                config.execute_thread.insert(self.index_node, exe_object)
+                local_skip.extend(obj_find)
+                
             elif i == TokenType.INPUT.value:
                 get_object = GetParser(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj = Get(get_object)
