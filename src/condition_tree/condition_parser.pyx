@@ -20,26 +20,28 @@ class ConditionParser:
         exe_index: index of execution list where we want to add the in-scope execution nodes
     """
     
-    def __init__(self, index: int, numeric_list: list, token_list: list[Any], exe_index: int) -> None:
+    def __init__(self, index: int, numeric_list: list, token_list: list[Any]) -> None:
         self.index = index
         self.numeric_list = numeric_list
         self.token_list = token_list
-        self.exe_index = exe_index
     
     def execute(self) -> None:
         skip_index: list = []
         
         condition_value_obj = ConditionExtractor(self.index, self.numeric_list, self.token_list)
         truth_value: bool = condition_value_obj.execute()
+        
         if truth_value:
             start_index: int
             stop_index: int
             scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index)
             start_index, stop_index = scope_obj.execute()
-            environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], self.exe_index)
-            environment_parser_obj.execute()
+            environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+            run_time: list = environment_parser_obj.execute()
+            for i in run_time:
+                i.execute()
+            skip_index.extend(generate_index(start_index, stop_index))
         
-            skip_index.extend(generate_index(start_index, start_index))
             
         else:
             loop_count: int = 0
@@ -61,8 +63,10 @@ class ConditionParser:
                     if not truth_value:
                         loop_count+=1
                         continue
-                    environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], self.exe_index)
-                    environment_parser_obj.execute()
+                    environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+                    run_time: list = environment_parser_obj.execute()
+                    for i in run_time:
+                        i.execute()
                     isDone = True
                     break
                     
@@ -71,9 +75,11 @@ class ConditionParser:
                     stop_index: int
                     scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)
                     start_index, stop_index = scope_obj.execute()
-                    environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], self.exe_index)
-                    environment_parser_obj.execute()
-                    skip_index.extend(generate_index(start_index, start_index))
+                    environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index])
+                    run_time: list = environment_parser_obj.execute()
+                    for i in run_time:
+                        i.execute()
+                    skip_index.extend(generate_index(start_index, stop_index))
                     break
                     
                 loop_count+=1

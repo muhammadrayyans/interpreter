@@ -28,7 +28,7 @@ class ConditionScopeFinder:
         depth: int = 0
         
         # finding the scope of 'assume'
-        while True:
+        while self.index+loop_count < len(self.numeric_list):
             # triggering in b/w true and false so it doesn't stumble up on nested loop 
             # then sets the start scope start and scop end of 'assume'
             if self.token_list[self.index+loop_count] == TokenType.CURLY_BRACE_OPEN.name:
@@ -36,9 +36,9 @@ class ConditionScopeFinder:
                     self.scope_start = self.index+loop_count
                 depth+=1
                 
-            elif self.token_list[self.index+loop_count+1] == TokenType.CURLY_BRACE_CLOSE.name:
+            elif self.token_list[self.index+loop_count] == TokenType.CURLY_BRACE_CLOSE.name:
                 if depth == 1:
-                    self.scope_end = self.index+loop_count+1
+                    self.scope_end = self.index+loop_count
                     break
                 depth-=1
             loop_count+=1
