@@ -1,13 +1,22 @@
 x = 10
 assume("rayyan" != "rayyan")
 {
-    display("first assumption")
+    display("nothing")
+}
+suppose("rayyan" == "rayyan"){
+
+    assume( x != 10){
+        display("first assumption")
+    }
+    suppose(x == 10){
+        display('unless trigger {x}')
+    }
+    unless{
+        display("fall back")
+    }
 }
 suppose("rayyan" != "rayyan"){
     display("assumption true")
-}
-suppose("rayyan" == "rayyan"){
-    display("second one")
 }
 unless{
     display("others")
