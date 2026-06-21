@@ -1,10 +1,15 @@
 x = 10
-y = 20
-z = x+y
-display(z)
-display(x)
-assume("rayyan" == "rayyan"){
-    display("working")
-}unless{
+assume("rayyan" != "rayyan")
+{
+    display("first assumption")
+}
+suppose("rayyan" != "rayyan"){
+    display("assumption true")
+}
+suppose("rayyan" == "rayyan"){
+    display("second one")
+}
+unless{
     display("others")
 }
+display("if completed")
