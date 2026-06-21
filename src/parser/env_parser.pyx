@@ -18,6 +18,7 @@ from modules.variable_tree_config import VariableFormation # type: ignore
 import cython as c
 from condition_tree.condition_tree import Condition
 
+
 logger = logging.getLogger(' env_parser')
 logger.setLevel(logging.DEBUG)
 
@@ -30,10 +31,9 @@ class EnvParser:
         index: where to add the current execution obj in main execution list
     """
     
-    def __init__(self, token_list: list[Any], numeric_list: list, index_node: int) -> None:
+    def __init__(self, token_list: list[Any], numeric_list: list) -> None:
         self.token_list = token_list
         self.numeric_list = numeric_list
-        self.index_node = index_node
     
     def __condition_eval(self, inline_index: int, array_length: int, inline_new_line_count: int,  inline_target: TokenType) -> tuple[array, bool]:
         
@@ -73,7 +73,9 @@ class EnvParser:
         
     @c.boundscheck(False)  
     @c.wraparound(False) 
-    def execute(self):
+    def execute(self) -> list:
+        sub_exe: list = []
+        
         local_skip: array = array('i',[])
         local_isError: bool = False
         np_array = np.array(self.numeric_list, dtype=np.int32)
@@ -97,17 +99,17 @@ class EnvParser:
                 from condition_tree.condition_tree import Condition
                 from modules.condition_parser import ConditionParser
                 
-                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list, self.index_node+1)
+                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
                 obj_find = condition_obj.global_skip_index()
                 exe_object = Condition(condition_obj)
-                config.execute_thread.insert(self.index_node, exe_object)
+                sub_exe.append(exe_object)
                 local_skip.extend(obj_find)
                 
             elif i == TokenType.INPUT.value:
                 get_object = GetParser(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj = Get(get_object)
-                config.execute_thread.insert(self.index_node, exe_obj)
-                self.index_node+=1
+                sub_exe.append(exe_obj)
+
                 
             elif i == TokenType.QUOTE:
                 obj_skip, obj_isError = self.__condition_eval(index, array_length, new_line_count, TokenType.QUOTE)
@@ -136,14 +138,16 @@ class EnvParser:
             
             elif index+1 < len(c_view) and c_view[index+1] == TokenType.EQUAL.value : # type: ignore
                 exe_obj = VariableFormation(self.token_list, self.numeric_list, index) # type: ignore
-                config.execute_thread.insert(self.index_node, exe_obj)
-                self.index_node+=1 
+                sub_exe.append(exe_obj)
+ 
                 
             elif i == TokenType.PRINT.value:
                 display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj: Display = Display(display_obj)
-                config.execute_thread.insert(self.index_node, exe_obj)
-                self.index_node+=1
+                sub_exe.append(exe_obj)
+            
+        return sub_exe
+
                 
                  
 
