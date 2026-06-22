@@ -21,10 +21,11 @@ class VariableFormation:
     """
     
     # constructor of class
-    def __init__(self, token_list: list[Any], numeric_list: list[int], index: int):
+    def __init__(self, token_list: list[Any], numeric_list: list[int], index: int, scope=None):
         self.token_list = token_list 
         self.numeric_list = numeric_list
         self.index = index
+        self.scope = scope
         
         
     # execute code
@@ -33,17 +34,21 @@ class VariableFormation:
     def execute(self):
         # main skip list for optimization
         var_name: str = self.token_list[self.index].replace(' ','')
+        if var_name in config.local_memory:
+            self.scope=None
+        else: pass
+        
         self.index: c.int
         i: c.int
         np_array = np.array(self.numeric_list, dtype=np.int32)
         c_view: c.int[:] = np_array # type: ignore 
         limit: c.int = len(c_view) # type: ignore 
             
-        # skip for input command
+        # skip
         if self.index+2 < limit and c_view[self.index+1] == TokenType.EQUAL.value and c_view[self.index+2] == TokenType.INPUT.value: # type: ignore
-            set_memory(f'{self.token_list[self.index].replace(' ','')}REPLACE64@9', "REPLACE64@9") 
+            set_memory(f'{self.token_list[self.index].replace(' ','')}REPLACE64@9', "REPLACE64@9", self.scope)
             input_name: str = "{"+self.token_list[self.index].replace(' ','')+"REPLACE64@9}"
-            set_memory(self.token_list[self.index].replace(' ',''), input_name)
+            set_memory(self.token_list[self.index].replace(' ',''), input_name, self.scope)
             inline_loop_count: c.int = 0
             
             while c_view[self.index+inline_loop_count] != TokenType.NEWLINE.value: # type: ignore
@@ -102,7 +107,7 @@ class VariableFormation:
                                     # checking for var
                                     else: 
                                         call_var: str = self.token_list[loop_count+self.index+inline_loop_count].replace(' ','')
-                                        numeric_value: str = str(get_memory(call_var))
+                                        numeric_value: str = str(get_memory(call_var, self.scope))
                                         evaluation_string += numeric_value
                                         if self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.NEWLINE.name:
                                             if self.token_list[loop_count+self.index+inline_loop_count] != TokenType.NEWLINE.name and self.token_list[loop_count+self.index+inline_loop_count+1] != TokenType.PARENTHESIS_CLOSE.name:
@@ -119,10 +124,9 @@ class VariableFormation:
                             
                         except SyntaxError:
                             logging.error(Fore.RED+f" Syntax mistake with declaring numerical value at '\033[4m\033[1m{var_name}\033[0m")
-                            config.isError = True
-                            break
+                            config.isError 
                         result = eval(evaluation_string)
-                        set_memory(var_name, result)
+                        set_memory(var_name, result, self.scope)
                         self.skip_index.extend(generate_index(self.index+loop_count, self.index+loop_count+inline_loop_count+1))
                         
                         loop_count+=1
@@ -133,13 +137,13 @@ class VariableFormation:
                     # normal var to var match case
                     if loop_count+self.index+2 < limit and c_view[loop_count+self.index+2] == 0 and c_view[loop_count+self.index+1] == TokenType.EQUAL.value: #type: ignore
                         self.token_list[loop_count+self.index+2] = self.token_list[loop_count+self.index+2].replace(' ','')
-                        value_normal: str | c.int | None = get_memory(self.token_list[loop_count+self.index+2])
+                        value_normal: str | c.int | None = get_memory(self.token_list[loop_count+self.index+2], self.scope)
                         variable_value+=str(value_normal)
                         self.skip_index.extend(generate_index(self.index+loop_count, self.index+loop_count+2))
                     
                     # formatted string match case
                     elif c_view[loop_count+self.index] == TokenType.CURLY_BRACE_OPEN.value: #type: ignore
-                        result: str | c.int | None = get_memory(self.token_list[loop_count+self.index+1]) if loop_count+self.index < limit else None
+                        result: str | c.int | None = get_memory(self.token_list[loop_count+self.index+1], self.scope) if loop_count+self.index < limit else None
                         if result != None:
                             value: c.int = loop_count+self.index+1
                             variable_value+='{'
@@ -161,10 +165,9 @@ class VariableFormation:
                     # formatted string after var text add case
                     elif self.index > 0 and c_view[self.index+loop_count-1] == TokenType.CURLY_BRACE_CLOSE.value and i == 0: #type: ignore
                         if c_view[self.index+loop_count] == 0: #type: ignore
-                            variable_value += self.token_list[self.index+loop_count]
-                    
+                            variable_value += self.token_list[self.index]
                     # formatting var name to remove un necessary space 
-                    set_memory(var_name, variable_value)
+                    set_memory(var_name, variable_value, self.scope)
                     
                     # incrementing loop
                     loop_count+=1
