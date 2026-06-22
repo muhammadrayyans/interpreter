@@ -18,9 +18,11 @@ class DataModule:
         return self.data
     
     def execute(self) -> tuple[str, Any, Any]:
+        # returns the value of the Query data
         return self.variable_name, self.data, self.data_type
     
     def value_change(self, value: Any, isConverted: bool):
+        # replacing existing data with new values obtained
         if value.isdigit() and isConverted:
             if "." in value and self.data_type is not str:
                 self.data_type = float
