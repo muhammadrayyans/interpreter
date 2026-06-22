@@ -18,10 +18,11 @@ class CalculationLib:
     """
     
     
-    def __init__(self, start_index: int, stop_char: Any, token_list: list) -> None:
+    def __init__(self, start_index: int, stop_char: Any, token_list: list, scope=None) -> None:
         self.start_index = start_index
         self.stop_char = stop_char
         self.token_list = token_list
+        self.scope = scope
     
     @c.boundscheck(False)
     @c.wraparound(False)
@@ -33,7 +34,8 @@ class CalculationLib:
         isParenthesis: bool = False
         
         # main loop
-        while self.start_index+loop_count < len(self.token_list) and self.token_list[self.start_index+loop_count] != self.stop_char:
+        stop_loop: list = [OperatorType.GREATER_THAN.name, OperatorType.LESSER_THAN.name, OperatorType.LESSER_THAN_EQUAL.name, OperatorType.GREATER_THAN_EQUAL.name, OperatorType.NOT_EQUAL.name, OperatorType.COMPARISON.name]
+        while self.start_index+loop_count < len(self.token_list) and self.token_list[self.start_index+loop_count] != self.stop_char and self.token_list[self.start_index+loop_count] not in stop_loop:
             # setting i value
             i: Any = self.token_list[self.start_index+loop_count].replace(' ','')
             
@@ -59,7 +61,7 @@ class CalculationLib:
                 except ValueError:
                     config.isError = True
             else:
-                value: Any = get_memory(i)
+                value: Any = get_memory(i, self.scope)
                 eval_string += str(value)
             
             loop_count+=1
