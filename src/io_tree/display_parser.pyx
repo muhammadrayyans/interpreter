@@ -1,4 +1,4 @@
-from config.config import TokenType, reverse_keyword
+from config.config import TokenType, reverse_keyword, local_memory
 from utils.utils import  generate_index
 import numpy as np # type: ignore
 from config.memory_config import get_memory
@@ -17,11 +17,12 @@ class ParserDisplay:
     """
     
     # constructor for print function
-    def __init__(self, numeric_list: list[int], token_list: list, index: int):
+    def __init__(self, numeric_list: list[int], token_list: list, index: int, scope=None):
         self.index = index+2
         self.token_list = token_list
         self.numeric_list = numeric_list
         self.skip_value: list = []
+        self.scope = scope
         
     # execute method
     @c.boundscheck(False)  
@@ -60,7 +61,9 @@ class ParserDisplay:
                         
                         # core of formatted code replace '{' with actual value if found else raise key error
                         elif c_view[self.index+key+loop_count] == TokenType.CURLY_BRACE_OPEN.value: # type: ignore
-                            result_data: str = str(get_memory(self.token_list[self.index+key+loop_count+1]))
+                            if self.token_list[self.index+key+loop_count+1] in local_memory:
+                                self.scope=None
+                            result_data: str = str(get_memory(self.token_list[self.index+key+loop_count+1] , self.scope))
                             if result_data != None:
                                 string_var+= result_data # type: ignore
                                 skip_index.extend(generate_index(self.index+key+loop_count, self.index+key+loop_count+2))
@@ -108,8 +111,10 @@ class ParserDisplay:
                     while self.index+key+loop_count < numeric_list_len and c_view[self.index+key+loop_count] != TokenType.PARENTHESIS_CLOSE.value and c_view[self.index+key+loop_count] != TokenType.NEWLINE.value: # type: ignore
                         if c_view[self.index+key+loop_count] == 0: # type: ignore
                             self.token_list[self.index+key+loop_count] = self.token_list[self.index+key+loop_count].replace(' ','')
-                            if get_memory(self.token_list[self.index+key+loop_count]) != None:
-                                string_var: str | None = str(get_memory(self.token_list[self.index+key+loop_count]))
+                            if self.token_list[self.index+key+loop_count+1] in local_memory:
+                                self.scope=None
+                            if get_memory(self.token_list[self.index+key+loop_count], self.scope) != None:
+                                string_var: str | None = str(get_memory(self.token_list[self.index+key+loop_count], self.scope))
                                 print_string+=string_var
                             else:
                                 raise KeyError

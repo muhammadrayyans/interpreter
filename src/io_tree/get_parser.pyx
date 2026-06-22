@@ -1,4 +1,4 @@
-from config.config import TokenType, DataType
+from config.config import TokenType, DataType, local_memory
 from modules.display_parser import ParserDisplay
 import logging
 logger = logging.getLogger(' parser_input')
@@ -15,10 +15,11 @@ class GetParser:
         index: index of the current get call
     """
     
-    def __init__(self, numeric_list: list[int], token_list: list[Any], index: int):
+    def __init__(self, numeric_list: list[int], token_list: list[Any], index: int, scope=None):
         self.numeric_list = numeric_list
         self.token_list = token_list
         self.index = index
+        self.scope = scope
     
     
     @c.boundscheck(False)  
@@ -39,5 +40,5 @@ class GetParser:
         if self.numeric_list[self.index+jump_count] == TokenType.PARENTHESIS_OPEN.value and self.numeric_list[self.index+jump_count+1] != TokenType.PARENTHESIS_CLOSE.value:
             display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, self.index+2)
             return_data = display_obj.execute()
-        return var_name, return_data, isConverted, self.numeric_list[self.index+jump_count]
+        return var_name if self.scope == None or var_name in local_memory  else self.scope+var_name , return_data, isConverted, self.numeric_list[self.index+jump_count]
         
