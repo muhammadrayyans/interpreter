@@ -3,6 +3,7 @@ import logging
 from modules.env_parser import EnvParser as Parser
 logger = logging.getLogger(' condition_scope')
 logger.setLevel(logging.DEBUG)
+import cython as c
 
 class ConditionScopeFinder:
     """A class that finds and create an execution node for 'assume' functions scope as start and stop index
@@ -19,13 +20,15 @@ class ConditionScopeFinder:
         self.numeric_list = numeric_list
         self.token_list = token_list
         self.index = index
-        self.scope_start: int 
-        self.scope_end: int
+        self.scope_start: c.int 
+        self.scope_end: c.int
     
+    @c.wraparound(False)
+    @c.boundscheck(False)
     def execute(self) -> tuple[int, int]:
         
-        loop_count: int = 0
-        depth: int = 0
+        loop_count: c.int = 0
+        depth: c.int = 0
         
         # finding the scope of 'assume'
         while self.index+loop_count < len(self.numeric_list):
