@@ -7,6 +7,7 @@ setup(
                              '../condition_tree/condition_parser.pyx',
                              '../condition_tree/condition_scope.pyx',
                              '../condition_tree/evaluator_node.pyx',
+                             '../condition_tree/condition_tree.pyx',
                              '../config/variable_tree_config.pyx',
                              '../config/tokenization_config.pyx', 
                              '../library/maths/calculation.pyx',
