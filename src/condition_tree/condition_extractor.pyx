@@ -1,4 +1,4 @@
-from config.config import TokenType, OperatorType, reverse_keyword
+from config.config import TokenType, OperatorType, local_memory
 from typing import Any
 import logging
 from utils.utils import generate_index
@@ -19,10 +19,11 @@ class ConditionExtractor:
         token_list: keyword based tokenized list of source code
     """
     
-    def __init__(self, index: int, numeric_list: list, token_list: list[Any]) -> None:
+    def __init__(self, index: int, numeric_list: list, token_list: list[Any], scope=None) -> None:
         self.index = index+2
         self.numeric_list = numeric_list
         self.token_list = token_list
+        self.scope = scope
         
         self.condition_left: Any = None
         self.condition_right: Any = None
@@ -108,7 +109,9 @@ class ConditionExtractor:
             
             # if i value is a variable
             else:
-                condition_value = get_memory(i)
+                if i in local_memory:
+                    self.scope=None
+                condition_value = get_memory(i, self.scope)
                 # if the value belongs to right side
                 if not isCondition_entered:
                     self.condition_left = condition_value
