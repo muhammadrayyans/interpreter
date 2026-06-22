@@ -9,17 +9,17 @@ sys.tracebacklimit = 0
 from modules.data_node import DataModule # type: ignore
 
 # set memory function allocate space for var to store data
-def set_memory(variable : str, value : Any):
+def set_memory(variable : str, value : Any, scope=None):
     data_object = DataModule(variable, value)
-    config.local_memory[variable] = data_object
+    config.local_memory[variable if scope == None else scope+variable] = data_object
 
 # get memory fetches data from the db and returns it if founded
-def get_memory(variable : str):
+def get_memory(variable : str, scope=None):
     # use try and catch to bypass key error tht we might encounter
     try:
         # try to return the data if its not none
-        if config.local_memory[variable] != None:
-            data_object: DataModule = config.local_memory[variable]
+        if config.local_memory[variable if scope == None else scope+variable] != None:
+            data_object: DataModule = config.local_memory[variable if scope == None else scope+variable]
             _, value, _ = data_object.execute()
             if type(value) is str:
                 if value[0] == '~':
