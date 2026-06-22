@@ -6,7 +6,6 @@ local_memory: dict = {}
 # the key witch is used to control the flow of code
 isError: bool = False
 
-
 # enums for all keywords from python 
 class TokenType(Enum):
 
@@ -97,6 +96,7 @@ keyword: dict = {
     '<': OperatorType.LESSER_THAN
 }
 
+# reverse_keyword tht store the key value form keywords in opposite
 reverse_keyword: dict = {
     TokenType.IF_CONDITION: "assume",
     TokenType.ELIF_CONDITION: "suppose",
