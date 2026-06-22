@@ -6,6 +6,7 @@ import re
 
 import logging
 logger = logging.getLogger(' main')
+logger.setLevel(logging.DEBUG)
 
 start_time: float = time.perf_counter()
 
@@ -20,9 +21,6 @@ formatted_code = re.split(r'(["\+\-\*\/\>\!\<=,.{}()\[\]\n\'])|(?<=None )', sour
 token_list = tokenize_var(formatted_code)
 numeric_list = numeric_var(token_list)
 
-logger.debug(f'print -> {token_list}')
-
-
 # initializing parser
 parsing_token = Parser(token_list, numeric_list)
 parsing_token.execute()
@@ -33,7 +31,7 @@ for executer in config.execute_thread:
     else:
         executer.execute()
 
+# gets the total execution time of current code block
 stop_time: float = time.perf_counter()
 logger.debug(f"took {stop_time - start_time}s to compleat")
- 
     
