@@ -30,9 +30,10 @@ class EnvParser:
         index: where to add the current execution obj in main execution list
     """
     
-    def __init__(self, token_list: list[Any], numeric_list: list) -> None:
+    def __init__(self, token_list: list[Any], numeric_list: list, scope=None) -> None:
         self.token_list = token_list
         self.numeric_list = numeric_list
+        self.scope = scope
     
     def __condition_eval(self, inline_index: int, array_length: int, inline_new_line_count: int,  inline_target: TokenType) -> tuple[array, bool]:
         
@@ -98,14 +99,14 @@ class EnvParser:
                 from modules.condition_tree import Condition # type: ignore
                 from modules.condition_parser import ConditionParser 
                 
-                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
+                condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list, self.scope)
                 obj_find = condition_obj.global_skip_index()
                 exe_object = Condition(condition_obj)
                 sub_exe.append(exe_object)
                 local_skip.extend(obj_find)
                 
             elif i == TokenType.INPUT.value:
-                get_object = GetParser(self.numeric_list, self.token_list, index) # type: ignore
+                get_object = GetParser(self.numeric_list, self.token_list, index, self.scope) # type: ignore
                 exe_obj = Get(get_object)
                 sub_exe.append(exe_obj)
 
@@ -136,12 +137,12 @@ class EnvParser:
             #     local_isError = obj_isError
             
             elif index+1 < len(c_view) and c_view[index+1] == TokenType.EQUAL.value : # type: ignore
-                exe_obj = VariableFormation(self.token_list, self.numeric_list, index) # type: ignore
+                exe_obj = VariableFormation(self.token_list, self.numeric_list, index, self.scope) # type: ignore
                 sub_exe.append(exe_obj)
  
                 
             elif i == TokenType.PRINT.value:
-                display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index) # type: ignore
+                display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index, self.scope) # type: ignore
                 exe_obj: Display = Display(display_obj)
                 sub_exe.append(exe_obj)
             
