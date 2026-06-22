@@ -3,6 +3,9 @@ from enum import Enum, auto
 # the main memory for var storage
 local_memory: dict = {}
 
+# symbol table
+scope_var: list = []
+
 # the key witch is used to control the flow of code
 isError: bool = False
 
