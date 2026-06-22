@@ -35,8 +35,10 @@ class Parser:
     
     def __condition_eval(self, inline_index: int, array_length: int, inline_new_line_count: int,  inline_target: TokenType) -> tuple[array, bool]:
         
+        # inline skip index for performance
         inline_skip_index: array = array('i',[])
         index = inline_index
+        # new line count for syntax specification
         new_line_count = inline_new_line_count
         target: c.int = inline_target.value
         
@@ -93,7 +95,7 @@ class Parser:
                 continue
             
             elif i == TokenType.IF_CONDITION.value:
-                from condition_tree.condition_tree import Condition
+                from modules.condition_tree import Condition # type: ignore
                 from modules.condition_parser import ConditionParser
                 
                 condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)

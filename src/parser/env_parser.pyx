@@ -16,7 +16,6 @@ from modules.input_tree import Get # type: ignore
 from array import array
 from modules.variable_tree_config import VariableFormation # type: ignore
 import cython as c
-from condition_tree.condition_tree import Condition
 
 
 logger = logging.getLogger(' env_parser')
@@ -96,8 +95,8 @@ class EnvParser:
                 continue
             
             elif i == TokenType.IF_CONDITION.value:
-                from condition_tree.condition_tree import Condition
-                from modules.condition_parser import ConditionParser
+                from modules.condition_tree import Condition # type: ignore
+                from modules.condition_parser import ConditionParser 
                 
                 condition_obj: ConditionParser = ConditionParser(index, self.numeric_list, self.token_list)
                 obj_find = condition_obj.global_skip_index()
