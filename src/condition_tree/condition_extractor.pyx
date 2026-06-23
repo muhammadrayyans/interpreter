@@ -54,7 +54,7 @@ class ConditionExtractor:
                 
                 # checking if i is digit 
                 if index+2 < len(self.numeric_list) and self.token_list[index+2].isdigit():
-                    calculation_object = CalculationLib(index, TokenType.CURLY_BRACE_OPEN.name, self.token_list)
+                    calculation_object = CalculationLib(index, TokenType.CURLY_BRACE_OPEN.name, self.token_list, self.scope)
                     skip_list, result = calculation_object.execute()
                         
                     # checking if the condition belongs to left side or right side
