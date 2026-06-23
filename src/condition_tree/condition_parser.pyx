@@ -54,8 +54,6 @@ class ConditionParser:
         start_index, stop_index = scope_obj.execute()
         # id_generator: int
         # if it return true means 'assume' condition was true
-        isRun: bool = True
-        logger.debug(f'{isRun}')
         if truth_value:
             # gives the token splitted index of the token list and pass it to sub env_parser
             environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], var_name)
@@ -65,8 +63,6 @@ class ConditionParser:
                 i.execute()
             # extending the skip index 
             skip_index.extend(generate_index(start_index, stop_index))
-            isRun= False
-            logger.debug(f'{isRun}')
         
         # if the 'assume' statement turns false
         else:
@@ -102,7 +98,7 @@ class ConditionParser:
                     isDone = True
                     break
                 # if it was 'unless' that falls back then execute whats inside its scope
-                elif i == TokenType.ELSE_CONDITION.name and not isDone and not isRun:
+                elif i == TokenType.ELSE_CONDITION.name and not isDone:
                     start_index: c.int # type: ignore
                     stop_index: c.int # type: ignore
                     scope_obj = ConditionScopeFinder(self.numeric_list, self.token_list, self.index+loop_count)

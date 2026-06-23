@@ -1,24 +1,8 @@
-x = 10
-assume("rayyan" != "rayyan")
-{
-    display("nothing")
-}
-suppose("rayyan" == "rayyan"){
-
-    assume( x != 10){
-        display("first assumption")
-    }
-    suppose(x == 10){
-        display('unless trigger {x}')
-    }
-    unless{
-        display("fall back")
-    }
-}
-suppose("rayyan" != "rayyan"){
-    display("assumption true")
+variable = get, int("test : ")
+value = variable%2
+assume(0 == value){
+    display('{variable} is even')
 }
 unless{
-    display("others")
+    display('{variable} is odd')
 }
-display("if completed")

@@ -27,18 +27,18 @@ class GetParser:
     def execute(self)  -> tuple[str, Any, bool, Any]:
         var_name: str = self.token_list[self.index-2]
         return_data: str | None = None 
-        jump_count: c.int = 2
+        jump_count: c.int = 1
         isConverted: bool = False
         var_name = var_name.replace(' ', '')
         
         if self.numeric_list[self.index+jump_count] != TokenType.PARENTHESIS_OPEN.value:
-            if self.token_list[self.index+jump_count]  == DataType.INTEGER.name or self.token_list[self.index+jump_count]  == DataType.FLOAT.name:
+            if self.token_list[self.index+jump_count+1].replace(' ','')  == 'int' or self.token_list[self.index+jump_count+1].replace(' ','')  == 'float':
                 isConverted = True
                 jump_count = 3
         else: pass
-            
+        
         if self.numeric_list[self.index+jump_count] == TokenType.PARENTHESIS_OPEN.value and self.numeric_list[self.index+jump_count+1] != TokenType.PARENTHESIS_CLOSE.value:
-            display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, self.index+2)
+            display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, self.index+jump_count-1, self.scope)
             return_data = display_obj.execute()
         return var_name if self.scope == None or var_name in local_memory  else self.scope+var_name , return_data, isConverted, self.numeric_list[self.index+jump_count]
         
