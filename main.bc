@@ -1,8 +1,5 @@
-variable = get, int("test : ")
-value = variable%2
-assume(0 == value){
-    display('{variable} is even')
-}
-unless{
-    display('{variable} is odd')
+change = 1
+while(change != 10){
+    change = change+1
+    display(change)
 }
