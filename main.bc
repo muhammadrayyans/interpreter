@@ -1,8 +1,8 @@
-y = 10
-x = y+20
-z = x+20
-display(z)
-display('check {x}')
-save = get, int("enter value : ")
-value = (save-10)*4
-display(value)
+variable = get, int("test : ")
+value = variable%2
+assume(0 == value){
+    display('{variable} is even')
+}
+unless{
+    display('{variable} is odd')
+}
