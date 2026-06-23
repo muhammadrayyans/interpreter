@@ -24,7 +24,6 @@ cd src/parser
 
 rm -f *.c
 rm -f *.so
-rm -f *.pyd
 cd ../..
 
 cd src/library
@@ -53,11 +52,10 @@ cd src/modules
 
 
 rm -rf __pycache__
-
-echo "⚙️  Compiling Cython extension freshly..."
-python setup.py build_ext --inplace
-
 cd ../..
+=======
+cd ..
+>>>>>>> 37cc827adab31b6f9343178d5bdda8fb5ffdae44
 
 echo "🚀 Running Python application..."
 echo ""
