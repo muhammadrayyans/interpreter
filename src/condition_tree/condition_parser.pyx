@@ -39,7 +39,7 @@ class ConditionParser:
         config.scope_var.append(return_val)
         return '__xJF4$N'+str(return_val)
     
-    def execute(self) -> None:
+    def execute(self) -> None | bool:
         # skip index for performance
         skip_index: list = []
         # condition value object witch gives the truth value on execution
@@ -60,7 +60,13 @@ class ConditionParser:
             run_time: list = environment_parser_obj.execute()
             # executes the fetched parser process on execution
             for i in run_time:
-                i.execute()
+                if i == False: 
+                    return False
+                if i == True:
+                    return True
+                    continue
+                else:
+                    i.execute()
             # extending the skip index 
             skip_index.extend(generate_index(start_index, stop_index))
         
@@ -93,8 +99,14 @@ class ConditionParser:
                     environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], var_name)
                     run_time: list = environment_parser_obj.execute()
                     # runs the executable's if the truth value is true
+                    # executes the fetched parser process on execution
                     for i in run_time:
-                        i.execute()
+                        if i == False: 
+                            return False
+                        if i == True:
+                            return True
+                        else:
+                            i.execute()
                     isDone = True
                     break
                 # if it was 'unless' that falls back then execute whats inside its scope
@@ -105,8 +117,14 @@ class ConditionParser:
                     start_index, stop_index = scope_obj.execute()
                     environment_parser_obj = Parser(self.token_list[start_index:stop_index], self.numeric_list[start_index:stop_index], var_name)
                     run_time: list = environment_parser_obj.execute()
+                    # executes the fetched parser process on execution
                     for i in run_time:
-                        i.execute()
+                        if i == False: 
+                            return False
+                        if i == True:
+                            return True
+                        else:
+                            i.execute()
                     skip_index.extend(generate_index(start_index, stop_index))
                     break
                     
