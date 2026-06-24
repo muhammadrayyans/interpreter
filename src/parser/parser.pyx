@@ -145,8 +145,8 @@ class Parser:
                 config.execute_thread.append(exe_obj)
             
             elif i == TokenType.WHILE.value:
-                from loop_tree.loop_parser import LoopParser
-                from loop_tree.loop_tree import LoopTree
+                from modules.loop_parser import LoopParser # type: ignore
+                from modules.loop_tree import LoopTree # type: ignore
                 
                 loop_obj = LoopParser(index, self.numeric_list, self.token_list)
                 skip_list = loop_obj.global_skip()
