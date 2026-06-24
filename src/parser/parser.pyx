@@ -149,9 +149,10 @@ class Parser:
                 from loop_tree.loop_tree import LoopTree
                 
                 loop_obj = LoopParser(index, self.numeric_list, self.token_list)
+                skip_list = loop_obj.global_skip()
                 exe_obj = LoopTree(loop_obj)
                 config.execute_thread.append(exe_obj)
-                
+                local_skip.extend(skip_list)
 
                  
 

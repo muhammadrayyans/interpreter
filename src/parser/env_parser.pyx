@@ -151,9 +151,16 @@ class EnvParser:
                 from loop_tree.loop_tree import LoopTree
                 
                 loop_obj = LoopParser(index, self.numeric_list, self.token_list, self.scope)
+                skip_list = loop_obj.global_skip()
                 exe_obj = LoopTree(loop_obj)
                 sub_exe.append(exe_obj)
-            
+                local_skip.extend(skip_list)
+                
+            elif i == TokenType.BREAK.value:
+                sub_exe.append(False)
+            elif i == TokenType.CONTINUE.value:
+                sub_exe.append(True)
+                
         return sub_exe
 
                 

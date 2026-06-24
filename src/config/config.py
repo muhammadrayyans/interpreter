@@ -16,6 +16,8 @@ class TokenType(Enum):
     ELSE_CONDITION = auto()
     ELIF_CONDITION = auto()
     WHILE = auto()
+    BREAK = auto()
+    CONTINUE = auto()
     PRINT = auto()
     TRUE = auto()
     FALSE = auto()
@@ -65,6 +67,8 @@ class DataType(Enum):
 keyword: dict = {
     "assume": TokenType.IF_CONDITION,
     "suppose": TokenType.ELIF_CONDITION,
+    "break": TokenType.BREAK,
+    "continue": TokenType.CONTINUE,
     "unless": TokenType.ELSE_CONDITION,
     "while": TokenType.WHILE,
     "for": TokenType.FOR,
@@ -93,6 +97,8 @@ keyword: dict = {
     '%': OperatorType.MODULO,
     ' int': DataType.INTEGER,
     ' double': DataType.DOUBLE,
+    'int': DataType.INTEGER,
+    'double': DataType.DOUBLE,
     ' float': DataType.FLOAT,
     ' bool': DataType.BOOLEAN,
     '>': OperatorType.GREATER_THAN,

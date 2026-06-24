@@ -3,7 +3,8 @@ from Cython.Build import cythonize
 import os
 
 setup( 
-      ext_modules=cythonize(['../condition_tree/condition_parser.pyx',
+      ext_modules=cythonize(['../data_node/type_conversion/integer.pyx',
+                             '../condition_tree/condition_parser.pyx',
                              '../condition_tree/condition_tree.pyx',
                              '../config/variable_tree_config.pyx',
                              '../config/tokenization_config.pyx', 
