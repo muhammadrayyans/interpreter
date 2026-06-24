@@ -1,5 +1,5 @@
 from config.config import TokenType, reverse_keyword, OperatorType, DataType
-from config.memory_config import get_memory, set_memory
+from modules.memory_config import get_memory, set_memory # type: ignore
 import config.config as config
 from utils.utils import generate_index
 import numpy as np # type: ignore
@@ -35,7 +35,6 @@ class VariableFormation:
     def execute(self) -> None | list:
         # main skip list for optimization
         var_name: str = self.token_list[self.index].replace(' ','')
-        logger.debug(config.local_memory)
         if var_name in config.local_memory:
             self.scope=None
         else: pass
@@ -59,7 +58,6 @@ class VariableFormation:
         elif self.token_list[self.index+2].replace(' ', '') == DataType.INTEGER.name: # type: ignore
             int_obj = IntegerConvert(self.token_list, self.index+2)
             local_skip_index, value_got = int_obj.execute()
-            logger.debug(f'{self.scope} -> {value_got}')
             set_memory(var_name, value_got, self.scope)
             return local_skip_index
             

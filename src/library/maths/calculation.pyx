@@ -2,7 +2,7 @@ from typing import Any
 import config.config as config
 from config.config import OperatorType, reverse_keyword, TokenType
 from utils.utils import generate_index
-from config.memory_config import get_memory
+from modules.memory_config import get_memory # type: ignore
 import cython as c
 import logging 
 logger = logging.getLogger(' calculation_lib')
