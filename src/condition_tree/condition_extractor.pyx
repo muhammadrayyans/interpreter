@@ -2,7 +2,7 @@ from config.config import TokenType, OperatorType, local_memory
 from typing import Any
 import logging
 from utils.utils import generate_index
-from config.memory_config import get_memory
+from modules.memory_config import get_memory # type: ignore
 import numpy as np # type: ignore
 logger = logging.getLogger(' condition_extractor')
 logger.setLevel(logging.DEBUG)
