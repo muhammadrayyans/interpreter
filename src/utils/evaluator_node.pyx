@@ -28,7 +28,9 @@ class EvaluatorNode:
     def execute(self) -> bool:
         
         try:
-            if type(self.left_condition) == type(self.right_condition):
+            numeric_eval: bool = isinstance(self.left_condition, (int, float)) and  isinstance(self.left_condition, (int, float))
+            if type(self.left_condition) == type(self.right_condition) or numeric_eval: 
+                # if operator is comparison: 
                 # if operator is comparison
                 if self.operator == OperatorType.COMPARISON:
                     if self.left_condition == self.right_condition:
