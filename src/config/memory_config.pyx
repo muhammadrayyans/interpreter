@@ -28,8 +28,12 @@ def get_memory(variable : str, scope=None):
         # try to return the data if its not none
         if config.local_memory[variable if scope == None else scope+variable] != None:
             data_object: DataModule = config.local_memory[variable if scope == None else scope+variable]
-            _, value, _ = data_object.execute()
-            if type(value) is str:
+            value= data_object.data
+            if type(value) is str and "REPLACE64@9" in value:
+                fetch_var = config.local_memory[variable.format(**config.local_memory)].data
+                exe_rub =  config.local_memory[str(fetch_var)[1:-1]].data
+                return exe_rub
+            elif type(value) is str:
                 if value[0] == '~':
                     return value[1 :]
                 else:
@@ -44,4 +48,3 @@ def get_memory(variable : str, scope=None):
         logging.error(Fore.RED+f" No variable declared in '\033[4m\033[1m{variable}\033[0m"+Fore.RED+"' name")
         # returning none for safety
         return None
-        
