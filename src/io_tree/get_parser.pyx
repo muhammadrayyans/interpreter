@@ -32,7 +32,7 @@ class GetParser:
         var_name = var_name.replace(' ', '')
         
         if self.numeric_list[self.index+jump_count] != TokenType.PARENTHESIS_OPEN.value:
-            if self.token_list[self.index+jump_count+1].replace(' ','')  == 'int' or self.token_list[self.index+jump_count+1].replace(' ','')  == 'float':
+            if self.token_list[self.index+jump_count+1].replace(' ','')  ==  DataType.INTEGER.name or self.token_list[self.index+jump_count+1].replace(' ','')  == 'float':
                 isConverted = True
                 jump_count = 3
         else: pass
