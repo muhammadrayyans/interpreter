@@ -1,5 +1,5 @@
-from config.config import TokenType, reverse_keyword, OperatorType
-from config.memory_config import get_memory, set_memory
+from config.config import TokenType, reverse_keyword, OperatorType, DataType
+from modules.memory_config import get_memory, set_memory # type: ignore
 import config.config as config
 from utils.utils import generate_index
 import numpy as np # type: ignore
@@ -10,6 +10,7 @@ logger.setLevel(logging.DEBUG)
 from typing import Any
 from array import array
 from colorama import init,  Fore # type: ignore 
+from modules.integer import IntegerConvert # type: ignore
 
 # var node replace every var in token code
 class VariableFormation:
@@ -31,7 +32,7 @@ class VariableFormation:
     # execute code
     @c.boundscheck(False)  
     @c.wraparound(False)   
-    def execute(self):
+    def execute(self) -> None | list:
         # main skip list for optimization
         var_name: str = self.token_list[self.index].replace(' ','')
         if var_name in config.local_memory:
@@ -53,7 +54,14 @@ class VariableFormation:
             
             while c_view[self.index+inline_loop_count] != TokenType.NEWLINE.value: # type: ignore
                 inline_loop_count+=1
-                
+        
+        elif self.token_list[self.index+2].replace(' ', '') == DataType.INTEGER.name: # type: ignore
+            int_obj = IntegerConvert(self.token_list, self.index+2)
+            local_skip_index, value_got = int_obj.execute()
+            set_memory(var_name, value_got, self.scope)
+            return local_skip_index
+            
+        
         # check if its a var by checking if bef is = and after it have some value 
         elif self.index+1 < limit and i == 0 and c_view[self.index+1] == TokenType.EQUAL.value and c_view[self.index+2] != TokenType.INPUT.value: #type: ignore    
             variable_value: str = ''

@@ -1,8 +1,17 @@
-variable = get, int("test : ")
-value = variable%2
-assume(0 == value){
-    display('{variable} is even')
+feb = 1
+n = get,  int("enter a num: ")
+count = 1
+check = n+1
+when(count != check){
+    inter = 10
+    assume(n == 1){
+        display(in_check)
+        stop
+    }
+    unless{
+        feb = feb*count
+    }
+    count = count + 1
+    display(inter)
 }
-unless{
-    display('{variable} is odd')
-}
+display(feb)

@@ -1,7 +1,7 @@
 from config.config import TokenType, reverse_keyword, local_memory
 from utils.utils import  generate_index
 import numpy as np # type: ignore
-from config.memory_config import get_memory
+from modules.memory_config import get_memory # type: ignore
 import logging
 logger = logging.getLogger(' display_parser')
 logger.setLevel(logging.DEBUG)

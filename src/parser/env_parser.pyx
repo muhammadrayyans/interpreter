@@ -145,7 +145,22 @@ class EnvParser:
                 display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index, self.scope) # type: ignore
                 exe_obj: Display = Display(display_obj)
                 sub_exe.append(exe_obj)
-            
+
+            elif i == TokenType.WHILE.value:
+                from modules.loop_parser import LoopParser # type: ignore
+                from modules.loop_tree import LoopTree  # type: ignore
+                
+                loop_obj = LoopParser(index, self.numeric_list, self.token_list, self.scope)
+                skip_list = loop_obj.global_skip()
+                exe_obj = LoopTree(loop_obj)
+                sub_exe.append(exe_obj)
+                local_skip.extend(skip_list)
+                
+            elif i == TokenType.BREAK.value:
+                sub_exe.append(False)
+            elif i == TokenType.CONTINUE.value:
+                sub_exe.append(True)
+                
         return sub_exe
 
                 

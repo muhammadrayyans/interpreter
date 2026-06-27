@@ -143,6 +143,17 @@ class Parser:
                 display_obj: ParserDisplay = ParserDisplay(self.numeric_list, self.token_list, index) # type: ignore
                 exe_obj: Display = Display(display_obj)
                 config.execute_thread.append(exe_obj)
+            
+            elif i == TokenType.WHILE.value:
+                from modules.loop_parser import LoopParser # type: ignore
+                from modules.loop_tree import LoopTree # type: ignore
+                
+                loop_obj = LoopParser(index, self.numeric_list, self.token_list)
+                skip_list = loop_obj.global_skip()
+                exe_obj = LoopTree(loop_obj)
+                config.execute_thread.append(exe_obj)
+                local_skip.extend(skip_list)
+
                  
 
                 
