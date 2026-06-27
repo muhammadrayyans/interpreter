@@ -43,7 +43,7 @@ class EvaluatorNode:
                     else: self.return_value = False
                 
                 # checks if its numeric because < > operators can only be apply in numeric values
-                elif isinstance((self.left_condition), int) or isinstance((self.left_condition), float):
+                elif numeric_eval:
                     # if operator is >
                     if self.operator == OperatorType.GREATER_THAN:
                         if self.left_condition > self.right_condition:
