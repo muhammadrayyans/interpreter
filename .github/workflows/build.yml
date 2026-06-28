@@ -1,0 +1,24 @@
+name: Build Windows Binary
+on: [push]
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Tools
+        run: pip install pyinstaller cython numpy
+      - name: Compile Cython
+        run: |
+          cd src/modules
+          python setup.py build_ext --inplace
+      - name: Build EXE
+        run: |
+          pyinstaller --onefile -n basic --paths=src --paths=src/modules --collect-all src/modules src/main.py
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-binary
+          path: dist/basic.exe

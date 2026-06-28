@@ -63,4 +63,4 @@ echo "🚀 Running Python application..."
 echo ""
 echo "--------------------------------"
 echo ""
-python src/main.py
+python src/main.py "$1"
