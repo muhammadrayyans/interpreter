@@ -2,12 +2,36 @@ from modules.tokenization_config import tokenize_var, numeric_var # type: ignore
 from modules.parser import Parser # type: ignore
 from colorama import init, Fore # type: ignore
 import config.config as config
-import time
 import re
 import sys
 import os
-
 import logging
+
+
+# static imports for pyinstaller
+if False:
+    import numpy
+    import config.config
+    import utils.utils
+    import modules.integer
+    import modules.condition_parser
+    import modules.condition_tree
+    import modules.variable_tree_config
+    import modules.tokenization_config
+    import modules.condition_extractor
+    import modules.calculation
+    import modules.display_parser
+    import modules.condition_scope
+    import modules.loop_parser
+    import modules.memory_config
+    import modules.evaluator_node
+    import modules.output_tree
+    import modules.data_node
+    import modules.loop_tree
+    import modules.get_parser
+    import modules.input_tree
+    import modules.env_parser
+    import modules.parser
 
 # add main run
 def main():
