@@ -58,7 +58,6 @@ echo "⚙️  Compiling Cython extension freshly..."
 python setup.py build_ext --inplace
 
 cd ../..
->>>>>>> add54c6ab9b1dfb8d129861088973e81114e86fa
 
 echo "🚀 Running Python application..."
 echo ""
