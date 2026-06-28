@@ -12,7 +12,7 @@ jobs:
         run: pip install pyinstaller cython numpy
       - name: Compile Cython
         run: |
-          cd src
+          cd src/modules
           python setup.py build_ext --inplace
       - name: Build EXE
         run: |
