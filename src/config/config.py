@@ -1,3 +1,5 @@
+version: str = "Basic-mvp 01"
+
 from enum import Enum, auto
 
 # the main memory for var storage
