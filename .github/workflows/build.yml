@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Standalone Executable Directory
         run: |
-          pyinstaller --clean --onedir --name basic --icon="assets/logo.ico" --paths="src" --collect-all colorama --collect-all numpy src/main.py
+          pyinstaller --clean --onefile --name basic --icon="assets/logo.ico" --paths="src" --collect-all colorama --collect-all numpy src/main.py
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
