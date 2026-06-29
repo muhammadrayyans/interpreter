@@ -1,0 +1,9 @@
+n = get, int("Number: ")
+validate = n%2
+
+assume(validate == 0){
+    display("Even")
+}
+unless{
+    display("Odd")
+}

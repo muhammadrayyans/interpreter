@@ -1,0 +1,11 @@
+limit = get, int("Enter limit: ")
+count = 1
+even_check = 0
+
+when(count != limit){
+    even_check = count%2
+    assume(even_check == 0){
+        display(count)
+    }
+    count = count + 1
+}

@@ -1,0 +1,3 @@
+display("Hello World")
+user_name = get("Enter your name: ")
+display('hello {user_name}')
