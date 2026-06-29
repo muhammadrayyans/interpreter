@@ -47,6 +47,11 @@ def main():
         logging.error(Fore.RED+f"No source file provided.")    
         sys.exit(1)
     
+    
+    if sys.argv[1].lower == "-v":
+        print(config.version)
+        sys.exit(0)
+    
     # else sets the 1 index argv as file name
     source_file: str = sys.argv[1]
     
