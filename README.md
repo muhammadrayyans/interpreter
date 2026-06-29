@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center;">
-<picture><img src="assets/logo.webp" alt="Basic logo" width="70" style="border-radius : 8px;">
+<picture><img src="assets/logo.png" alt="Basic logo" width="70" style="border-radius : 8px;">
 </picture>
 <h1 style="margin-left:20px; border:none; font-size: 4rem; margin-bottom:-30px;">Basic</h1>
 </div>
