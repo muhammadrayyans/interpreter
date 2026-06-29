@@ -1,5 +1,5 @@
 <div style="display: flex; align-items: center;">
-<picture><img src="assets/logo.jpg" alt="Basic logo" width="70" style="border-radius : 8px;">
+<picture><img src="assets/logo.webp" alt="Basic logo" width="70" style="border-radius : 8px;">
 </picture>
 <h1 style="margin-left:20px; border:none; font-size: 4rem; margin-bottom:-30px;">Basic</h1>
 </div>
@@ -16,11 +16,11 @@ installation is simple in windows if you have python already installed in your s
 
 if your system doesn't have python get from here [**Get Python**](https://www.python.org/downloads/)
 
-1. Go to the [Release Page](https://github.com/your-username/your-repo/releases)
+1. Go to the [Release Page](https://github.com/muhammadrayyans/interpreter/releases)
 2. Get the latest `win-basic` zip file installed
 3. Unzip it and run on powershell
 ```ps1
-$ .\install.ps1
+ .\install.ps1
 ```
 
 ### Mac / Linux
