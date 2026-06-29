@@ -14,9 +14,15 @@ jobs:
         run: |
           cd src/modules
           python setup.py build_ext --inplace
-      - name: Build EXE
+      - name: Install dependencies
         run: |
-          pyinstaller --onefile -n basic --paths=src --paths=src/modules --collect-all src/modules src/main.py
+              python -m pip install --upgrade pip
+              pip install -r requirements.txt
+              pip install pyinstaller cython
+
+      - name: Build Windows Binary
+        run: |
+              pyinstaller --onefile --name basic --collect-all colorama --collect-all numpy main.py
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
