@@ -1,30 +1,32 @@
-name: Build Windows Binary
+name: Build Cross-Platform Binaries
 on: [push]
+
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Install Tools
-        run: pip install pyinstaller cython numpy
-      - name: Compile Cython
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: Compile Cython Extensions
         run: |
           cd src/modules
           python setup.py build_ext --inplace
-      - name: Install dependencies
-        run: |
-              python -m pip install --upgrade pip
-              pip install -r requirements.txt
-              pip install pyinstaller cython
 
-      - name: Build Windows Binary
+      - name: Build Standalone Executable
         run: |
-              pyinstaller --onefile --name basic --paths="." --paths="src" --collect-all colorama --collect-all numpy src/main.py
-              
-      - name: Upload
+          pyinstaller --clean --onefile --name basic --paths="." --paths="src" --collect-all colorama --collect-all numpy src/main.py
+
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: windows-binary
