@@ -22,7 +22,8 @@ jobs:
 
       - name: Build Windows Binary
         run: |
-              pyinstaller --onefile --name basic --collect-all colorama --collect-all numpy main.py
+              pyinstaller --onefile --name basic --paths="." --paths="src" --collect-all colorama --collect-all numpy main.py
+              
       - name: Upload
         uses: actions/upload-artifact@v4
         with:

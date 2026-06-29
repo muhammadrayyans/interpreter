@@ -7,6 +7,9 @@ import sys
 import os
 import logging
 
+# Force the directory containing main.py to be in the search path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
 
 # static imports for pyinstaller
 if False:
