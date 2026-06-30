@@ -1,10 +1,8 @@
-<div style="display: flex; align-items: center;">
-<picture><img src="assets/logo.png" alt="Basic logo" width="70" style="border-radius : 8px;">
-</picture>
-<h1 style="margin-left:20px; border:none; font-size: 4rem; margin-bottom:-30px;">Basic</h1>
-</div>
+#  <picture><img src="assets/logo.png" alt="Basic logo" width="40" style="border-radius : 8px; margin-right: 10px"></picture> Basic
 
-## Basic Programming Language
+
+
+Visit [**basic web**](https"//basic-db8.pages.dev) for easy installation
 ### Welcome to Basic
 Basic is programming language built using python as interpreter. It has clean modular and easy to understand syntax.
 
