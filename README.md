@@ -2,9 +2,9 @@
 
 
 
-Visit [**basic web**](https://basic-db8.pages.dev) for easy installation
+🌐 Visit [**basic web**](https://basic-db8.pages.dev) for easy installation
 ### Welcome to Basic
-Basic is programming language built using python as interpreter. It has clean modular and easy to understand syntax.
+Basic is a programming language built using python as interpreter. It has clean modular and easy to understand syntax.
 
 Basic is a lightweight, intuitive programming language designed as an accessible entry point for students starting their programming journey. While it draws foundational inspiration from Python and other modern languages, it intentionally diverges in its implementation to prioritize simplicity and core logic.
 
@@ -16,8 +16,12 @@ if your system doesn't have python get from here [**Get Python**](https://www.py
 
 1. Go to the [Release Page](https://github.com/muhammadrayyans/interpreter/releases)
 2. Get the latest `win-basic` zip file installed
-3. Unzip it and run on powershell
+3. Unzip it on powershell and give it execution rights then run 
+
+[!NOTE]
+ There may be system specific errors. that aren't considered in this release thus you may manually resolve it. most of the time it will be related to execution blocking windows defender or other anti-virus. giving it necessary execution right will grand you the proper working basic interpreter
 ```ps1
+ PowerShell.exe -ExecutionPolicy Bypass -File .\install.ps1
  .\install.ps1
 ```
 
