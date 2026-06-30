@@ -51,7 +51,7 @@ def main():
         sys.exit(1)
     
     
-    if sys.argv[1].lower == "version":
+    if sys.argv[1] == "version":
         print(config.version)
         sys.exit(0)
     
