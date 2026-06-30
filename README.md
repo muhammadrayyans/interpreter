@@ -19,7 +19,7 @@ if your system doesn't have python get from here [**Get Python**](https://www.py
 3. Unzip it on powershell and give it execution rights then run 
 
 
-*Note: There may be system specific errors. that aren't considered in this release thus you may manually resolve it. most of the time it will be related to execution blocking windows defender or other anti-virus. giving it necessary execution right will grand you the proper working basic interpreter*
+*Note: There may be system specific errors. that aren't considered in this release thus you may manually resolve it. most of the time it will be related to execution blocking of either windows defender or other anti-virus. giving it necessary execution right will grand you the proper working basic interpreter*
 ```ps1
  PowerShell.exe -ExecutionPolicy Bypass -File .\install.ps1
  .\install.ps1
@@ -28,7 +28,7 @@ if your system doesn't have python get from here [**Get Python**](https://www.py
 ### Mac / Linux
 installation in unix based os is also short step process
 
-1. Go to the [Release Page](https://github.com/your-username/your-repo/releases)
+1. Go to the [Release Page](https://github.com/muhammadrayyans/interpreter/releases)
 2. Get the latest `unix-basic` zip file installed
 3. Unzip it and run on terminal
 ```sh
