@@ -1,0 +1,5 @@
+a = get, int("first number: ")
+b = get, int("second number: ")
+sum = a+b
+
+display('sum is {sum}')

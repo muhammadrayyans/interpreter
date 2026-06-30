@@ -1,0 +1,10 @@
+a = 10
+b = 20
+
+display('a is {a} and b is {b}')
+ 
+temp = a
+a = b
+b = temp
+
+display('a is {a} and b is {b}')

@@ -1,3 +1,39 @@
+# ========
+# SSH key
+# ========
 rayyanshaji820
 rayyanshaji820.pub
+
+# vs code 
 .vscode/
+
+# ==========================================
+# Cython Generated Files & Compiled Binaries
+# ==========================================
+# Ignore the C/C++ files Cython generates from your .pyx files
+*.c
+*.cpp
+
+# Ignore compiled libraries (Linux/Mac/Windows)
+*.so
+*.pyd
+*.dll
+
+# Ignore the build directory where compilation happens
+build/
+dist/
+*.egg-info/
+
+# ==========================================
+# Python Cache
+# ==========================================
+__pycache__/
+*.pyc
+*.pyo
+
+# ==========================================
+# PyInstaller artifacts
+# ==========================================
+build/
+dist/
+*.spec

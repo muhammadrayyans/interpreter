@@ -1,0 +1,10 @@
+n = get, int("Enter number : ")
+count = 0 
+result = 1
+
+when(count != n){
+    result = result + count
+    count = count + 1
+}
+
+display(result)

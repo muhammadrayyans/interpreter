@@ -1,0 +1,17 @@
+a = get, int("first number: ")
+b = get, int("second number: ")
+c = get, int("third number: ")
+greatest = 0
+
+assume(a > b){
+    greatest = a
+}
+unless{
+    greatest = b
+}
+assume(greatest > c){
+    display('{greatest} is the largest')
+}
+unless{
+    display('{c} is the largest')
+}

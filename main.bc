@@ -1,0 +1,17 @@
+feb = 1
+n = get,  int("enter a num: ")
+count = 1
+check = n+1
+when(count != check){
+    inter = 10
+    assume(n == 1){
+        display(in_check)
+        stop
+    }
+    unless{
+        feb = feb*count
+    }
+    count = count + 1
+    display(inter)
+}
+display(feb)
