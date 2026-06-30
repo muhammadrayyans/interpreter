@@ -18,8 +18,8 @@ if your system doesn't have python get from here [**Get Python**](https://www.py
 2. Get the latest `win-basic` zip file installed
 3. Unzip it on powershell and give it execution rights then run 
 
-[!NOTE]
- There may be system specific errors. that aren't considered in this release thus you may manually resolve it. most of the time it will be related to execution blocking windows defender or other anti-virus. giving it necessary execution right will grand you the proper working basic interpreter
+
+*Note: There may be system specific errors. that aren't considered in this release thus you may manually resolve it. most of the time it will be related to execution blocking windows defender or other anti-virus. giving it necessary execution right will grand you the proper working basic interpreter*
 ```ps1
  PowerShell.exe -ExecutionPolicy Bypass -File .\install.ps1
  .\install.ps1
