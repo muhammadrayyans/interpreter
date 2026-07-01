@@ -2,7 +2,7 @@
 
 
 
-🌐 Visit [**basic web**](https://basic-db8.pages.dev) for easy installation
+🌐 Visit [**basic web**](https://basic-programing.pages.dev/) for easy installation
 ### Welcome to Basic
 Basic is a programming language built using python as interpreter. It has clean modular and easy to understand syntax.
 
